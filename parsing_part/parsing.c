@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 13:46:47 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/04/30 16:00:43 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:16:23 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,14 @@ int check_types(char *token)
         return APPANED;
     else 
         return WORD;
+}
+
+int main()
+{
+    char *cmd = "echo | test > test.txt | grep h";
+    while (*cmd)
+    {
+        printf(" -> %d ->\n", check_types(cmd));
+        cmd++;
+    }
 }

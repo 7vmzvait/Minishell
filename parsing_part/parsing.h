@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 13:45:31 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/04/30 15:58:14 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:26:58 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ typedef struct s_command
 typedef struct s_word
 {
     char *value;
+    t_command *cmd;
     struct s_word *next;
 } t_word;
 
 int chexk_is_space(int check);
-int ft_strcmp(const char *s1, const char *s2);
 
 #endif

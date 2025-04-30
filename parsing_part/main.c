@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 13:46:45 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/04/30 15:14:35 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:54:49 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int main()
     char *line = NULL;
     while ((line = readline("Minishell ~: ")))
     {
+        add_history(line);
         printf("%s \n", line);
     }
+    free(line);
 }

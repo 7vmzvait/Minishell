@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 13:45:31 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/04/30 15:20:51 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:58:14 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <readline/readline.h>
+#include<readline/readline.h>
+#include<readline/history.h>
 #include <limits.h>
+#include "../libft/libft.h"
 
 enum TOKENS
 {

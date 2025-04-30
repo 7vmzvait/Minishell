@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 13:45:31 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/04/30 16:26:58 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/04/30 17:05:04 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include<readline/readline.h>
-#include<readline/history.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 #include <limits.h>
 #include "../libft/libft.h"
 
@@ -47,6 +47,8 @@ typedef struct s_word
     struct s_word *next;
 } t_word;
 
-int chexk_is_space(int check);
+int check_is_space(int check_s);
+int skip_spaces(char *str, int i);
+int skip_quotes(char *str, int i);
 
 #endif

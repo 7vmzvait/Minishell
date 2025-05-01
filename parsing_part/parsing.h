@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 13:45:31 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/04/30 17:05:04 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/05/01 15:07:25 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ typedef struct s_word
 int check_is_space(int check_s);
 int skip_spaces(char *str, int i);
 int skip_quotes(char *str, int i);
-
+char **tokenize(char *line);
 #endif

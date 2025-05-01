@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 13:55:09 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/04/30 17:04:19 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/04/30 17:15:17 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,9 @@ int skip_quotes(char *str, int i)
     }
 
     return i;
+}
+
+char **tokenize(char *line)
+{
+    
 }

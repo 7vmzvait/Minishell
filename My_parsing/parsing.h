@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/30 13:46:45 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/01 15:06:58 by haitaabe         ###   ########.fr       */
+/*   Created: 2025/05/04 11:04:14 by haitaabe          #+#    #+#             */
+/*   Updated: 2025/05/04 11:05:33 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#ifndef PARSING_H
+#define PARSING_H
 
-int main()
-{
-    char *line = NULL;
-    while ((line = readline("Minishell ~: ")))
-    {
-        add_history(line);
-        printf("%s\n", line);
-        free(line);
-    }
-    printf("exit\n");
-    return (0);
-}
+
+#include <unistd.h>
+#include <stdio.h>
+#include <limits.h>
+#include <stdlib.h>
+#include "../libft/libft.h"
+
+
+
+
+
+
+#endif

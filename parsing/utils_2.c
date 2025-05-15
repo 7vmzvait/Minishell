@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ultis_1.c                                          :+:      :+:    :+:   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/15 16:49:56 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/15 18:52:05 by haitaabe         ###   ########.fr       */
+/*   Created: 2025/05/15 18:52:23 by haitaabe          #+#    #+#             */
+/*   Updated: 2025/05/15 18:58:58 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int is_space(int check_s)
+int simplify_token(char *line)
 {
-    return (check_s == 32 || (check_s >= 9 && check_s <= 13));
-}
-int is_operator(char c)
-{
-    return (c == '|' || c == '<' || c == '>');
-}
-
-t_cmd *parse_tokens(t_token *token_list)
-{
-    t_cmd *current_cmd = (t_cmd *)malloc(sizeof(t_cmd));
-    while (current_cmd)
-    {
-           
-    }
+    if (ft_strncmp(line, "|", 1) == 0)
+        return PIPE;
+    else if (ft_strncmp(line, "<", 1) == 0)
+        return REDIR_IN;
+    else if (ft_strncmp(line, ">", 1) == 0)
+        return REDIR_IN;
+    else if (ft_strncmp(line, ">>", 2) == 0)
+        return APPEND;
+    else if (ft_strncmp(line, "<<", 2) == 0)
+        return HEREDOC;
+    else
+        WORD;
 }

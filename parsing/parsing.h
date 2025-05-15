@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:59 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/15 18:21:56 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:54:25 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,16 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "../libft/libft.h"
 
 typedef enum e_token_type
 {
-    WORD,
     PIPE,
     REDIR_IN,
     REDIR_OUT,
     APPEND,
-    HEREDOC
+    HEREDOC,
+    WORD
 } t_token_type;
 
 typedef struct s_cmd
@@ -44,4 +45,5 @@ typedef struct s_token
     struct s_token *next;
 } t_token;
 
+t_cmd *parse_tokens(t_token *token_list);
 #endif

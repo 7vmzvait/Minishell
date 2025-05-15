@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:56 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/15 18:17:06 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:22:10 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,8 @@
 int is_space(int check_s)
 {
     return (check_s == 32 || (check_s >= 9 && check_s <= 13));
+}
+int is_operator(char c)
+{
+    return (c == '|' || c == '<' || c == '>');
 }

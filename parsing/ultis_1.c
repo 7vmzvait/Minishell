@@ -6,10 +6,13 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:56 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/15 16:50:57 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:17:06 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-
+int is_space(int check_s)
+{
+    return (check_s == 32 || (check_s >= 9 && check_s <= 13));
+}

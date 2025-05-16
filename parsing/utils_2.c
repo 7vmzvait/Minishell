@@ -6,13 +6,13 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 18:52:23 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/16 02:19:08 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/05/16 10:46:39 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int tokens(char *line)
+int simplify_tokens(char *line)
 {
     if (ft_strncmp(line, "|", 1) == 0)
         return PIPE;

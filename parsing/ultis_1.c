@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:56 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/16 02:17:17 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/05/16 02:35:31 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ t_cmd *parse_tokens(t_token *tokens)
         {
             token = token->next;
             if (!token)
-                return error("Missing input file");
+                perror("Missing input file");  // i just did it to type errors
             current_cmd->infile = ft_strdup(token->value);
         }
         else if (token->type == REDIR_OUT)
         {
             token = token->next;
             if (!token)
-                return error("Missing output file");
+                perror("Missing output file");  // i just did it to type errors
             current_cmd->outfile = ft_strdup(token->value);
             current_cmd->append = 0;
         }
@@ -55,7 +55,7 @@ t_cmd *parse_tokens(t_token *tokens)
         {
             token = token->next;
             if (!token)
-                return error("Missing output file");
+                perror("Missing output file"); // i just did it to type errors
             current_cmd->outfile = ft_strdup(token->value);
             current_cmd->append = 1;
         }

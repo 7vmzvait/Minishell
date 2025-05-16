@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:59 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/16 02:19:19 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/05/16 02:32:44 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 #include "../libft/libft.h"
 
 typedef enum e_token_type

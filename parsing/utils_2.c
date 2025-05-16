@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 18:52:23 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/16 10:46:39 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:38:10 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int simplify_tokens(char *line)
     else
         WORD;
 }
+
+// we used it to store command info like we got from the user
 t_cmd *create_cmd(void)
 {
     t_cmd *cmd = malloc(sizeof(t_cmd));
@@ -40,6 +42,7 @@ t_cmd *create_cmd(void)
     cmd->next = NULL;
     return cmd;
 }
+// this function how you build the list like: ["ls", "-l", NULL]
 void add_arg_to_cmd(t_cmd *cmd, char *arg)
 {
     int count = 0;
@@ -64,6 +67,7 @@ void add_arg_to_cmd(t_cmd *cmd, char *arg)
     cmd->args = new_args;
 }
 
+// To link commands together (
 void add_cmd_to_list(t_cmd **list, t_cmd *new_cmd)
 {
     if (!*list)

@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:56 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/16 12:06:40 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:35:21 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int is_operator(char c)
 {
     return (c == '|' || c == '<' || c == '>');
 }
-// to fill the struct 
+// we used it to manage our parsing part like the tokens that we have in it
 t_cmd *parse_tokens(t_token *tokens)
 {
     t_cmd *cmd_list = NULL;

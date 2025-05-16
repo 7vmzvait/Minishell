@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:56 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/15 18:52:05 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/05/16 02:17:17 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,56 @@ int is_operator(char c)
     return (c == '|' || c == '<' || c == '>');
 }
 
-t_cmd *parse_tokens(t_token *token_list)
+t_cmd *parse_tokens(t_token *tokens)
 {
-    t_cmd *current_cmd = (t_cmd *)malloc(sizeof(t_cmd));
-    while (current_cmd)
+    t_cmd *cmd_list = NULL;
+    t_cmd *current_cmd = NULL;
+    t_token *token = tokens;
+
+    // Start the first command
+    current_cmd = create_cmd(); // you'll define this
+
+    while (token)
     {
-           
+        if (token->type == WORD)
+        {
+            add_arg_to_cmd(current_cmd, token->value);
+        }
+        else if (token->type == REDIR_IN)
+        {
+            token = token->next;
+            if (!token)
+                return error("Missing input file");
+            current_cmd->infile = ft_strdup(token->value);
+        }
+        else if (token->type == REDIR_OUT)
+        {
+            token = token->next;
+            if (!token)
+                return error("Missing output file");
+            current_cmd->outfile = ft_strdup(token->value);
+            current_cmd->append = 0;
+        }
+        else if (token->type == APPEND)
+        {
+            token = token->next;
+            if (!token)
+                return error("Missing output file");
+            current_cmd->outfile = ft_strdup(token->value);
+            current_cmd->append = 1;
+        }
+        else if (token->type == PIPE)
+        {
+            current_cmd->pipe_to_next = 1;
+            add_cmd_to_list(&cmd_list, current_cmd); // link the current cmd
+            current_cmd = create_cmd();              // start next command
+        }
+        token = token->next;
     }
+
+    // Add the last command
+    if (current_cmd)
+        add_cmd_to_list(&cmd_list, current_cmd);
+
+    return cmd_list;
 }

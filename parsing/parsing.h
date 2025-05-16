@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:59 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/15 18:54:25 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/05/16 02:19:19 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,8 @@ typedef struct s_token
 } t_token;
 
 t_cmd *parse_tokens(t_token *token_list);
+int tokens(char *line);
+t_cmd *create_cmd(void);
+void add_arg_to_cmd(t_cmd *cmd, char *arg);
+void add_cmd_to_list(t_cmd **list, t_cmd *new_cmd);
 #endif

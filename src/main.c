@@ -5,127 +5,44 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/14 15:01:18 by eazmir            #+#    #+#             */
-/*   Updated: 2025/05/16 09:58:27 by eazmir           ###   ########.fr       */
+/*   Created: 2025/05/17 09:49:47 by eazmir            #+#    #+#             */
+/*   Updated: 2025/05/18 18:45:11 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../include/minishell.h"
 
-
-void print_cmd_list(t_cmd *cmd)
+char **split_input(char *token)
 {
-    int i;
-    while (cmd)
-    {
-        printf("Command: ");
-        for (i = 0; cmd->args && cmd->args[i]; i++)
-            printf("[%s] ", cmd->args[i]);
-        printf("\n");
-        cmd = cmd->next;
-    }
-}
-
-t_cmd  *create_command(char **cmd)
-{
-	t_cmd *node = malloc(sizeof(t_cmd));
-	
-	if (node == NULL)
-		return (NULL);
-	node->args = cmd;
-	node->next = NULL;
-	return (node);
-}
-
-t_cmd *parse_commands(char *args)
-{
+	char **split;
+	char **ptr;
 	int i;
-	char **split_pip;
-	t_cmd *current = NULL;
-	t_cmd *head = NULL;
-	t_cmd *node;
-
+	split = ft_split(token,' ');
 	i = 0;
-	split_pip = ft_split(args,'|');
-	while (split_pip[i])
+	while (split[i])
+		i++;
+	ptr = malloc((i + 1) * sizeof(char));
+	i = 0;
+	while (split[i])
 	{
-		node = create_command(&split_pip[i]);
-		if (!head)
-			head = node;
-		else
-			current->next = node;
-		current = node;
+		ptr[i] = ft_strdup(split[i]);
 		i++;
 	}
-	return (head);
+	ptr[i] = NULL;
+	return (ptr);
 }
 
-int	pipex_bonus(char **av, char **env)
+int main(int argc,char **argv,char **env)
 {
-	int	pid;
-	int	pipfd[2];
-
-	pipe(pipfd);
-	pid = fork();
-	if (pid == 0)
-	{
-		close(pipfd[0]);
-		dup2(pipfd[1], STDOUT_FILENO);
-		exec(av[0], env);
-		return (0);
-		//exit(EXIT_FAILURE);
-	}
-	else
-	{
-		close(pipfd[1]);
-		dup2(pipfd[0], STDIN_FILENO);
-		close(pipfd[0]);
-		return (pid);
-	}
-}
-
-void	minishell(t_cmd *cmd,char **env)
-{
-	int index;
-	int num_child;
-	int child_pids[1024];
-
-	t_cmd *tmp;
-	tmp = cmd;
-	num_child = 0;
-	//while (1)
-	//{
-		while (tmp->next)
-		{
-			child_pids[num_child++] = pipex_bonus(tmp->args, env);
-			tmp = tmp->next;
-		}
-		child_pids[num_child] = fork();
-		if (child_pids[num_child] == 0)
-		{
-			//dup2(1,STDOUT_FILENO);
-			exec(tmp->args[0], env);
-		}
-		else
-			num_child++;
-		index = 0;
-		while (index < num_child)
-		{
-			waitpid(child_pids[index], NULL, 0);
-			index++;
-		}
-	//}
-}
-
-int	main(int argc, char **argv, char **env)
-{	
 	(void)argc;
 	(void)argv;
 	
 	char *input;
 	t_cmd *cmd;
+	char **args;
 	cmd = malloc(sizeof(t_cmd));
-
+	cmd->env = env;
 	while (1)
 	{
 		input = readline("minishell> ");
@@ -133,11 +50,19 @@ int	main(int argc, char **argv, char **env)
 			break;
 		if (*input)
 			add_history(input);
-		cmd = parse_commands(input);
-		print_cmd_list(cmd);
-		if (cmd)
-			minishell(cmd,env);
-		free(input);
+		args = split_input(input);
+       		if (args[0] && strcmp(args[0], "exit") == 0)
+		{
+           		ft_exit(args);
+		}
+		else
+		{
+			cmd = parse_commands(input);
+			print_cmd_list(cmd);
+			if (cmd)
+				minishell(cmd,env);
+		}
+		//free(input);
 	}
 }
 

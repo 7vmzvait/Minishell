@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:59 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/16 11:52:54 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/05/16 02:32:44 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include "../libft/libft.h"
 
 typedef enum e_token_type
 {
@@ -32,10 +33,10 @@ typedef struct s_cmd
 {
     char **args;
     char *infile;
-    char *outfile; 
-    int append; 
-    int pipe_to_next; 
-    struct s_cmd *next; 
+    char *outfile;
+    int append;
+    int pipe_to_next;
+    struct s_cmd *next;
 } t_cmd;
 
 typedef struct s_token

@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:56 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/16 16:35:21 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/05/16 09:19:27 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ int is_operator(char c)
 {
     return (c == '|' || c == '<' || c == '>');
 }
-// we used it to manage our parsing part like the tokens that we have in it
+
 t_cmd *parse_tokens(t_token *tokens)
 {
     t_cmd *cmd_list = NULL;
     t_cmd *current_cmd = NULL;
     t_token *token = tokens;
-    current_cmd = create_cmd();
+
+    // Start the first command
+    current_cmd = create_cmd(); // you'll define this
 
     while (token)
     {
@@ -38,14 +40,14 @@ t_cmd *parse_tokens(t_token *tokens)
         {
             token = token->next;
             if (!token)
-                perror("Missing input file");
+                perror("Missing input file");  // i just did it to type errors
             current_cmd->infile = ft_strdup(token->value);
         }
         else if (token->type == REDIR_OUT)
         {
             token = token->next;
             if (!token)
-                perror("Missing output file");
+                perror("Missing output file");  // i just did it to type errors
             current_cmd->outfile = ft_strdup(token->value);
             current_cmd->append = 0;
         }
@@ -53,7 +55,7 @@ t_cmd *parse_tokens(t_token *tokens)
         {
             token = token->next;
             if (!token)
-                perror("Missing output file");
+                perror("Missing output file"); // i just did it to type errors
             current_cmd->outfile = ft_strdup(token->value);
             current_cmd->append = 1;
         }

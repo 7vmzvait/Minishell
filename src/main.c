@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 09:49:47 by eazmir            #+#    #+#             */
-/*   Updated: 2025/05/18 18:45:11 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/05/20 18:29:39 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/minishell.h"
 
@@ -18,7 +17,7 @@ char **split_input(char *token)
 	char **split;
 	char **ptr;
 	int i;
-	split = ft_split(token,' ');
+	split = ft_split(token, ' ');
 	i = 0;
 	while (split[i])
 		i++;
@@ -33,11 +32,11 @@ char **split_input(char *token)
 	return (ptr);
 }
 
-int main(int argc,char **argv,char **env)
+int main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
-	
+
 	char *input;
 	t_cmd *cmd;
 	char **args;
@@ -45,24 +44,23 @@ int main(int argc,char **argv,char **env)
 	cmd->env = env;
 	while (1)
 	{
-		input = readline("minishell> ");
+		input = readline("minishell$ ");
 		if (!input)
 			break;
 		if (*input)
 			add_history(input);
 		args = split_input(input);
-       		if (args[0] && strcmp(args[0], "exit") == 0)
+		if (args[0] && ft_strncmp(args[0], "exit", 6) == 0)
 		{
-           		ft_exit(args);
+			ft_exit(args);
 		}
 		else
 		{
 			cmd = parse_commands(input);
 			print_cmd_list(cmd);
 			if (cmd)
-				minishell(cmd,env);
+				minishell(cmd, env);
 		}
-		//free(input);
+		// free(input);
 	}
 }
-

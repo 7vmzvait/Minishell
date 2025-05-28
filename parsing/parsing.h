@@ -29,25 +29,11 @@ typedef enum e_token_type
     WORD
 } t_token_type;
 
-// typedef struct s_redir
-// {
-//     char *filename;
-//     t_token_type type;
-// }   t_redir;
-
-// typedef struct s_heredoc
-// {
-//     char *filename;
-//     t_token_type type;
-// }   t_heredoc;
-
 typedef struct s_cmd
 {
     char **args;
     char *infile;
     char *outfile;
-    // t_redir *redirections;
-    // t_heredoc *heredoc;
     int append;
     int pipe_to_next; // 0 or 1
     struct s_cmd *next; 

@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:59 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/20 00:16:38 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/05/30 13:30:08 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,27 @@ typedef struct s_token
     char *value;
     struct s_token *next;
 } t_token;
+
+t_token *tokenize_input(char *line);
+// Adds a new token to the linked list
+void add_token(t_token **head, int type, char *value);
+
+// Returns 1 if character is |, <, >; 0 otherwise
+int is_special(char c);
+
+// Extracts a normal word (not in quotes)
+char *get_word(char *line, int *i);
+
+// Extracts quoted word (supports single and double quotes)
+char *get_quoted_word(char *line, int *i);
+
+// Gets the token type for <, >, <<, >>
+int get_token_type(char *line, int *i);
+
+// to check spaces
+int is_space(int check_s);
+// to check for operators example , < , > , >> , << , |
+int is_operator(char c);
 
 t_cmd *parse_tokens(t_token *token_list);
 int tokens(char *line);

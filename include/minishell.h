@@ -39,7 +39,6 @@ typedef struct s_cmd
 } t_cmd;
 
 
-
 void	minishell(t_cmd *cmd,char **env);
 t_cmd 	*parse_commands(char *args);
 void	print_cmd_list(t_cmd *cmd);

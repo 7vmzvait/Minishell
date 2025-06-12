@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:56 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/05/20 00:15:18 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/11 10:59:24 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ int is_space(int check_s)
 {
     return (check_s == 32 || (check_s >= 9 && check_s <= 13));
 }
-int is_operator(char c)
+int is_special(char c)
 {
     return (c == '|' || c == '<' || c == '>');
 }
-
 t_cmd *parse_tokens(t_token *tokens)
 {
     t_cmd *cmd_list = NULL;
@@ -32,26 +31,26 @@ t_cmd *parse_tokens(t_token *tokens)
 
     while (token)
     {
-        if (token->type == WORD)
+        if (token->type == TOKEN_WORD)
         {
             add_arg_to_cmd(current_cmd, token->value);
         }
-        else if (token->type == REDIR_IN)
+        else if (token->type == TOKEN_REDIR_IN)
         {
             token = token->next;
             if (!token)
-                perror("Missing input file");  // i just did it to type errors
+                perror("Missing input file"); // i just did it to type errors
             current_cmd->infile = ft_strdup(token->value);
         }
-        else if (token->type == REDIR_OUT)
+        else if (token->type == TOKEN_REDIR_OUT)
         {
             token = token->next;
             if (!token)
-                perror("Missing output file");  // i just did it to type errors
+                perror("Missing output file"); // i just did it to type errors
             current_cmd->outfile = ft_strdup(token->value);
             current_cmd->append = 0;
         }
-        else if (token->type == APPEND)
+        else if (token->type == TOKEN_REDIR_APPEND)
         {
             token = token->next;
             if (!token)
@@ -59,7 +58,7 @@ t_cmd *parse_tokens(t_token *tokens)
             current_cmd->outfile = ft_strdup(token->value);
             current_cmd->append = 1;
         }
-        else if (token->type == PIPE)
+        else if (token->type == TOKEN_PIPE)
         {
             current_cmd->pipe_to_next = 1;
             add_cmd_to_list(&cmd_list, current_cmd); // link the current cmd

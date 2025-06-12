@@ -1,5 +1,5 @@
 C = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 SRC_DIR = src
 
 SRC_B = $(SRC_DIR)/builtins

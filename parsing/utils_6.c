@@ -6,19 +6,19 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 17:11:57 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/13 17:17:26 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/13 17:22:03 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
+
+void skip_spaces(char *line, int *i)
+{
+    while (line[*i] == ' ')
+        (*i)++;
+}
 char **tokenize(char *line)
 {
-    int i = 0;
-    while (line[i])
-    {
-        if (is_space(line[i]))
-            i++;
-        else if ()
-    }
+    
 }

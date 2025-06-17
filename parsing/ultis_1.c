@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:56 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/13 17:16:05 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/17 13:08:04 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ t_cmd *parse_tokens(t_token *tokens)
     t_cmd *cmd_list = NULL;
     t_cmd *current_cmd = NULL;
     t_token *token = tokens;
-
-    // Start the first command
-    current_cmd = create_cmd(); // you'll define this
+    current_cmd = create_cmd();
 
     while (token)
     {
@@ -39,7 +37,7 @@ t_cmd *parse_tokens(t_token *tokens)
         {
             token = token->next;
             if (!token)
-                perror("Missing input file"); // i just did it to type errors
+                perror("Missing input file");
             current_cmd->infile = ft_strdup(token->value);
         }
         else if (token->type == REDIR_OUT)

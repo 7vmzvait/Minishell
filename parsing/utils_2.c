@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 18:52:23 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/13 17:40:37 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/17 13:01:11 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ t_token_type get_token_type(char *str)
         return WORD;
 }
 
-t_cmd *init_cmd_node(void)
+t_cmd *new_cmd_node(void)
 {
-    t_cmd *node = malloc(sizeof(t_cmd));
-    if (!node)
+    t_cmd *cmd = malloc(sizeof(t_cmd));
+    if (!cmd)
         return NULL;
-
-    node->args = NULL;
-    node->infile = NULL;
-    node->outfile = NULL;
-    node->append = 0;
-    node->next = NULL;
-    return node;
+    cmd->args = NULL;
+    cmd->infile = NULL;
+    cmd->outfile = NULL;
+    cmd->append = 0;
+    cmd->heredoc = 0;
+    cmd->next = NULL;
+    return cmd;
 }
 
 void add_arg(char ***args, char *new_arg)
@@ -55,13 +55,10 @@ void add_arg(char ***args, char *new_arg)
         while ((*args)[count])
             count++;
     }
-
-    // Allocate new array: existing + new + NULL
     new_args = malloc(sizeof(char *) * (count + 2));
     if (!new_args)
         return;
 
-    // Copy old args
     int i = 0;
     while (i < count)
     {
@@ -69,15 +66,10 @@ void add_arg(char ***args, char *new_arg)
         i++;
     }
 
-    // Add new one
     new_args[count] = ft_strdup(new_arg);
     new_args[count + 1] = NULL;
-
-    // Free only the old array (not strings inside)
     if (*args)
         free(*args);
-
-    // Update pointer
     *args = new_args;
 }
 

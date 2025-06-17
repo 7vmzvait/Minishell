@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   toknizer.c                                         :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/13 17:49:03 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/17 11:43:03 by haitaabe         ###   ########.fr       */
+/*   Created: 2025/06/17 20:15:32 by haitaabe          #+#    #+#             */
+/*   Updated: 2025/06/17 20:15:47 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+int main() {
+    char *line = "ls -l | grep txt > output.txt";
+    char **tokens = tokenize_input(line);
 
-char **tokenize_input(const char *input)
-{
-    int i = 0;
-    while (input[i] == ' ')
-        i++;
+    for (int i = 0; tokens[i]; i++)
+        printf("token[%d]: %s\n", i, tokens[i]);
+
+    // Don’t forget to free tokens later
 }

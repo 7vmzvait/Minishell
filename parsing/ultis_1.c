@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:56 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/17 13:08:04 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/17 20:27:19 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,54 +20,34 @@ int is_special(char c)
 {
     return (c == '|' || c == '<' || c == '>');
 }
-t_cmd *parse_tokens(t_token *tokens)
+void free_command_list(t_cmd *cmds)
 {
-    t_cmd *cmd_list = NULL;
-    t_cmd *current_cmd = NULL;
-    t_token *token = tokens;
-    current_cmd = create_cmd();
+    t_cmd *tmp;
+    int j;
 
-    while (token)
+    while (cmds)
     {
-        if (token->type == WORD)
+        // Free each arg string inside args[]
+        if (cmds->args)
         {
-            add_arg_to_cmd(current_cmd, token->value);
+            j = 0;
+            while (cmds->args[j])
+            {
+                free(cmds->args[j]);
+                j++;
+            }
+            free(cmds->args);
         }
-        else if (token->type == REDIR_IN)
-        {
-            token = token->next;
-            if (!token)
-                perror("Missing input file");
-            current_cmd->infile = ft_strdup(token->value);
-        }
-        else if (token->type == REDIR_OUT)
-        {
-            token = token->next;
-            if (!token)
-                perror("Missing output file"); // i just did it to type errors
-            current_cmd->outfile = ft_strdup(token->value);
-            current_cmd->append = 0;
-        }
-        else if (token->type == APPEND)
-        {
-            token = token->next;
-            if (!token)
-                perror("Missing output file"); // i just did it to type errors
-            current_cmd->outfile = ft_strdup(token->value);
-            current_cmd->append = 1;
-        }
-        else if (token->type == PIPE)
-        {
-            current_cmd->pipe_to_next = 1;
-            add_cmd_to_list(&cmd_list, current_cmd); // link the current cmd
-            current_cmd = create_cmd();              // start next command
-        }
-        token = token->next;
+
+        // Free infile and outfile strings if set
+        if (cmds->infile)
+            free(cmds->infile);
+        if (cmds->outfile)
+            free(cmds->outfile);
+
+        // Save current pointer to free it after moving forward
+        tmp = cmds;
+        cmds = cmds->next;
+        free(tmp);
     }
-
-    // Add the last command
-    if (current_cmd)
-        add_cmd_to_list(&cmd_list, current_cmd);
-
-    return cmd_list;
 }

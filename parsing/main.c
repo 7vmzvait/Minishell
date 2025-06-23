@@ -6,30 +6,33 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 20:15:32 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/21 16:15:34 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:18:20 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "parsing.h"
 
 int main(void)
 {
-	char *input = "echo \"hello world\" > out.txt | cat";
-	t_token *tokens = tokenize_input(input);
+    char *input = "echo hello > file.txt";
 
-	if (!tokens)
-	{
-		printf("Tokenizer failed.\n");
-		return (1);
-	}
+    t_token *tokens = tokenize_input(input);
+    if (!tokens)
+    {
+        printf("Tokenizing failed.\n");
+        return (1);
+    }
+    if (check_syntax_error(tokens))
+    {
+        free_tokens(tokens);
+        return (1);
+    }
+    t_cmd *cmds = parse_tokens(tokens);
 
-	int i = 0;
-	t_token *tmp = tokens;
-	while (tmp)
-	{
-		printf("token[%d]: type=%d, value=[%s]\n", i, tmp->type, tmp->value);
-		tmp = tmp->next;
-		i++;
-	}
-	return (0);
+    free_cmds(cmds);
+    free_tokens(tokens);
+
+    return (0);
 }

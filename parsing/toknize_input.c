@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:01:07 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/21 16:21:30 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:30:42 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,31 @@ t_token *tokenize_input(char *str)
 		skip_spaces(str, &i);
 		if (!str[i])
 			break;
+
 		if (str[i] == '"' || str[i] == '\'')
 		{
 			char *val = get_quoted(str, &i);
-			add_token(&tokens, WORD, val);
+			if (val)
+				add_token(&tokens, WORD, val);
+			else
+				break;
 		}
 		else if (is_special(str[i]))
 		{
 			char *val = get_operator(str, &i);
 			int dummy = 0;
-			add_token(&tokens, get_token_type(val, &dummy), val);
+			if (val)
+				add_token(&tokens, get_token_type(val), val);
+			else
+				break;
 		}
 		else
 		{
 			char *val = get_word(str, &i);
-			add_token(&tokens, WORD, val);
+			if (val)
+				add_token(&tokens, WORD, val);
+			else
+				break;
 		}
 	}
 	return tokens;

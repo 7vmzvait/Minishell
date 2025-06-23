@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 18:52:23 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/17 13:01:11 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:31:14 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 t_token_type get_token_type(char *str)
 {
-    if (!str)
+
+    if (!str || !str[0])
         return WORD;
 
-    if (strcmp(str, "|") == 0)
+    if (ft_strcmp(str, "|") == 0)
         return PIPE;
-    else if (strcmp(str, "<") == 0)
+    else if (ft_strcmp(str, "<") == 0)
         return REDIR_IN;
-    else if (strcmp(str, ">") == 0)
+    else if (ft_strcmp(str, ">") == 0)
         return REDIR_OUT;
-    else if (strcmp(str, ">>") == 0)
+    else if (ft_strcmp(str, ">>") == 0)
         return APPEND;
-    else if (strcmp(str, "<<") == 0)
+    else if (ft_strcmp(str, "<<") == 0)
         return HEREDOC;
     else
         return WORD;

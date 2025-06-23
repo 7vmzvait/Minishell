@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:56 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/17 20:27:19 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/21 16:22:49 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void free_command_list(t_cmd *cmds)
 
     while (cmds)
     {
-        // Free each arg string inside args[]
         if (cmds->args)
         {
             j = 0;
@@ -38,14 +37,10 @@ void free_command_list(t_cmd *cmds)
             }
             free(cmds->args);
         }
-
-        // Free infile and outfile strings if set
         if (cmds->infile)
             free(cmds->infile);
         if (cmds->outfile)
             free(cmds->outfile);
-
-        // Save current pointer to free it after moving forward
         tmp = cmds;
         cmds = cmds->next;
         free(tmp);

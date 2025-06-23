@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   useful_functions.c                                 :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/13 17:32:26 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/21 16:07:45 by haitaabe         ###   ########.fr       */
+/*   Created: 2025/06/21 16:11:35 by haitaabe          #+#    #+#             */
+/*   Updated: 2025/06/21 16:11:45 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
-
-t_cmd *parse_input(char *input)
+#include "libft.h"
+int ft_strcmp(const char *s1, const char *s2)
 {
-    char **tokens;
-    t_cmd *cmd_list;
-
-    tokens = tokenize(input);        // step 1
-    if (!check_syntax(tokens))      // step 3
-        return NULL;
-    expand_tokens(tokens);          // step 4
-    cmd_list = parse_tokens(tokens);
-    free_tokens(tokens);
-    return cmd_list;
+	while (*s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

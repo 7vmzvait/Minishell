@@ -17,7 +17,7 @@ SRCS = \
 	$(SRC_DIR)/executor.c \
 	$(SRC_B)/echo.c \
 	$(SRC_B)/cd.c \
-	$(SRC_B)/exit.c
+	$(SRC_B)/exit.c \
 
 OBJS = $(SRCS:.c=.o)
 

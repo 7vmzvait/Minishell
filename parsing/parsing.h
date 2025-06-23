@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:49:59 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/11 11:02:29 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/21 15:40:35 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 
 typedef enum e_token_type
 {
-    TOKEN_WORD,
-    TOKEN_PIPE,
-    TOKEN_REDIR_IN,
-    TOKEN_REDIR_OUT,
-    TOKEN_REDIR_APPEND,
-    TOKEN_REDIR_HERE_DOC
+    PIPE,
+    REDIR_IN,
+    REDIR_OUT,
+    APPEND,
+    HEREDOC,
+    WORD
 } t_token_type;
 
 typedef struct s_token
@@ -42,6 +42,7 @@ typedef struct s_cmd
     char *infile;
     char *outfile;
     int append;
+    int heredoc;
     int pipe_to_next; // 0 or 1
     struct s_cmd *next;
 } t_cmd;

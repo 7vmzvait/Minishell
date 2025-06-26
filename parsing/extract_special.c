@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   extract_special.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 15:32:54 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 17:08:16 by haitaabe         ###   ########.fr       */
+/*   Created: 2025/06/26 16:01:41 by haitaabe          #+#    #+#             */
+/*   Updated: 2025/06/26 16:01:52 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int main(void)
+char *extract_special(const char *input, int *i)
 {
-    char *input = "echo hello > outfile.txt";
-
-    t_token *tokens = tokenize_input(input);
-    if (!tokens)
+    if (input[*i] == '>' && input[*i + 1] == '>')
     {
-        fprintf(stderr, "Tokenizing failed\n");
-        return 1;
+        (*i) += 2;
+        return ft_strdup(">>");
     }
-
-    t_cmd *cmds = parse_tokens(tokens);
-    free_token_list(tokens); // correct version
-
-    if (!cmds)
+    else if (input[*i] == '<' && input[*i + 1] == '<')
     {
-        fprintf(stderr, "Parsing tokens failed\n");
-        return 1;
+        (*i) += 2;
+        return ft_strdup("<<");
     }
-
-    print_cmds(cmds);
-    free_command_list(cmds);
-
-    return 0;
+    else
+    {
+        char op[2] = { input[*i], '\0' };
+        (*i)++;
+        return ft_strdup(op);
+    }
 }

@@ -1,39 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*    free_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 15:32:54 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 17:08:16 by haitaabe         ###   ########.fr       */
+/*   Created: 2025/06/26 15:23:51 by haitaabe          #+#    #+#             */
+/*   Updated: 2025/06/26 16:07:35 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int main(void)
+void free_tokens(char **tokens)
 {
-    char *input = "echo hello > outfile.txt";
+    int i;
 
-    t_token *tokens = tokenize_input(input);
+    i = 0;
     if (!tokens)
+        return;
+    while (tokens[i])
     {
-        fprintf(stderr, "Tokenizing failed\n");
-        return 1;
+        free(tokens[i]);
+        i++;
     }
+    free(tokens);
+}
 
-    t_cmd *cmds = parse_tokens(tokens);
-    free_token_list(tokens); // correct version
+void free_cmds(t_cmd *head)
+{
+    t_cmd *tmp;
 
-    if (!cmds)
+    while (head)
     {
-        fprintf(stderr, "Parsing tokens failed\n");
-        return 1;
+        tmp = head;
+        if (tmp->args)
+            free_tokens(tmp->args);
+        if (tmp->infile)
+            free(tmp->infile);
+        if (tmp->outfile)
+            free(tmp->outfile);
+        head = head->next;
+        free(tmp);
     }
-
-    print_cmds(cmds);
-    free_command_list(cmds);
-
-    return 0;
 }

@@ -1,39 +1,24 @@
-NAME    = test
-CC      = cc
-CFLAGS  = -Wall -Wextra -Werror -Iincludes -Ilibft
-SRCS = \
-	main.c \
-	utils_1.c utils_2.c utils_3.c utils_4.c \
-	utils_5.c utils_6.c utils_7.c utils_8.c \
-	utils_9.c utils_10.c utils_11.c utils_12.c \
-	utils_13.c utils_14.c \
-	free_cmds.c free_tokens.c \
-	ft_strcmp.c \
-	handle_redir.c \
-	syntax_error.c \
-	toknize_input.c \
-	useful_functions.c
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+NAME = parsing
+LIBFT = ./libft/libft.a
 
+SRCS = free_utils.c token.c check_syntax_error.c cmd_builder.c cmd_utils.c debug.c edir_handler.c env_expand.c env_utils.c extract_quoted.c extract_special.c extract_word.c free_utils.c get_token_type.c handle_redir.c main.c parse_input.c parse.c parsing.c str_utils.c tokenize.c tokenizer.c utils_1.c var_utils.c 
 OBJS = $(SRCS:.c=.o)
-
-LIBFT_DIR = ../libft
-LIBFT = $(LIBFT_DIR)/libft.a
 
 all: $(NAME)
 
-$(LIBFT):
-	@make -C $(LIBFT_DIR)
-
-$(NAME): $(LIBFT) $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)
 
+%.o: %.c parsing.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	@make -C $(LIBFT_DIR) clean
-	@rm -f $(OBJS)
+	rm -f $(OBJS)
 
 fclean: clean
-	@make -C $(LIBFT_DIR) fclean
-	@rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 

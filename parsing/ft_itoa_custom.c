@@ -1,39 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_itoa_custom.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 15:32:54 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 17:08:16 by haitaabe         ###   ########.fr       */
+/*   Created: 2025/06/26 18:10:53 by haitaabe          #+#    #+#             */
+/*   Updated: 2025/06/26 18:11:14 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-int main(void)
+char *ft_itoa_custom(int n)
 {
-    char *input = "echo hello > outfile.txt";
+    // Simple implementation of itoa
+    char buffer[12]; // enough for int range
+    int i = 10;
+    int neg = n < 0;
+    buffer[11] = '\0';
 
-    t_token *tokens = tokenize_input(input);
-    if (!tokens)
+    if (n == 0)
+        return strdup("0");
+
+    unsigned int num = (neg) ? -n : n;
+
+    while (num > 0)
     {
-        fprintf(stderr, "Tokenizing failed\n");
-        return 1;
+        buffer[i--] = '0' + (num % 10);
+        num /= 10;
     }
 
-    t_cmd *cmds = parse_tokens(tokens);
-    free_token_list(tokens); // correct version
+    if (neg)
+        buffer[i--] = '-';
 
-    if (!cmds)
-    {
-        fprintf(stderr, "Parsing tokens failed\n");
-        return 1;
-    }
-
-    print_cmds(cmds);
-    free_command_list(cmds);
-
-    return 0;
+    return strdup(&buffer[i + 1]);
 }

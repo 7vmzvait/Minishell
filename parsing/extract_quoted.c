@@ -1,39 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   extract_quoted.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 15:32:54 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 17:08:16 by haitaabe         ###   ########.fr       */
+/*   Created: 2025/06/26 16:02:06 by haitaabe          #+#    #+#             */
+/*   Updated: 2025/06/26 16:02:14 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int main(void)
+char *extract_quoted(const char *input, int *i)
 {
-    char *input = "echo hello > outfile.txt";
+    int start, len = 0;
+    char quote;
 
-    t_token *tokens = tokenize_input(input);
-    if (!tokens)
+    quote = input[*i];
+    if (quote != '\'' && quote != '\"')
+        return NULL;
+
+    (*i)++; // Skip opening quote
+    start = *i;
+
+    while (input[*i] && input[*i] != quote)
     {
-        fprintf(stderr, "Tokenizing failed\n");
-        return 1;
+        (*i)++;
+        len++;
     }
 
-    t_cmd *cmds = parse_tokens(tokens);
-    free_token_list(tokens); // correct version
+    if (input[*i] == quote)
+        (*i)++; // Skip closing quote
 
-    if (!cmds)
-    {
-        fprintf(stderr, "Parsing tokens failed\n");
-        return 1;
-    }
-
-    print_cmds(cmds);
-    free_command_list(cmds);
-
-    return 0;
+    return ft_substr(input, start, len);
 }

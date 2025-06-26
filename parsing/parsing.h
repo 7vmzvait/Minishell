@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 17:43:11 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 18:09:55 by haitaabe         ###   ########.fr       */
+/*   Created: 2025/06/26 18:41:51 by haitaabe          #+#    #+#             */
+/*   Updated: 2025/06/26 18:41:53 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef PARSING_H
 #define PARSING_H
@@ -94,9 +95,7 @@ void add_arg_to_cmd(t_cmd *cmd, char *arg);
 void add_cmd_to_list(t_cmd **list, t_cmd *new_cmd);
 
 // for expand
-static char *get_env_value(char *key, char **envp);
 char *expand_variables(const char *input, char **envp, int exit_status);
-char *get_env_value(char *key, char **envp);
 
 // to know the type of tokens 
 t_token_type get_token_type(char *str);

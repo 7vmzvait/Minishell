@@ -6,11 +6,12 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 18:10:53 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 18:11:14 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/26 18:42:26 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
 char *ft_itoa_custom(int n)
 {
     // Simple implementation of itoa
@@ -20,7 +21,7 @@ char *ft_itoa_custom(int n)
     buffer[11] = '\0';
 
     if (n == 0)
-        return strdup("0");
+        return ft_strdup("0");
 
     unsigned int num = (neg) ? -n : n;
 
@@ -33,5 +34,5 @@ char *ft_itoa_custom(int n)
     if (neg)
         buffer[i--] = '-';
 
-    return strdup(&buffer[i + 1]);
+    return ft_strdup(&buffer[i + 1]);
 }

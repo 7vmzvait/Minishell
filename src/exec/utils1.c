@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/15 09:06:54 by eazmir            #+#    #+#             */
-/*   Updated: 2025/05/15 09:20:48 by eazmir           ###   ########.fr       */
+/*   Created: 2025/05/22 09:29:50 by eazmir            #+#    #+#             */
+/*   Updated: 2025/06/26 10:06:08 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 char	*get_path(char **env)
 {
@@ -81,13 +81,13 @@ void	exec(char *av, char **env)
 	if (!cmd || !cmd[0] || !cmd[0][0])
 	{
 		free_split(cmd);
-		write(2, "./pipex: command not found: \n", 30);
+		write(2, "minshell: command not found: \n", 30);
 		exit(127);
 	}
 	path = check_command(cmd[0], env);
 	if (!path)
 	{
-		write(2, "./pipex: command not found: ", 29);
+		write(2, "minishell: command not found: ", 29);
 		write(2, cmd[0], ft_strlen(cmd[0]));
 		write(2, "\n", 1);
 		free_split(cmd);
@@ -100,4 +100,3 @@ void	exec(char *av, char **env)
 		exit(EXIT_FAILURE);
 	}
 }
-

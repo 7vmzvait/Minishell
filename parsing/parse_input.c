@@ -6,13 +6,13 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:23:10 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 15:23:18 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/27 16:41:16 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-t_cmd *parse_tokens(char **tokens)
+t_cmd *parse_tokens1(char **tokens)
 {
     t_cmd *cmd_list;
     t_cmd *cmd;
@@ -63,15 +63,15 @@ t_cmd *parse_tokens(char **tokens)
     return (cmd_list);
 }
 
-t_cmd *parse_input(char *input)
-{
-    char **tokens;
-    t_cmd *cmd_list;
+//  t_cmd *parse_input(char *input)
+//  {
+//      char **tokens;
+//      t_cmd *cmd_list;
 
-    tokens = tokenize(input);
-    if (!tokens)
-        return (NULL);
-    cmd_list = parse_tokens(tokens);
-    free_tokens(tokens);
-    return (cmd_list);
-}
+//      tokens = tokenize(input);
+//      if (!tokens)
+//          return (NULL);
+//      cmd_list = parse_tokens1(tokens);
+//      free_tokens(tokens);
+//      return (cmd_list);
+// }

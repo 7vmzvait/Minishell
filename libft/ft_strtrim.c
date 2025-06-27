@@ -6,7 +6,7 @@
 /*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:19:37 by eazmir            #+#    #+#             */
-/*   Updated: 2024/11/16 18:19:50 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/05/27 13:31:12 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static int	is_found(const char *s, const char c)
 	while (s[i])
 	{
 		if (s[i] == c)
-			return (1);
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 char	*ft_strtrim(const char *s, const char *set)
@@ -36,10 +36,10 @@ char	*ft_strtrim(const char *s, const char *set)
 	if (!s || !set)
 		return (NULL);
 	start = 0;
-	while (s[start] && is_found(set, s[start]))
+	while (s[start] && !is_found(set, s[start]))
 		start++;
 	end = ft_strlen(s) - 1;
-	while (end >= start && is_found(set, s[end]))
+	while (end >= start && !is_found(set, s[end]))
 		end--;
 	len = end - start + 1;
 	ptr = (char *)malloc(sizeof(char) * (len + 1));

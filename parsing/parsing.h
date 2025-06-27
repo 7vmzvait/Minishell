@@ -54,6 +54,7 @@ typedef struct s_cmd
 // PARSING FUNCTIONS
 t_cmd *parse_input(char *input); // entry point
 
+int get_token_len(char *line, int i);
 // TOKENIZER
 char **tokenize(char *line); // array of strings (words/operators)
 int is_space(int c);
@@ -101,12 +102,13 @@ char *expand_variables(const char *input, char **envp, int exit_status);
 t_token_type get_token_type(char *str);
 
 t_cmd *parse_tokens(t_token *tokens);
+t_cmd *parse_tokens1(char **tokens);
 t_cmd *parse_input(char *input);
 t_token *tokenize_input(char *str);
 
 
 char *ft_itoa_custom(int n);
-char *strjoin_and_free(char *s1, char *s2);
+char *strjoin_and_free(char *s1,const  char *s2);
 char *strjoin_and_free_char(char *s1, char c);
 int is_valid_var_char(char c);
 char *extract_var_name(const char *input, int *i);

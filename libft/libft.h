@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 18:13:19 by eazmir            #+#    #+#             */
-/*   Updated: 2025/06/21 16:11:59 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/05/20 10:09:55 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include <stdlib.h>
+#include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <unistd.h>
+#include <stdbool.h>
+#include <string.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
@@ -40,6 +43,7 @@ int					ft_isalnum(int c);
 int					ft_isascii(int c);
 int					ft_isprint(int c);
 size_t				ft_strlen(const char *s);
+int				ft_strcmp(char *s1,char *s2);
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
@@ -84,5 +88,4 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 char				*get_next_line(int fd);
-int ft_strcmp(const char *s1, const char *s2);
 #endif

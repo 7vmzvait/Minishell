@@ -1,39 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_utils.c                                       :+:      :+:    :+:   */
+/*    free_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 15:47:47 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 17:09:01 by haitaabe         ###   ########.fr       */
+/*   Created: 2025/06/26 15:23:51 by haitaabe          #+#    #+#             */
+/*   Updated: 2025/06/26 16:07:35 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void free_command_list(t_cmd *cmds)
+void free_tokens(char **tokens)
 {
-    t_cmd *tmp;
     int i;
 
-    while (cmds)
+    i = 0;
+    if (!tokens)
+        return;
+    while (tokens[i])
     {
-        tmp = cmds;
-        cmds = cmds->next;
+        free(tokens[i]);
+        i++;
+    }
+    free(tokens);
+}
 
+void free_cmds(t_cmd *head)
+{
+    t_cmd *tmp;
+
+    while (head)
+    {
+        tmp = head;
         if (tmp->args)
-        {
-            i = 0;
-            while (tmp->args[i])
-            {
-                free(tmp->args[i]);
-                i++;
-            }
-            free(tmp->args);
-        }
-        free(tmp->infile);
-        free(tmp->outfile);
+            free_tokens(tmp->args);
+        if (tmp->infile)
+            free(tmp->infile);
+        if (tmp->outfile)
+            free(tmp->outfile);
+        head = head->next;
         free(tmp);
     }
 }

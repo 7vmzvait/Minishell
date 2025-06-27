@@ -50,10 +50,10 @@ void set_infile(t_cmd *cmd, char *redir, char *file)
     cmd->infile = ft_strdup(file);
 }
 
-void set_outfile(t_cmd *cmd, char *redir, char *file)
-{
-    (void)redir;
-    if (cmd->outfile)
-        free(cmd->outfile);
-    cmd->outfile = ft_strdup(file);
-}
+// void set_outfile(t_cmd *cmd, char *redir, char *file)
+// {
+//     (void)redir;
+//     if (cmd->outfile)
+//         free(cmd->outfile);
+//     cmd->outfile = ft_strdup(file);
+// }

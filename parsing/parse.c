@@ -37,7 +37,7 @@ t_cmd *parse_tokens(t_token *tokens)
                 free_command_list(cmd_list);
                 return NULL;
             }
-            handle_redir(current_cmd, tokens);
+            handle_redir(current_cmd, &tokens);
             tokens = tokens->next;
         }
         else if (tokens->type == PIPE)

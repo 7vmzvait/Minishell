@@ -75,6 +75,11 @@ char **tokenize(char *line)
         j++;
         i += len;
     }
+    for (int i = 0; i < 2;i++)
+    {
+        for (int j = 0; j < 2;j++)
+            printf("%c",tokens[i][j]);
+    }
     tokens[j] = NULL;
     return (tokens);
 }

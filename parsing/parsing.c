@@ -25,7 +25,7 @@ t_cmd *parse_input(char *input)
         free_tokens(tokens);
         return (NULL);
     }
-    cmds = parse_tokens(tokens);
+    cmds = parse_tokens1(tokens);
     free_tokens(tokens);
     return (cmds);
 }
@@ -49,10 +49,10 @@ char **tokenize(char *line)
             i++;
         if (!line[i])
             break;
-        if (is_special(line[i]))
-        {
-            tokens[j++] = get_special_token(line, &i);
-        }
+        // if (is_special(line[i]))
+        // {
+        //     tokens[j++] = get_special_token(line, &i);
+        // }
         else if (line[i] == '"' || line[i] == '\'')
         {
             word = extract_quoted(line, &i);

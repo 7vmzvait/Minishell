@@ -3,64 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/17 09:49:47 by eazmir            #+#    #+#             */
-/*   Updated: 2025/05/20 18:29:39 by haitaabe         ###   ########.fr       */
+/*   Created: 2025/05/22 09:34:41 by eazmir            #+#    #+#             */
+/*   Updated: 2025/06/23 15:40:12 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
 
-char **split_input(char *token)
+#include "../include/minishell.h"
+#include <stdio.h>
+
+void print_command(t_cmd *cmd)
 {
-	char **split;
-	char **ptr;
-	int i;
-	split = ft_split(token, ' ');
-	i = 0;
-	while (split[i])
-		i++;
-	ptr = malloc((i + 1) * sizeof(char));
-	i = 0;
-	while (split[i])
-	{
-		ptr[i] = ft_strdup(split[i]);
-		i++;
-	}
-	ptr[i] = NULL;
-	return (ptr);
+    int i;
+    while (cmd)
+    {
+        printf("Command: ");
+        for (i = 0; cmd->args && cmd->args[i]; i++)
+            printf("[%s] ", cmd->args[i]);
+        printf("\n");
+        cmd = cmd->next;
+    }
 }
 
-int main(int argc, char **argv, char **env)
+t_cmd  *create_command(char **cmd)
+{
+	t_cmd *node = malloc(sizeof(t_cmd));
+	
+	if (node == NULL)
+		return (NULL);
+	node->args = cmd;
+	node->next = NULL;
+	return (node);
+}
+
+t_cmd *parse_commands(char *args)
+{
+	int i;
+	char **split_pip;
+	t_cmd *current = NULL;
+	t_cmd *head = NULL;
+	t_cmd *node;
+
+	i = 0;
+	split_pip = ft_split(args,'|');
+	while (split_pip[i])
+	{
+		node = create_command(&split_pip[i]);
+		if (!head)
+			head = node;
+		else
+			current->next = node;
+		current = node;
+		i++;
+	}
+	return (head);
+}
+
+int main(int argc,char **argv,char **env)
 {
 	(void)argc;
 	(void)argv;
+	
 
-	char *input;
 	t_cmd *cmd;
-	char **args;
+    t_context *ctx;
+	char *input;
+
+	// char **args;
 	cmd = malloc(sizeof(t_cmd));
-	cmd->env = env;
+    ctx = malloc (sizeof(t_context));
+    ctx->env = env;
 	while (1)
 	{
-		input = readline("minishell$ ");
+		input = readline("> ");
 		if (!input)
 			break;
 		if (*input)
 			add_history(input);
-		args = split_input(input);
-		if (args[0] && ft_strncmp(args[0], "exit", 6) == 0)
-		{
-			ft_exit(args);
-		}
-		else
-		{
-			cmd = parse_commands(input);
-			print_cmd_list(cmd);
-			if (cmd)
-				minishell(cmd, env);
-		}
-		// free(input);
+        cmd = parse_input(input);
+		print_command(cmd);
+		execute_commands(cmd,ctx);
 	}
 }

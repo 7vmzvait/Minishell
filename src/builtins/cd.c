@@ -6,54 +6,44 @@
 /*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 14:03:42 by eazmir            #+#    #+#             */
-/*   Updated: 2025/05/18 18:37:26 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/05/28 18:39:27 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*
-char	updata_path(t_cmd *shell , char *parm,int len)
+int  update_env_path(t_shell **shell,char *key, char *new_value)
 {
-	int		j;
-	int		size;
-	char	*ptr;
-	char	*ptr2;
-
-	while (shell)
+	t_shell *tmp;
+	
+	tmp = *shell;
+	while (tmp)
 	{
-		j = 0;
-		while (shell->env[j])
+		if (ft_strncmp(tmp->key,key,ft_strlen(key)) == 0)
 		{
-			if (ft_strncmp(shell->env[j],parm,len) == 0)
-			{
-				size = ft_strlen(shell->env[j]);
-				ptr = malloc((size + 1) * sizeof(char));
-				ft_strlcpy(ptr,shell->env[j],size+1);
-				ptr2 = ft_substr(ptr,len,size);
-				return (ptr2);
-			}
-			j++;
+			free(tmp->value);
+			tmp->value = ft_strdup(new_value);
+			return (0);
 		}
-		shell = shell->next;
+		tmp = tmp->next;
 	}
-	return (NULL);
+	return (1);
 }
-*/
 
-void	cd(t_cmd *shell, char **args)
+void	cd(t_shell **shell, char **args)
 {
-	char	cwd[1024];
+	char	new_path[1024];
+	char	old_path[1024];
+	char	*path;
 
+	getcwd(old_path,sizeof(new_path));
 	if (!args[1])
-	{
-		chdir(getenv("HOME"));
-		return ;
-	}
+		path = getenv("HOME");
+	else if (ft_strncmp(args[1], "-", 1) == 0)
+		path = getenv("OLDPWD");
 	else
-		chdir(args[1]);
-	if (ft_strncmp(args[1], "-", 1) == 0)
-		chdir(getenv("OLDPWD"));
-	getcwd(cwd, sizeof(cwd));
-	(void)shell;
+		path = args[1];
+	chdir(path);
+	getcwd(new_path,sizeof(new_path));
+	update_env_path(shell,"PWD",new_path);
 }

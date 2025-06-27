@@ -6,7 +6,7 @@
 /*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 11:32:23 by eazmir            #+#    #+#             */
-/*   Updated: 2025/02/08 13:53:21 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/05/19 10:21:20 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,5 @@ void	ft_putendl_fd(char *s, int fd)
 	if (fd < 0)
 		return ;
 	ft_putstr_fd(s, fd);
+	write(1,"\n",1);
 }

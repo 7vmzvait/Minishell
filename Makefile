@@ -2,9 +2,6 @@ GREEN = \033[1;32m
 RED = \033[1;31m
 RESET = \033[0m
 
-GREEN = \033[1;32m
-RED = \033[1;31m
-RESET = \033[0m
 CC = cc
 CFLAGS =  -g -Wall -Wextra -Werror
 #SAN =  -g -O0 -fno-omit-frame-pointer -fsanitize=address
@@ -62,7 +59,7 @@ clean:
 	@make -C $(PARSE_DIR) clean
 	@echo "$(RED)Cleaned object files.$(RESET)"
 
-fclean: clean
+fclean:	clean
 	@rm -f $(NAME)
 	@make -C $(LIBFT_DIR) fclean
 	@make -C $(PARSE_DIR) fclean

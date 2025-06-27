@@ -50,6 +50,8 @@ typedef struct s_cmd
     struct s_cmd *next;
 } t_cmd;
 
+
+void print1(t_cmd *cmd);
 // PARSING FUNCTIONS
 t_cmd *parse_input(char *input); // entry point
 

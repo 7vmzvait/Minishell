@@ -14,18 +14,18 @@
 #include "../include/minishell.h"
 #include <stdio.h>
 
-void print_command(t_cmd *cmd)
-{
-    int i;
-    while (cmd)
-    {
-        printf("Command: ");
-        for (i = 0; cmd->args && cmd->args[i]; i++)
-            printf("[%s] ", cmd->args[i]);
-        printf("\n");
-        cmd = cmd->next;
-    }
-}
+// void print_command(t_cmd *cmd)
+// {
+//     int i;
+//     while (cmd)
+//     {
+//         printf("Command: ");
+//         for (i = 0; cmd->args && cmd->args[i]; i++)
+//             printf("[%s] ", cmd->args[i]);
+//         printf("\n");
+//         cmd = cmd->next;
+//     }
+// }
 
 t_cmd  *create_command(char **cmd)
 {
@@ -83,7 +83,7 @@ int main(int argc,char **argv,char **env)
 		if (*input)
 			add_history(input);
         cmd = parse_input(input);
-		print_command(cmd);
+		// print_command(cmd);
 		execute_commands(cmd,ctx);
 	}
 }

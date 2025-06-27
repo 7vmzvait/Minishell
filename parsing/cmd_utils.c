@@ -60,7 +60,7 @@ void add_arg(char ***args, char *new_arg)
         new_args[i] = (*args)[i];
     new_args[count] = new_arg;
     new_args[count + 1] = NULL;
-    free(*args);
+    // free(*args);
     *args = new_args;
 }
 

@@ -43,44 +43,44 @@ t_cmd *parse_input(char *input)
     return (cmds);
 }
 
-char **tokenize(char *line)
-{
-    int i;
-    int j;
-    char **tokens;
-    char *word;
-    char *expanded;
+// char **tokenize(char *line)
+// {
+//     int i;
+//     int j;
+//     char **tokens;
+//     char *word;
+//     char *expanded;
 
-    tokens = malloc(sizeof(char *) * (MAX_TOKENS));
-    if (!tokens)
-        return (NULL);
-    i = 0;
-    j = 0;
-    while (line[i])
-    {
-        while (line[i] && is_space(line[i]))
-            i++;
-        if (!line[i])
-            break;
-        // if (is_special(line[i]))
-        // {
-        //     tokens[j++] = get_special_token(line, &i);
-        // }
-        else if (line[i] == '"' || line[i] == '\'')
-        {
-            word = extract_quoted(line, &i);
-            expanded = expand_variables(word, NULL, 0); // Pass envp & exit_status here
-            free(word);
-            tokens[j++] = expanded;
-        }
-        else
-        {
-            word = extract_word(line, &i);
-            expanded = expand_variables(word, NULL, 0); // Pass envp & exit_status here
-            free(word);
-            tokens[j++] = expanded;
-        }
-    }
-    tokens[j] = NULL;
-    return (tokens);
-}
+//     tokens = malloc(sizeof(char *) * (MAX_TOKENS));
+//     if (!tokens)
+//         return (NULL);
+//     i = 0;
+//     j = 0;
+//     while (line[i])
+//     {
+//         while (line[i] && is_space(line[i]))
+//             i++;
+//         if (!line[i])
+//             break;
+//         // if (is_special(line[i]))
+//         // {
+//         //     tokens[j++] = get_special_token(line, &i);
+//         // }
+//         else if (line[i] == '"' || line[i] == '\'')
+//         {
+//             word = extract_quoted(line, &i);
+//             expanded = expand_variables(word, NULL, 0); // Pass envp & exit_status here
+//             free(word);
+//             tokens[j++] = expanded;
+//         }
+//         else
+//         {
+//             word = extract_word(line, &i);
+//             expanded = expand_variables(word, NULL, 0); // Pass envp & exit_status here
+//             // free(word);
+//             tokens[j++] = expanded; // here segfoult 
+//         }
+//     }
+//     tokens[j] = NULL;
+//     return (tokens);
+// }

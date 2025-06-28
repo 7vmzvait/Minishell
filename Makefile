@@ -4,7 +4,7 @@ RESET = \033[0m
 
 CC = cc
 CFLAGS =  -g -Wall -Wextra -Werror
-#SAN =  -g -O0 -fno-omit-frame-pointer -fsanitize=address
+SAN =  -g -O0 -fno-omit-frame-pointer -fsanitize=address
 SRC_DIR = src
 BUILTINS = $(SRC_DIR)/builtins
 EXEC_DIR = $(SRC_DIR)/exec
@@ -46,7 +46,7 @@ $(PARSE_LIB):
 	@make -C $(PARSE_DIR)
 
 $(NAME): $(OBJS) $(LIBFT_LIB) $(PARSE_LIB)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(PARSE_LIB) $(LIBFT_LIB) $(LIBS)
+	@$(CC) $(CFLAGS) $(SAN) -o $(NAME) $(OBJS) $(PARSE_LIB) $(LIBFT_LIB) $(LIBS)
 	@rm -f $(OBJS)
 	@echo "$(GREEN)Build successful! $(NAME) is ready.$(RESET)"
 

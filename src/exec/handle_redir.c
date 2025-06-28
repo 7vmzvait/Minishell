@@ -66,16 +66,15 @@ int is_redir(char *tokens)
     return (!ft_strcmp(tokens,">") || !ft_strcmp(tokens,">>") || !ft_strcmp(tokens,"<") || !ft_strcmp(tokens,"<<"));
 }
 
-void handle_redir1(t_cmd *cmd, char **tokens)
+void handle_redir2(t_cmd *cmd, char **tokens,int *i)
 {
-    int i;
-    i = 0;
-    while (tokens[i])
+  
+    while (tokens[*i])
     {
-        if (is_redir(tokens[i]))
+        if (is_redir(tokens[*i]))
         {
-            check_redir(cmd, tokens, &i);
+            check_redir(cmd, tokens, i);
         }
-        i++;
+        (*i)++;
     }
 }

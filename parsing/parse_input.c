@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
-
+#include "../include/minishell.h"
 
 t_cmd *parse_tokens1(char **tokens)
 {
@@ -45,13 +45,13 @@ t_cmd *parse_tokens1(char **tokens)
         }
         else if (!ft_strcmp(tokens[i], "<") || !ft_strcmp(tokens[i], "<<"))
         {
-            set_infile(cmd, tokens[i], tokens[i + 1]);
+            handle_redir2(cmd_list,tokens,&i);
             i += 2;
             continue ;
         }
-        else if (!ft_strcmp(tokens[i], ">")|| !ft_strcmp(tokens[i], ">>"))
+        else if (!ft_strcmp(tokens[i], ">") || !ft_strcmp(tokens[i], ">>"))
         {
-            set_outfile(cmd, tokens[i], tokens[i + 1]);
+            handle_redir2(cmd,tokens,&i);
             i += 2;
             continue ;
         }
@@ -61,8 +61,6 @@ t_cmd *parse_tokens1(char **tokens)
         }
         i++;
     }
-    // for (int i = 0; tokens[i]; i++)
-    //     printf("Token %d: [%s]\n", i, tokens[i]);
     return (cmd_list);
 }
 

@@ -12,6 +12,7 @@
 
 #include "parsing.h"
 
+
 static int is_special_char(char c)
 {
     return (c == '|' || c == '<' || c == '>');
@@ -35,7 +36,7 @@ char **tokenize(char *line)
             i++;
         if (!line[i])
             break;
-
+        
         if (line[i] == '"' || line[i] == '\'')
         {
             word = extract_quoted(line, &i);

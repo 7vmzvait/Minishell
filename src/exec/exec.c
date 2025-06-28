@@ -34,10 +34,10 @@ void child_process(t_cmd *tmp,t_context *ctx)
                 close(ctx->fdpipe[0]);
         	    close(ctx->fdpipe[1]);
         }
-        // if (tmp->outfile || tmp->infile)
-        //     redirection(tmp);
-        // print_execute(tmp);
+        if (redirection(tmp) < 0)
+            exit(0);
         exec(tmp->args,ctx->env);
+        exit(0);
 }
 
 void parent_process(t_cmd *tmp , t_context *ctx)

@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include "../libft/libft.h"
 
+
 #define MAX_TOKENS 1024
 // Token Types
 typedef enum e_token_type

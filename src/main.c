@@ -83,7 +83,7 @@ int main(int argc,char **argv,char **env)
 		if (*input)
 			add_history(input);
         cmd = parse_input(input);
-		print2(cmd);
+		// print_cmds(cmd);
 		execute_commands(cmd,ctx);
 	}
 }

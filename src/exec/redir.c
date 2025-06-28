@@ -20,8 +20,11 @@ int open_infile(t_cmd *cmd)
         infile_fd = open(cmd->infile, O_RDONLY);
         if (infile_fd < 0)
         {
-            perror("Error opening input file");
-            return -1;
+    	    write(2, "minishell: ", 11);        
+	        write(2, cmd->infile, strlen(cmd->infile));    
+	        write(2, ": ", 2);                  
+	        perror("");
+            return (1);
         }
         return (infile_fd);
     }
@@ -48,25 +51,30 @@ int open_outfile(t_cmd *cmd)
     return (-1);
 }
 
-void redirection(t_cmd *cmd)
+int  redirection(t_cmd *cmd)
 {
     int fd;
     if (cmd->infile)
     {
         fd = open_infile(cmd);
+        if (fd == 1)
+            return (-1);
         if (fd >= 0)
         {
-            dup2(fd, STDIN_FILENO);
-            close(fd);
+             dup2(fd, STDIN_FILENO);
+             close(fd);
         }
     }
     if (cmd->outfile)
     {
         fd = open_outfile(cmd);
+        if (fd < 0)
+            return (-1);
         if (fd >= 0)
         {
             dup2(fd, STDOUT_FILENO);
             close(fd);
         }
     }
+    return (0);
 }

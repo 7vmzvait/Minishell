@@ -74,7 +74,7 @@ int execute_commands(t_cmd *cmd,t_context *ctx)
     return (status);
 }
 
-
+// test code 
 
 // void exec_command(char **args, char **env) {
 //     char *full_path;

@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+char **tokenize3(char *line);
+
 void print1(t_cmd *cmd)
 {
     int i;
@@ -42,7 +45,7 @@ t_cmd *parse_input(char *input)
     return (cmds);
 }
 
-// char **tokenize(char *line)
+// char **tokenize3(char *line)
 // {
 //     int i;
 //     int j;
@@ -57,15 +60,15 @@ t_cmd *parse_input(char *input)
 //     j = 0;
 //     while (line[i])
 //     {
-//         while (line[i] && is_space(line[i]))
-//             i++;
-//         if (!line[i])
-//             break;
+//         // while (line[i] && is_space(line[i]))
+//         //     i++;
+//         // if (!line[i])
+//         //     break;
 //         // if (is_special(line[i]))
 //         // {
 //         //     tokens[j++] = get_special_token(line, &i);
 //         // }
-//         else if (line[i] == '"' || line[i] == '\'')
+//         if (line[i] == '"' || line[i] == '\'')
 //         {
 //             word = extract_quoted(line, &i);
 //             expanded = expand_variables(word, NULL, 0); // Pass envp & exit_status here

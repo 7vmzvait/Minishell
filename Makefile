@@ -4,7 +4,8 @@ RESET = \033[0m
 
 CC = cc
 CFLAGS =  -g -Wall -Wextra -Werror
-SAN =  -g -O0 -fno-omit-frame-pointer -fsanitize=address
+#SAN =  -g -O0 -fno-omit-frame-pointer -fsanitize=address
+
 SRC_DIR = src
 BUILTINS = $(SRC_DIR)/builtins
 EXEC_DIR = $(SRC_DIR)/exec

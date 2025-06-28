@@ -12,18 +12,6 @@
 
 #include "parsing.h"
 
-void print_command(t_cmd *cmd)
-{
-    int i;
-    while (cmd)
-    {
-        printf("Command: ");
-        for (i = 0; cmd->args && cmd->args[i]; i++)
-            printf("[%s] ", cmd->args[i]);
-        printf("\n");
-        cmd = cmd->next;
-    }
-}
 
 t_cmd *parse_tokens1(char **tokens)
 {
@@ -73,8 +61,8 @@ t_cmd *parse_tokens1(char **tokens)
         }
         i++;
     }
-    for (int i = 0; tokens[i]; i++)
-        printf("Token %d: [%s]\n", i, tokens[i]);
+    // for (int i = 0; tokens[i]; i++)
+    //     printf("Token %d: [%s]\n", i, tokens[i]);
     return (cmd_list);
 }
 

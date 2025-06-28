@@ -6,9 +6,10 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:19:54 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/28 21:07:25 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/28 21:47:51 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "parsing.h"
 
@@ -24,10 +25,13 @@ char **tokenize(char *line)
     int j = 0;
     char *word;
     char *expanded;
+    int is_single_quote;
 
     tokens = malloc(sizeof(char *) * MAX_TOKENS);
     if (!tokens)
         return (NULL);
+
+    extern char **__environ;
 
     while (line[i])
     {
@@ -35,11 +39,15 @@ char **tokenize(char *line)
             i++;
         if (!line[i])
             break;
-        extern char **__environ;
+
         if (line[i] == '"' || line[i] == '\'')
         {
-            word = extract_quoted(line, &i);
-            expanded = expand_variables(word, __environ, 0); // add envp and exit_status if needed
+            is_single_quote = 0;
+            word = extract_quoted(line, &i, &is_single_quote);  // ✅ now passes 3 args
+            if (!is_single_quote)
+                expanded = expand_variables(word, __environ, 0, 0);  // ✅ not in single quotes
+            else
+                expanded = ft_strdup(word); // ✅ don't expand in single quotes
             free(word);
             tokens[j++] = expanded;
         }
@@ -48,14 +56,13 @@ char **tokenize(char *line)
             int len = 1;
             if ((line[i] == '<' && line[i + 1] == '<') || (line[i] == '>' && line[i + 1] == '>'))
                 len = 2;
-
             tokens[j++] = ft_substr(line, i, len);
             i += len;
         }
         else
         {
-            word = extract_word(line, &i);
-            expanded = expand_variables(word, __environ, 0); // handle env later
+            word = extract_word(line, &i);  // normal word
+            expanded = expand_variables(word, __environ, 0, 0); // ✅ assume outside quotes
             free(word);
             tokens[j++] = expanded;
         }

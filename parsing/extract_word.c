@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:01:22 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/28 20:04:17 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/28 21:21:35 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ char *extract_word(const char *input, int *i)
     {
         if (input[*i] == '\'' || input[*i] == '"')
         {
-            fragment = extract_quoted(input, i);
+            int is_single_quote = 0;
+            fragment = extract_quoted(input, i, &is_single_quote);
         }
         else
         {

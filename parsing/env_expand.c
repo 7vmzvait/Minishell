@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:24:10 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/28 20:31:27 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/28 21:18:07 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,53 +28,47 @@ static char *get_env_value(char *key, char **envp)
     return (NULL);
 }
 
-char *expand_variables(const char *input, char **envp, int exit_status)
+#include "parsing.h"
+
+char *expand_variables(const char *input, char **envp, int exit_status, int in_single_quotes)
 {
-    char *result;
+    if (in_single_quotes)
+        return ft_strdup(input);  // Skip expansion if in single quotes
+
+    char *result = ft_strdup("");
     int i = 0;
-    int len = ft_strlen(input);
-    char *var_name;
-    char *var_value;
-    char *exit_str;
 
-    result = ft_strdup(""); // start with empty string
-    if (!result)
-        return NULL;
-
-    while (i < len)
+    while (input[i])
     {
         if (input[i] == '$')
         {
             i++;
-            if (input[i] == '?')
+            if (input[i] == '?')  // handle $?
             {
-                exit_str = ft_itoa_custom(exit_status);
+                char *exit_str = ft_itoa_custom(exit_status);
                 result = strjoin_and_free(result, exit_str);
-                free(exit_str);
                 i++;
             }
-            else if (is_valid_var_char(input[i]))
+            else if (ft_isalpha(input[i]) || input[i] == '_')
             {
-                
-                // extract variable name starting at input[i]
-                var_name = extract_var_name(input, &i);
-                var_value = get_env_value(var_name, envp);
-                if (!var_value)
-                    var_value = ""; // no value found -> empty
-                result = strjoin_and_free(result, var_value);
-                free(var_name);
+                int start = i;
+                while (ft_isalnum(input[i]) || input[i] == '_')
+                    i++;
+
+                char *key = ft_substr(input, start, i - start);
+                char *value = get_env_value(key, envp);
+                result = strjoin_and_free(result, value ? value : "");
+                free(key);
             }
             else
             {
-                // $ followed by non-valid var char, just add '$' + char
                 result = strjoin_and_free_char(result, '$');
-                if (input[i])
-                    result = strjoin_and_free_char(result, input[i++]);
             }
         }
         else
         {
-            result = strjoin_and_free_char(result, input[i++]);
+            result = strjoin_and_free_char(result, input[i]);
+            i++;
         }
     }
     return result;

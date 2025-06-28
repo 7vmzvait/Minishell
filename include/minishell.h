@@ -74,6 +74,6 @@ void	free_split(char **split_path);
 int		open_file(char *file, int mode);
 char	*get_next_line(int fd);
 void	error(int mode);
-void	exec(char *av, char **env);
+void	exec(char **cmd, char **env);
 #endif
 

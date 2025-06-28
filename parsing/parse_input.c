@@ -69,13 +69,12 @@ t_cmd *parse_tokens1(char **tokens)
         }
         else
         {
-            printf("hmmmmmmmmmmmmmm");
             add_arg_to_cmd(cmd, ft_strdup(tokens[i]));
         }
         i++;
     }
-    tokens[i] = NULL;
-    print1(cmd_list);
+    for (int i = 0; tokens[i]; i++)
+        printf("Token %d: [%s]\n", i, tokens[i]);
     return (cmd_list);
 }
 

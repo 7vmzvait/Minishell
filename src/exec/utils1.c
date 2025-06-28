@@ -72,12 +72,12 @@ char	*check_command(char *cmd, char **env)
 	return (res);
 }
 
-void	exec(char *av, char **env)
+void	exec(char **cmd, char **env)
 {
-	char	**cmd;
+	// char	**cmd;
 	char	*path;
 
-	cmd = ft_split(av, ' ');
+	// cmd = ft_split(av, ' ');
 	if (!cmd || !cmd[0] || !cmd[0][0])
 	{
 		free_split(cmd);
@@ -100,3 +100,5 @@ void	exec(char *av, char **env)
 		exit(EXIT_FAILURE);
 	}
 }
+
+

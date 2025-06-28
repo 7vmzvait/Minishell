@@ -38,7 +38,6 @@ t_cmd *parse_input(char *input)
         return (NULL);
     }
     cmds = parse_tokens1(tokens);
-    print1(cmds);
     //free_tokens(tokens);
     return (cmds);
 }

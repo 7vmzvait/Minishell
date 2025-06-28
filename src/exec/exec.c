@@ -36,7 +36,7 @@ void child_process(t_cmd *tmp,t_context *ctx)
         }
         // if (tmp->outfile || tmp->infile)
         //     redirection(tmp);
-        print_execute(tmp);
+        // print_execute(tmp);
         exec(tmp->args,ctx->env);
 }
 

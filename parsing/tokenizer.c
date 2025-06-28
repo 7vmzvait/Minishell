@@ -6,12 +6,11 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:19:54 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 15:21:18 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/28 21:07:25 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
 
 static int is_special_char(char c)
 {
@@ -36,11 +35,11 @@ char **tokenize(char *line)
             i++;
         if (!line[i])
             break;
-        
+        extern char **__environ;
         if (line[i] == '"' || line[i] == '\'')
         {
             word = extract_quoted(line, &i);
-            expanded = expand_variables(word, NULL, 0); // add envp and exit_status if needed
+            expanded = expand_variables(word, __environ, 0); // add envp and exit_status if needed
             free(word);
             tokens[j++] = expanded;
         }
@@ -56,7 +55,7 @@ char **tokenize(char *line)
         else
         {
             word = extract_word(line, &i);
-            expanded = expand_variables(word, NULL, 0); // handle env later
+            expanded = expand_variables(word, __environ, 0); // handle env later
             free(word);
             tokens[j++] = expanded;
         }

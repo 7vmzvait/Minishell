@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 09:34:41 by eazmir            #+#    #+#             */
-/*   Updated: 2025/06/23 15:40:12 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/06/28 21:09:01 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int main(int argc,char **argv,char **env)
     ctx->env = env;
 	while (1)
 	{
-		input = readline("> ");
+		input = readline("minishell $> ");
 		if (!input)
 			break;
 		if (*input)

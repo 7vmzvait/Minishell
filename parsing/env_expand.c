@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:24:10 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 15:25:54 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/28 20:31:27 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char *expand_variables(const char *input, char **envp, int exit_status)
             }
             else if (is_valid_var_char(input[i]))
             {
+                
                 // extract variable name starting at input[i]
                 var_name = extract_var_name(input, &i);
                 var_value = get_env_value(var_name, envp);

@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:02:06 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/29 11:59:10 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:47:00 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@
 // }
 char *extract_quoted(const char *input, int *i, int *is_single_quote)
 {
-    char quote = input[*i]; // ' or "
-    *is_single_quote = (quote == '\''); // set flag
-    (*i)++; // move past opening quote
+    char quote = input[*i];
+    *is_single_quote = (quote == '\'');
+    (*i)++;
 
     int start = *i;
 
@@ -48,7 +48,6 @@ char *extract_quoted(const char *input, int *i, int *is_single_quote)
 
     if (input[*i] != quote)
     {
-        // 🚨 Unclosed quote found!
         ft_putstr_fd("syntax error: unclosed quote\n", 2);
         return NULL;
     }

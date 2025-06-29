@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:19:54 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/29 12:05:16 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/29 15:23:45 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ char **tokenize(char *line)
     char **tokens;
     int i = 0;
     int j = 0;
-    char *word;
-    char *expanded;
     int is_single_quote;
+    char *fragment;
+    char *word;
+    char *tmp;
 
     tokens = malloc(sizeof(char *) * MAX_TOKENS);
     if (!tokens)
@@ -48,65 +49,49 @@ char **tokenize(char *line)
             i++;
         if (!line[i])
             break;
+        word = ft_strdup("");
 
-        if (line[i] == '"' || line[i] == '\'')
+        while (line[i] && !is_space(line[i]) && !is_special_char(line[i]))
         {
-            is_single_quote = 0;
-            word = extract_quoted(line, &i, &is_single_quote);
-            if (!word) // 🛑 Unclosed quote or malloc failed
+            if (line[i] == '\'' || line[i] == '\"')
             {
-                free_all(tokens);
-                return NULL;
-            }
+                is_single_quote = (line[i] == '\'');
+                fragment = extract_quoted(line, &i, &is_single_quote);
 
-            if (!is_single_quote)
-                expanded = expand_variables(word, __environ, 0, 0); // expand
+                if (!is_single_quote)
+                    tmp = expand_variables(fragment, __environ, 0, 0);
+                else
+                    tmp = ft_strdup(fragment);
+
+                free(fragment);
+            }
             else
-                expanded = ft_strdup(word); // no expand
-
-            free(word);
-            if (!expanded)
             {
-                free_all(tokens);
-                return NULL;
+                fragment = extract_word(line, &i);
+                tmp = expand_variables(fragment, __environ, 0, 0);
+                free(fragment);
             }
 
-            tokens[j++] = expanded;
+            char *joined = ft_strjoin(word, tmp);
+            free(word);
+            free(tmp);
+            word = joined;
         }
-        else if (is_special_char(line[i]))
+        if (word && *word)
+            tokens[j++] = word;
+        else
+            free(word);
+        if (is_special_char(line[i]))
         {
             int len = 1;
             if ((line[i] == '<' && line[i + 1] == '<') || (line[i] == '>' && line[i + 1] == '>'))
                 len = 2;
 
             tokens[j++] = ft_substr(line, i, len);
-            if (!tokens[j - 1])
-            {
-                free_all(tokens);
-                return NULL;
-            }
             i += len;
         }
-        else
-        {
-            word = extract_word(line, &i);
-            if (!word)
-            {
-                free_all(tokens);
-                return NULL;
-            }
-
-            expanded = expand_variables(word, __environ, 0, 0);
-            free(word);
-            if (!expanded)
-            {
-                free_all(tokens);
-                return NULL;
-            }
-
-            tokens[j++] = expanded;
-        }
     }
+
     tokens[j] = NULL;
     return tokens;
 }

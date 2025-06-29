@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:19:54 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/29 15:23:45 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/29 17:57:44 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,13 @@ char **tokenize(char *line)
             i++;
         if (!line[i])
             break;
+
         word = ft_strdup("");
+        if (!word)
+        {
+            free_all(tokens);
+            return NULL;
+        }
 
         while (line[i] && !is_space(line[i]) && !is_special_char(line[i]))
         {
@@ -58,10 +64,18 @@ char **tokenize(char *line)
                 is_single_quote = (line[i] == '\'');
                 fragment = extract_quoted(line, &i, &is_single_quote);
 
+                if (!fragment) // ⚠️ handle unclosed quote
+                {
+                    printf("syntax error: unclosed quote\n");
+                    free(word);
+                    free_all(tokens);
+                    return NULL;
+                }
+
                 if (!is_single_quote)
-                    tmp = expand_variables(fragment, __environ, 0, 0);
+                    tmp = expand_variables(fragment, __environ, 0, 0); // expand only in double quotes
                 else
-                    tmp = ft_strdup(fragment);
+                    tmp = ft_strdup(fragment); // keep literal in single quotes
 
                 free(fragment);
             }
@@ -76,11 +90,18 @@ char **tokenize(char *line)
             free(word);
             free(tmp);
             word = joined;
+            if (!word)
+            {
+                free_all(tokens);
+                return NULL;
+            }
         }
+
         if (word && *word)
             tokens[j++] = word;
         else
             free(word);
+
         if (is_special_char(line[i]))
         {
             int len = 1;

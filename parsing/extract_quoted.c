@@ -6,52 +6,26 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:02:06 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/29 17:55:41 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/29 19:09:41 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-// char *extract_quoted(const char *input, int *i)
-// {
-//     int start, len = 0;
-//     char quote;
-
-//     quote = input[*i];
-//     if (quote != '\'' && quote != '\"')
-//         return NULL;
-
-//     (*i)++; // Skip opening quote
-//     start = *i;
-
-//     while (input[*i] && input[*i] != quote)
-//     {
-//         (*i)++;
-//         len++;
-//     }
-
-//     if (input[*i] == quote)
-//         (*i)++; // Skip closing quote
-
-//     return ft_substr(input, start, len);
-// }
 char *extract_quoted(const char *input, int *i, int *is_single_quote)
 {
-    char quote = input[*i];
-    *is_single_quote = (quote == '\'');
+    char quote = input[*i];  // ' or "
+    *is_single_quote = (quote == '\''); // <-- use the parameter ✅
     (*i)++;
-
     int start = *i;
 
     while (input[*i] && input[*i] != quote)
         (*i)++;
 
-    if (!input[*i])
-        return NULL;
+    if (input[*i] != quote)
+        return NULL; // unclosed quote
 
     int len = *i - start;
     char *quoted = ft_substr(input, start, len);
-    (*i)++;
-
+    (*i)++; // skip closing quote
     return quoted;
 }

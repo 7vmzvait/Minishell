@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:19:54 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/29 17:57:44 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/29 19:13:03 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ char **tokenize(char *line)
 
         word = ft_strdup("");
         if (!word)
-        {
-            free_all(tokens);
-            return NULL;
-        }
+            return (free_all(tokens), NULL);
 
         while (line[i] && !is_space(line[i]) && !is_special_char(line[i]))
         {
@@ -63,8 +60,7 @@ char **tokenize(char *line)
             {
                 is_single_quote = (line[i] == '\'');
                 fragment = extract_quoted(line, &i, &is_single_quote);
-
-                if (!fragment) // ⚠️ handle unclosed quote
+                if (!fragment)
                 {
                     printf("syntax error: unclosed quote\n");
                     free(word);
@@ -73,28 +69,48 @@ char **tokenize(char *line)
                 }
 
                 if (!is_single_quote)
-                    tmp = expand_variables(fragment, __environ, 0, 0); // expand only in double quotes
+                    tmp = expand_variables(fragment, __environ, 0, 0);
                 else
-                    tmp = ft_strdup(fragment); // keep literal in single quotes
-
+                    tmp = ft_strdup(fragment);
                 free(fragment);
             }
             else
             {
                 fragment = extract_word(line, &i);
+                if (!fragment)
+                {
+                    free(word);
+                    free_all(tokens);
+                    return NULL;
+                }
                 tmp = expand_variables(fragment, __environ, 0, 0);
                 free(fragment);
+                fragment = extract_quoted(line, &i, &is_single_quote);
+                if (!fragment)
+                {
+                    printf("syntax error: unclosed quote\n");
+                    free(word);
+                    free_all(tokens);
+                    return NULL;
+                }
+            }
+
+            if (!tmp)
+            {
+                free(word);
+                free_all(tokens);
+                return NULL;
             }
 
             char *joined = ft_strjoin(word, tmp);
             free(word);
             free(tmp);
-            word = joined;
-            if (!word)
+            if (!joined)
             {
                 free_all(tokens);
                 return NULL;
             }
+            word = joined;
         }
 
         if (word && *word)
@@ -107,7 +123,6 @@ char **tokenize(char *line)
             int len = 1;
             if ((line[i] == '<' && line[i + 1] == '<') || (line[i] == '>' && line[i + 1] == '>'))
                 len = 2;
-
             tokens[j++] = ft_substr(line, i, len);
             i += len;
         }

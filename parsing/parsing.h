@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:43:11 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/28 21:45:43 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/29 12:01:58 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,6 @@ char *strjoin_and_free(char *s1, const char *s2);
 char *strjoin_and_free_char(char *s1, char c);
 int is_valid_var_char(char c);
 char *extract_var_name(const char *input, int *i);
+
+void free_all(char **tokens);
 #endif

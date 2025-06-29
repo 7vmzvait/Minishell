@@ -6,16 +6,25 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:19:54 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/28 21:47:51 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/29 12:05:16 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "parsing.h"
 
 static int is_special_char(char c)
 {
     return (c == '|' || c == '<' || c == '>');
+}
+
+void free_all(char **tokens)
+{
+    int i = 0;
+    if (!tokens)
+        return;
+    while (tokens[i])
+        free(tokens[i++]);
+    free(tokens);
 }
 
 char **tokenize(char *line)
@@ -43,12 +52,25 @@ char **tokenize(char *line)
         if (line[i] == '"' || line[i] == '\'')
         {
             is_single_quote = 0;
-            word = extract_quoted(line, &i, &is_single_quote);  // ✅ now passes 3 args
+            word = extract_quoted(line, &i, &is_single_quote);
+            if (!word) // 🛑 Unclosed quote or malloc failed
+            {
+                free_all(tokens);
+                return NULL;
+            }
+
             if (!is_single_quote)
-                expanded = expand_variables(word, __environ, 0, 0);  // ✅ not in single quotes
+                expanded = expand_variables(word, __environ, 0, 0); // expand
             else
-                expanded = ft_strdup(word); // ✅ don't expand in single quotes
+                expanded = ft_strdup(word); // no expand
+
             free(word);
+            if (!expanded)
+            {
+                free_all(tokens);
+                return NULL;
+            }
+
             tokens[j++] = expanded;
         }
         else if (is_special_char(line[i]))
@@ -56,14 +78,32 @@ char **tokenize(char *line)
             int len = 1;
             if ((line[i] == '<' && line[i + 1] == '<') || (line[i] == '>' && line[i + 1] == '>'))
                 len = 2;
+
             tokens[j++] = ft_substr(line, i, len);
+            if (!tokens[j - 1])
+            {
+                free_all(tokens);
+                return NULL;
+            }
             i += len;
         }
         else
         {
-            word = extract_word(line, &i);  // normal word
-            expanded = expand_variables(word, __environ, 0, 0); // ✅ assume outside quotes
+            word = extract_word(line, &i);
+            if (!word)
+            {
+                free_all(tokens);
+                return NULL;
+            }
+
+            expanded = expand_variables(word, __environ, 0, 0);
             free(word);
+            if (!expanded)
+            {
+                free_all(tokens);
+                return NULL;
+            }
+
             tokens[j++] = expanded;
         }
     }

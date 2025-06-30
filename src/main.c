@@ -6,31 +6,30 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 09:34:41 by eazmir            #+#    #+#             */
-/*   Updated: 2025/06/28 21:09:01 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/29 19:28:28 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/minishell.h"
 #include <stdio.h>
 
 void print2(t_cmd *cmd)
 {
-    int i;
-    while (cmd)
-    {
-        printf("Command: ");
-        for (i = 0; cmd->args && cmd->args[i]; i++)
-            printf("[%s] ", cmd->args[i]);
-        printf("\n");
-        cmd = cmd->next;
-    }
+	int i;
+	while (cmd)
+	{
+		printf("Command: ");
+		for (i = 0; cmd->args && cmd->args[i]; i++)
+			printf("[%s] ", cmd->args[i]);
+		printf("\n");
+		cmd = cmd->next;
+	}
 }
 
-t_cmd  *create_command(char **cmd)
+t_cmd *create_command(char **cmd)
 {
 	t_cmd *node = malloc(sizeof(t_cmd));
-	
+
 	if (node == NULL)
 		return (NULL);
 	node->args = cmd;
@@ -47,7 +46,7 @@ t_cmd *parse_commands(char *args)
 	t_cmd *node;
 
 	i = 0;
-	split_pip = ft_split(args,'|');
+	split_pip = ft_split(args, '|');
 	while (split_pip[i])
 	{
 		node = create_command(&split_pip[i]);
@@ -61,20 +60,19 @@ t_cmd *parse_commands(char *args)
 	return (head);
 }
 
-int main(int argc,char **argv,char **env)
+int main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
-	
 
 	t_cmd *cmd;
-    t_context *ctx;
+	t_context *ctx;
 	char *input;
 
 	// char **args;
 	cmd = malloc(sizeof(t_cmd));
-    ctx = malloc (sizeof(t_context));
-    ctx->env = env;
+	ctx = malloc(sizeof(t_context));
+	ctx->env = env;
 	while (1)
 	{
 		input = readline("minishell $> ");
@@ -82,8 +80,8 @@ int main(int argc,char **argv,char **env)
 			break;
 		if (*input)
 			add_history(input);
-        cmd = parse_input(input);
+		cmd = parse_input(input);
 		// print_cmds(cmd);
-		execute_commands(cmd,ctx);
+		execute_commands(cmd, ctx);
 	}
 }

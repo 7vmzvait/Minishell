@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:19:54 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/30 09:21:43 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/30 14:03:17 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ static int is_special_char(char c)
     return (c == '|' || c == '<' || c == '>');
 }
 
-void free_all(char **tokens)
-{
-    int i = 0;
-    if (!tokens) return;
-    while (tokens[i]) free(tokens[i++]);
-    free(tokens);
-}
+// void free_all(char **tokens)
+// {
+//     int i = 0;
+//     if (!tokens) return;
+//     while (tokens[i])
+//     {
+//         i++;
+//     }
+//     printf("%d\n" , i);
+// }
 
 char **tokenize(char *line)
 {
@@ -33,7 +36,8 @@ char **tokenize(char *line)
     char *fragment, *word, *tmp;
 
     tokens = malloc(sizeof(char *) * MAX_TOKENS);
-    if (!tokens) return NULL;
+    if (!tokens)
+        return NULL;
 
     extern char **__environ;
 
@@ -46,7 +50,7 @@ char **tokenize(char *line)
         word = ft_strdup("");
         if (!word)
         {
-            free_all(tokens);
+            free(tokens);
             return NULL;
         }
 
@@ -58,9 +62,9 @@ char **tokenize(char *line)
                 fragment = extract_quoted(line, &i, &is_single_quote);
                 if (!fragment)
                 {
-                    fprintf(stderr, "syntax error: unclosed quote\n");
+                    printf("syntax error: unclosed quote\n");
                     free(word);
-                    free_all(tokens);
+                    free(tokens);
                     return NULL;
                 }
 
@@ -75,9 +79,9 @@ char **tokenize(char *line)
                 fragment = extract_word(line, &i);
                 if (!fragment)
                 {
-                    fprintf(stderr, "syntax error: parsing failed\n");
+                    printf("syntax error: parsing failed\n");
                     free(word);
-                    free_all(tokens);
+                    free(tokens);
                     return NULL;
                 }
                 tmp = expand_variables(fragment, __environ, 0, 0);

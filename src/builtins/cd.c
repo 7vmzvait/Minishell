@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: eazmir <eazmir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 14:03:42 by eazmir            #+#    #+#             */
-/*   Updated: 2025/05/28 18:39:27 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/06/30 18:01:29 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int  update_env_path(t_shell **shell,char *key, char *new_value)
 	return (1);
 }
 
-void	cd(t_shell **shell, char **args)
+int	ft_cd(t_shell **shell, char **args)
 {
 	char	new_path[1024];
 	char	old_path[1024];
@@ -46,4 +46,5 @@ void	cd(t_shell **shell, char **args)
 	chdir(path);
 	getcwd(new_path,sizeof(new_path));
 	update_env_path(shell,"PWD",new_path);
+	return (0);
 }

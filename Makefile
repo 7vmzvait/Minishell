@@ -4,7 +4,7 @@ RESET = \033[0m
 
 CC = cc
 CFLAGS =  -g -Wall -Wextra -Werror
-# SAN =  -g -O0 -fno-omit-frame-pointer -fsanitize=address
+# SAN =  -g -O0 -fno-omit-frame-pointer -fsanitize=address# 
 
 SRC_DIR = src
 BUILTINS = $(SRC_DIR)/builtins
@@ -18,6 +18,7 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 PARSE_LIB = $(PARSE_DIR)/parsing.a
 
 SRCS = \
+	test_export.c\
 	$(SRC_DIR)/main.c \
 	$(EXEC_DIR)/utils1.c \
 	$(EXEC_DIR)/utils2.c \
@@ -30,11 +31,10 @@ SRCS = \
 	$(BUILTINS)/env.c \
 	$(BUILTINS)/pwd.c \
 	$(BUILTINS)/unset.c \
-	$(EXPORT_DIR)/export.c \
-	$(EXPORT_DIR)/tools1.c \
-	$(EXPORT_DIR)/tools2.c \
-	$(EXPORT_DIR)/tools3.c \
-	$(EXPORT_DIR)/tools4.c
+	# $(EXPORT_DIR)/tools1.c \
+	# $(EXPORT_DIR)/tools2.c \
+	# $(EXPORT_DIR)/tools3.c \
+	# $(EXPORT_DIR)/tools4.c
 
 OBJS = $(SRCS:.c=.o)
 

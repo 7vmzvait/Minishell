@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:43:11 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/30 11:49:58 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/26 18:09:55 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../libft/libft.h"
+
 
 #define MAX_TOKENS 1024
 // Token Types
@@ -30,26 +31,27 @@ typedef enum e_token_type
     WORD
 } t_token_type;
 
+// Token Struc
+typedef struct s_token
+{
+    t_token_type type;
+    char *value;
+    struct s_token *next;
+} t_token;
+
 // Command Struct
 typedef struct s_cmd
 {
     char **args;
     char *infile;
     char *outfile;
+    int fd;
     int append;
     int heredoc;
     int pipe_to_next;
     struct s_cmd *next;
 } t_cmd;
 
-typedef struct s_token
-{
-    t_token_type type;
-    char *value;
-    int in_single_quotes;
-    int in_double_quotes;
-    struct s_token *next;
-} t_token;
 
 void print1(t_cmd *cmd);
 // PARSING FUNCTIONS
@@ -64,8 +66,7 @@ void skip_spaces(char *line, int *i);
 t_token_type get_token_type(char *str);
 char *extract_word(const char *input, int *i);
 char *extract_special(const char *input, int *i);
-char *extract_quoted(const char *input, int *i, int *is_single_quote);
-char *extract_unquoted(const char *input, int *i);
+char *extract_quoted(const char *input, int *i);
 
 // COMMAND BUILDERS
 t_cmd *new_cmd_node(void);
@@ -92,15 +93,15 @@ t_token *new_token(t_token_type type, char *value);
 void add_token(t_token **head, t_token *new_token);
 void free_token_list(t_token *head);
 
-// cmd builder
+// cmd builder 
 t_cmd *new_cmd_node(void);
 void add_arg_to_cmd(t_cmd *cmd, char *arg);
 void add_cmd_to_list(t_cmd **list, t_cmd *new_cmd);
 
 // for expand
-char *expand_variables(const char *input, char **envp, int exit_status, int in_single_quotes);
+char *expand_variables(const char *input, char **envp, int exit_status);
 
-// to know the type of tokens
+// to know the type of tokens 
 t_token_type get_token_type(char *str);
 
 t_cmd *parse_tokens(t_token *tokens);
@@ -108,11 +109,10 @@ t_cmd *parse_tokens1(char **tokens);
 t_cmd *parse_input(char *input);
 t_token *tokenize_input(char *str);
 
+
 char *ft_itoa_custom(int n);
-char *strjoin_and_free(char *s1, const char *s2);
+char *strjoin_and_free(char *s1,const  char *s2);
 char *strjoin_and_free_char(char *s1, char c);
 int is_valid_var_char(char c);
 char *extract_var_name(const char *input, int *i);
-
-void free_all(char **tokens);
 #endif

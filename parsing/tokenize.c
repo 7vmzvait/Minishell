@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:45:42 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/28 21:22:19 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:45:56 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ t_token *tokenize_input(char *input)
         }
         else if (input[i] == '\'' || input[i] == '\"')
         {
-            int is_single_quote = 0;
-            word = extract_quoted(input, &i, &is_single_quote);
+            word = extract_quoted(input, &i);
             add_token(&tokens, new_token(WORD, word));
         }
         else

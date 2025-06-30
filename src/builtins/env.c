@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: eazmir <eazmir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 08:55:07 by eazmir            #+#    #+#             */
-/*   Updated: 2025/05/28 13:21:10 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/06/30 17:50:13 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char *create_env_line(t_shell *shell)
 	return (join);	
 }
 
-int  ft_env(t_shell **shell,char **args,int fd)
+int  ft_env(t_shell **shell,char **args)
 {
 	t_shell *tmp;
 	char	*env_path;
@@ -56,8 +56,8 @@ int  ft_env(t_shell **shell,char **args,int fd)
 	while (tmp)
 	{
 		env_path = create_env_line(tmp);
-		write(fd,env_path,ft_strlen(env_path));
-		write(fd,"\n",1);
+		write(STDOUT_FILENO,env_path,ft_strlen(env_path));
+		write(STDOUT_FILENO,"\n",1);
 		free(env_path);
 		tmp = tmp->next;
 	}

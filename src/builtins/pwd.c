@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: eazmir <eazmir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 09:58:08 by eazmir            #+#    #+#             */
-/*   Updated: 2025/05/28 19:01:26 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/06/30 18:13:14 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../include/minishell.h"
 
-int pwd(char **args,int fd)
+int ft_pwd(char **args)
 {
 	char pwd[1024];
 	char *msg;
@@ -26,7 +26,7 @@ int pwd(char **args,int fd)
 		write(2,"\n",1);
 		return (1);
 	}
-	ft_putendl_fd(pwd,fd);
+	ft_putendl_fd(pwd,1);
 	return (0);
 }
 

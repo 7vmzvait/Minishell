@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: eazmir <eazmir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 09:28:46 by eazmir            #+#    #+#             */
-/*   Updated: 2025/05/28 19:00:49 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/06/30 18:12:45 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,33 @@ typedef struct s_shell
 //     int pipe_to_next;
 //     struct s_cmd *next;
 // } t_cmd;
+int ft_export1(t_shell **shell,char **env,char **args,t_cmd *cmd);
 
-char  *extract_args(char *args,char opt);
-void join_key(t_shell **shell ,char *args);
+// char *create_env_line(t_shell *shell);
+// char  *extract_args(char *args,char opt);
+// void join_key(t_shell **shell ,char *args);
 void add_back(t_shell **head,t_shell *last);
-char **clean_str(char *str);
+// char **clean_str(char *str);
 int path_len(char **tab);
-void	printList(t_shell **shell);
+// void	printList(t_shell **shell);
 t_shell *create_node(char *args);
-char   **ft_sort_tab(char **tab,int len);
-char *join_key_with_value(t_shell *shell);
-int is_valid_export_syntax(char *args);
-char  *extract_keys(char *args,char opt);
+// char   **ft_sort_tab(char **tab,int len);
+// char *join_key_with_value(t_shell *shell);
+// int is_valid_export_syntax(char *args);
+// char  *extract_keys(char *args,char opt);
 void	add_node(t_shell **shell,char **env,char *args);
 void handle_redir2(t_cmd *cmd, char **tokens,int *i);
 int is_redir(char *tokens);
-int     execute_commands(t_cmd *cmd,t_context *ctx);
+int     execute_commands(t_cmd *cmd,t_context *ctx,t_shell **shell);
 int    redirection(t_cmd *cmd);
-void	cd(t_shell **shell, char **args);
-void	ft_exit(char **args);
-void	echo(char **args);
-int	    ft_env(t_shell **shell,char **args,int fd);
-int	    pwd(char **args,int fd);
-int	    unset(t_shell **shell,char **args);
-void	printList(t_shell **node);
-void	ft_export(t_shell **shell,char **env,char **args);
+int	ft_cd(t_shell **shell, char **args);
+int	ft_exit(char **args);
+int	ft_echo(char **args);
+int	    ft_env(t_shell **shell,char **args);
+int	    ft_pwd(char **args);
+int	    ft_unset(t_shell **shell,char **args);
+// void	printList(t_shell **node);
+// void	ft_export(t_shell **shell,char **env,t_cmd *cmd);
 char	**get_env(t_shell *shell);
 void	free_split(char **split_path);
 int		open_file(char *file, int mode);

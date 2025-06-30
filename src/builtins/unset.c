@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: eazmir <eazmir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:39:54 by eazmir            #+#    #+#             */
-/*   Updated: 2025/05/28 11:52:23 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/06/30 18:01:57 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int   unlink_variable_node(t_shell **shell,char *args)
 	return (1);
 }
 
-int unset(t_shell **shell ,char **args)
+int ft_unset(t_shell **shell ,char **args)
 {
 
 	int	i;

@@ -22,6 +22,7 @@ t_cmd *new_cmd_node(void)
     cmd->outfile = NULL;
     cmd->append = 0;
     cmd->heredoc = 0;
+    cmd->fd = 1;
     cmd->pipe_to_next = 0;
     cmd->next = NULL;
     return cmd;

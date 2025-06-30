@@ -11,39 +11,44 @@
 
 #include "../../../include/minishell.h"
 
-void ft_export(t_shell **shell,char **env,char **args)
+void ft_export(t_shell **shell,char **env,t_cmd *cmd)
 {
-	int	i;
-	char	*plus;
-	char	*equal;
-	char	**cleaned;
-
-	if (!args[0])
+	// int	i;
+	// char	*plus;
+	// char	*equal;
+	// char	**cleaned;
+	(void)env;
+	if (!cmd->args[0])
 		return;
-	if (!args[1])
+	if (!cmd->args[1])
 	{
 		printList(shell);
 		return ;
 	}
-	if(is_valid_export_syntax(args[1]) != 0)
+	if(is_valid_export_syntax(cmd->args[1]) != 0)
 		return;
-	cleaned = clean_str(args[1]);
-	i = 0;
-	while (cleaned[i])
-	{
-		plus = ft_strchr(cleaned[i],'+');
-		equal = ft_strchr(args[i],'=');
-		if (plus && equal)
-		{
-			if (plus + 1 == equal)
-				join_key(shell,cleaned[i]);
-			else
-				add_node(shell,env,cleaned[i]);
-		}
-		else
-			add_node(shell,env,cleaned[i]);
-		i++;
-	}
+	add_node(shell,NULL,cmd->args[1]);
+	// cleaned = clean_str(cmd->args[1]);
+	// i = 0;
+	// while (cleaned[i])
+	// {
+	// 	plus = ft_strchr(cmd->args[i],'+');
+	// 	equal = ft_strchr(cmd->args[i],'=');
+	// 	if (plus && equal)
+	// 	{
+	// 		if (plus + 1 == equal)
+	// 			join_key(shell,cleaned[i]);
+	// 		else
+	// 			add_node(shell,env,cleaned[i]);
+	// 	}
+	// 	else
+	// 	{
+	// 		add_node(shell,env,cleaned[i]);
+	// 		printf("am here\n");
+	// 	}
+			
+	// 	i++;
+	// }
 }
 
 

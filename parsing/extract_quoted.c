@@ -6,11 +6,9 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:02:06 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/30 09:31:04 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/06/30 11:43:47 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "parsing.h"
 
 #include "parsing.h"
 
@@ -29,6 +27,7 @@ char *extract_quoted(const char *input, int *i, int *is_single_quote)
     }
     if (input[*i] != quote)
         return NULL;
+    
 
     char *quoted = ft_substr(input, start, len);
 

@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../libft/libft.h"
+// #include  "../include/minishell.h"
 
 
 #define MAX_TOKENS 1024
@@ -39,12 +40,15 @@ typedef struct s_token
     struct s_token *next;
 } t_token;
 
+
+
 // Command Struct
 typedef struct s_cmd
 {
     char **args;
     char *infile;
     char *outfile;
+    int fd;
     int append;
     int heredoc;
     int pipe_to_next;
@@ -54,11 +58,11 @@ typedef struct s_cmd
 
 void print1(t_cmd *cmd);
 // PARSING FUNCTIONS
-t_cmd *parse_input(char *input); // entry point
+ // entry point
 
 int get_token_len(char *line, int i);
 // TOKENIZER
-char **tokenize(char *line); // array of strings (words/operators)
+ // array of strings (words/operators)
 int is_space(int c);
 int is_special(char c);
 void skip_spaces(char *line, int *i);
@@ -105,7 +109,7 @@ t_token_type get_token_type(char *str);
 
 t_cmd *parse_tokens(t_token *tokens);
 t_cmd *parse_tokens1(char **tokens);
-t_cmd *parse_input(char *input);
+// t_cmd *parse_input(char *input);
 t_token *tokenize_input(char *str);
 
 

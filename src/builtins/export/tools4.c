@@ -77,7 +77,7 @@ void add_node(t_shell **shell,char **env ,char *last)
 			i++;
 		}
 	}
-	else
+	else 
 		update(shell,last);
 }
 

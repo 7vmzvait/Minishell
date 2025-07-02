@@ -3,63 +3,83 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: eazmir <eazmir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 08:55:07 by eazmir            #+#    #+#             */
-/*   Updated: 2025/05/28 13:21:10 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/06/30 17:50:13 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char *create_env_line(t_shell *shell)
+char *ft_create_env_line(t_shell *shell)
 {
-	
+	int len;
+	int i;
+	int j;
 	char *join;
-	int	len;
-	int	i;
-	int 	j;
 
-	len = ft_strlen(shell->key) + ft_strlen(shell->value);
-	join = malloc((len + 2) * sizeof(char));
-	
+	if (!shell->value)
+		return (ft_strdup(shell->key));
+	len = (ft_strlen(shell->key) + ft_strlen(shell->value));
+	join = malloc((len + 2) * sizeof(char));	
 	i = -1;
-	j = 0;
-	while (shell->key && shell->key[++i])
+	while (shell->key[++i])
 		join[i] = shell->key[i];
+	j = 0;
 	join[i++] = '=';
-	while (shell->value && shell->value[j])
+	while (shell->value[j])
 		join[i++] = shell->value[j++];
 	join[i] = '\0';
-	return (join);	
+	return (join);
 }
 
-int  ft_env(t_shell **shell,char **args,int fd)
-{
-	t_shell *tmp;
-	char	*env_path;
-	char	*msg;
 
-	tmp = *shell;
-	msg = ": No such file or directory";
-	if (!args[0])
-		return(1);
-	
-	if (args[1])
-	{
-		write(2,"env: ",5);
-		write(2,args[1],ft_strlen(args[1]));
-		write(2,msg,ft_strlen(msg));
-		write(2,"\n",1);
-		return (1);
-	}
-	while (tmp)
-	{
-		env_path = create_env_line(tmp);
-		write(fd,env_path,ft_strlen(env_path));
-		write(fd,"\n",1);
-		free(env_path);
-		tmp = tmp->next;
-	}
-	return (1);
+char **display_env_list(t_env *env,t_shell *shell)
+{
+        (void)shell;
+        t_shell *current;
+        int counter;
+        char **env_var;
+
+        counter = 0;
+        current = env->env_list;
+        while (current)
+        {
+                counter++;
+                current = current->next; 
+        }
+        env_var = malloc((counter + 1) * sizeof(char *));
+        current = env->env_list;
+        counter = 0;
+        while (current)
+        {
+                env_var[counter] = ft_create_env_line(current);
+                ft_putendl_fd(env_var[counter],1);
+                current = current->next;
+                counter++;
+        }
+        env_var[counter] = NULL;
+        return (env_var);
+}
+
+int  ft_env(t_env *env,t_shell *shell ,char **args)
+{
+        char    *msg;
+        (void)shell;
+
+        msg = ": No such file or directory";
+        // print_env2(env);
+        if (!args[0])
+                return(1);
+        if (args[1])
+        {
+                write(2,"env: ",5);
+                write(2,args[1],ft_strlen(args[1]));
+                write(2,msg,ft_strlen(msg));
+                write(2,"\n",1);
+                return (1);
+        }
+        display_env_list(env,shell);
+        return (0);
 }

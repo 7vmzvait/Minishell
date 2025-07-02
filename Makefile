@@ -3,7 +3,7 @@ RED = \033[1;31m
 RESET = \033[0m
 
 CC = cc
-CFLAGS =  -g -Wall -Wextra -Werror
+CFLAGS =  -g -O0 -Wall -Wextra -Werror
 # SAN =  -g -O0 -fno-omit-frame-pointer -fsanitize=address# 
 
 SRC_DIR = src
@@ -30,11 +30,11 @@ SRCS = \
 	$(BUILTINS)/env.c \
 	$(BUILTINS)/pwd.c \
 	$(BUILTINS)/unset.c \
-	$(EXPORT_DIR)/export.c \
-	$(EXPORT_DIR)/tools1.c \
-	$(EXPORT_DIR)/tools2.c \
-	$(EXPORT_DIR)/tools3.c \
-	$(EXPORT_DIR)/tools4.c
+	$(BUILTINS)/export.c\
+	# $(EXPORT_DIR)/tools1.c \
+	# $(EXPORT_DIR)/tools2.c \
+	# $(EXPORT_DIR)/tools3.c \
+	# $(EXPORT_DIR)/tools4.c
 
 OBJS = $(SRCS:.c=.o)
 

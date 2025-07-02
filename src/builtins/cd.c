@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: eazmir <eazmir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 14:03:42 by eazmir            #+#    #+#             */
-/*   Updated: 2025/05/28 18:39:27 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/06/30 18:01:29 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int  update_env_path(t_shell **shell,char *key, char *new_value)
+int  update_env_path(t_env *env,char *key, char *new_value)
 {
 	t_shell *tmp;
 	
-	tmp = *shell;
+	tmp = env->env_list;
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->key,key,ft_strlen(key)) == 0)
@@ -30,7 +30,7 @@ int  update_env_path(t_shell **shell,char *key, char *new_value)
 	return (1);
 }
 
-void	cd(t_shell **shell, char **args)
+int	ft_cd(t_env *env, char **args)
 {
 	char	new_path[1024];
 	char	old_path[1024];
@@ -45,5 +45,6 @@ void	cd(t_shell **shell, char **args)
 		path = args[1];
 	chdir(path);
 	getcwd(new_path,sizeof(new_path));
-	update_env_path(shell,"PWD",new_path);
+	update_env_path(env,"PWD",new_path);
+	return (0);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: eazmir <eazmir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 15:52:23 by eazmir            #+#    #+#             */
-/*   Updated: 2025/05/22 09:24:52 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/06/30 18:07:35 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	echo(char **args)
+int	ft_echo(char **args)
 {
 	int		i;
 	bool	newline;
@@ -20,7 +20,7 @@ void	echo(char **args)
 	newline = true;
 	i = 1;
 	if (!args[0] || !args[1])
-		return ;
+		return (0);
 	if (ft_strncmp(args[1], "-n", 1) == 0)
 	{
 		newline = false;
@@ -35,4 +35,5 @@ void	echo(char **args)
 	}
 	if (newline)
 		write(1, "\n", 1);
+	return (0);
 }

@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: eazmir <eazmir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 10:39:54 by eazmir            #+#    #+#             */
-/*   Updated: 2025/05/28 11:52:23 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/06/30 18:01:57 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int   unlink_variable_node(t_shell **shell,char *args)
+int   unlink_variable_node(t_shell **shell,t_env *env,char *args)
 {
 	t_shell	*tmp;
 	t_shell *prev;
 	t_shell *next;
 	
 	prev = NULL;
-	tmp = *shell;
+	tmp = env->env_list;
 	while (tmp)
 	{
 		if(ft_strncmp(tmp->key,args,ft_strlen(args)) == 0)
@@ -41,7 +41,7 @@ int   unlink_variable_node(t_shell **shell,char *args)
 	return (1);
 }
 
-int unset(t_shell **shell ,char **args)
+int ft_unset(t_shell **shell,t_env *env ,char **args)
 {
 
 	int	i;
@@ -51,7 +51,7 @@ int unset(t_shell **shell ,char **args)
 	i = 1;
 	while (args[i])
 	{
-		if (unlink_variable_node(shell,args[i]))
+		if (unlink_variable_node(shell,env,args[i]))
 			return (0);
 		i++;
 	}

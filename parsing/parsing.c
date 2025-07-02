@@ -11,27 +11,17 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "../include/minishell.h"
 
-char **tokenize3(char *line);
+// char **tokenize3(char *line);
 
-void print1(t_cmd *cmd)
-{
-    int i;
-    while (cmd)
-    {
-        printf("Command: ");
-        for (i = 0; cmd->args && cmd->args[i]; i++)
-            printf("[%s] ", cmd->args[i]);
-        printf("\n");
-        cmd = cmd->next;
-    }
-}
-t_cmd *parse_input(char *input)
+
+t_cmd *parse_input(char *input,t_env *env)
 {
     char **tokens;
     t_cmd *cmds;
 
-    tokens = tokenize(input);
+    tokens = tokenize(input,env);
 
     if (!tokens)
         return (NULL);

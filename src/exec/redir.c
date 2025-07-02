@@ -53,27 +53,27 @@ int open_outfile(t_cmd *cmd)
 
 int  redirection(t_cmd *cmd)
 {
-    int fd;
+
     if (cmd->infile)
     {
-        fd = open_infile(cmd);
-        if (fd == 1)
+        cmd->fd = open_infile(cmd);
+        if (cmd->fd == 1)
             return (-1);
-        if (fd >= 0)
+        if (cmd->fd >= 0)
         {
-             dup2(fd, STDIN_FILENO);
-             close(fd);
+             dup2(cmd->fd, STDIN_FILENO);
+             close(cmd->fd);
         }
     }
     if (cmd->outfile)
     {
-        fd = open_outfile(cmd);
-        if (fd < 0)
+        cmd->fd= open_outfile(cmd);
+        if (cmd->fd < 0)
             return (-1);
-        if (fd >= 0)
+        if (cmd->fd >= 0)
         {
-            dup2(fd, STDOUT_FILENO);
-            close(fd);
+            dup2(cmd->fd, STDOUT_FILENO);
+            close(cmd->fd);
         }
     }
     return (0);

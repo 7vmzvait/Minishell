@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "../include/minishell.h"
 
 
 static int is_special_char(char c)
@@ -18,14 +19,18 @@ static int is_special_char(char c)
     return (c == '|' || c == '<' || c == '>');
 }
 
-char **tokenize(char *line)
+char **tokenize(char *line,t_env *env)
 {
+    t_shell *shell;
     char **tokens;
+    char   **env_path;
     int i = 0;
     int j = 0;
     char *word;
     char *expanded;
 
+    shell = NULL;
+    env_path = list_to_array(env,shell);
     tokens = malloc(sizeof(char *) * MAX_TOKENS);
     if (!tokens)
         return (NULL);
@@ -40,7 +45,7 @@ char **tokenize(char *line)
         if (line[i] == '"' || line[i] == '\'')
         {
             word = extract_quoted(line, &i);
-            expanded = expand_variables(word, NULL, 0); // add envp and exit_status if needed
+            expanded = expand_variables(word,env_path, 0); // add envp and exit_status if needed
             free(word);
             tokens[j++] = expanded;
         }
@@ -56,7 +61,7 @@ char **tokenize(char *line)
         else
         {
             word = extract_word(line, &i);
-            expanded = expand_variables(word, NULL, 0); // handle env later
+            expanded = expand_variables(word, env_path, 0); // handle env later
             free(word);
             tokens[j++] = expanded;
         }

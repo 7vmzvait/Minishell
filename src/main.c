@@ -13,6 +13,16 @@
 
 #include "../include/minishell.h"
 #include <stdio.h>
+//char prompt_shell(char )
+
+// Problem with 'cd' to a non-existent directory.
+// Also, 'export' does not handle multiple values properly.
+// It doesn't handle cases like: TEST="hello", then later: export TEST="Hello world".
+// It should update TEST to the new value "Hello world", but it doesn't.
+// The original 'env' doesn't display variables with only a value, but my version does.
+// I have a problem with input redirection when using a pipe.
+// Example: cat < input.txt | wc
+// It should count the contents, but it only gives me the output file.
 
 t_env *init_env(char **env)
 {
@@ -43,8 +53,6 @@ int main(int argc,char **argv,char **env)
 	t_env *env_var;
 	char *input;
 
-
-	// char **args;
 	cmd = malloc(sizeof(t_cmd));
     ctx = malloc (sizeof(t_context));
 	shell = malloc(sizeof(t_shell));
@@ -57,9 +65,9 @@ int main(int argc,char **argv,char **env)
 		if (*input)
 			add_history(input);
 		cmd = parse_input(input,env_var);
-	  if (!ft_strcmp(cmd->args[0], "exit"))
-        	 ft_exit(cmd->args);
-	   else
+		//  if (is_builtin_command(cmd->args[0]))
+        //     run_builtins(cmd,shell,env_var,ctx);
+		// else
 			execute_commands(cmd,ctx,shell,env_var);
 	}
 }

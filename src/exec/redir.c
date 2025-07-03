@@ -57,8 +57,8 @@ int  redirection(t_cmd *cmd)
     if (cmd->infile)
     {
         cmd->fd = open_infile(cmd);
-        if (cmd->fd == 1)
-            return (-1);
+        //if (cmd->fd == 1)
+            //1return (-1);
         if (cmd->fd >= 0)
         {
              dup2(cmd->fd, STDIN_FILENO);
@@ -67,7 +67,7 @@ int  redirection(t_cmd *cmd)
     }
     if (cmd->outfile)
     {
-        cmd->fd= open_outfile(cmd);
+        cmd->fd = open_outfile(cmd);
         if (cmd->fd < 0)
             return (-1);
         if (cmd->fd >= 0)

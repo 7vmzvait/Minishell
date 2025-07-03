@@ -38,6 +38,9 @@ typedef struct s_env
 }t_env;
 
 t_cmd *parse_input(char *input,t_env *env);
+int is_builtin_command(char *command);
+int execute_builtins(t_cmd *cmd, t_shell *shell,t_env *env);
+int run_builtins(t_cmd *cmd,t_shell *shell,t_env *env,t_context *ctx);
 char **tokenize(char *line,t_env *env);
 int ft_export1(t_shell **shell,char **args,t_env *env);
 char *ft_create_env_line(t_shell *shell);

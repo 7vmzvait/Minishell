@@ -12,39 +12,6 @@
 
 #include "../../include/minishell.h"
 
-// Function to print environment from env_list
-
-
-
-// void clear_env_list(t_shell **shell)
-// {
-//     t_shell *current;
-//    t_shell *next;
-    
-//     if (!shell || !*shell)
-//         return;
-    
-//     current = (*shell)->env_list;
-//     while (current)
-//     {
-//         next = current->next;
-//         if (current->key)
-//           free(current->key);
-//         if (current->value)
-//           free(current->value);
-//         free(current);
-//         current = next;
-//         current = current->next;
-//     }
-    
-// }
-
-
-// void update_env(t_shell **shell,char **env)
-// {
-//     clear_env_list(shell);
-//     add_node(shell,env, NULL);
-// }
 int is_builtin_command(char *command)
 {
     if (!ft_strcmp(command, "cd") || !ft_strcmp(command, "pwd") ||
@@ -56,7 +23,8 @@ int is_builtin_command(char *command)
     }
     return 0;
 }
-int execute_butiltins(t_cmd *cmd, t_shell *shell,t_env *env)
+
+int execute_builtins(t_cmd *cmd, t_shell *shell,t_env *env)
 {
     if (!ft_strcmp(cmd->args[0], "cd"))
         return ft_cd(env, cmd->args);
@@ -73,12 +41,49 @@ int execute_butiltins(t_cmd *cmd, t_shell *shell,t_env *env)
     return 0;
 }
 
-void child_process(t_cmd *cmd, t_context *ctx, t_shell *shell,t_env *env)
+int  run_builtins(t_cmd *cmd,t_shell *shell,t_env *env,t_context *ctx)
 {
-   
-    int save_outpute;
-    save_outpute = dup(STDOUT_FILENO);
+    int save_stdin;
+    int save_stdout;
+    if (fork() == 0)
+    {
+        if (is_builtin_command(cmd->args[0])) 
+        {
+            save_stdin = dup(STDIN_FILENO);
+            save_stdout = dup(STDOUT_FILENO);
+            if (cmd->infile || cmd->outfile)
+            {
+                if (redirection(cmd) == -1)
+                {
+                    dup2(save_stdin, STDIN_FILENO);
+                    dup2(save_stdout, STDOUT_FILENO);
+                    close(save_stdin);
+                    close(save_stdout);
+                    exit(0);
+                }
+            }
+            if (cmd->next)
+            {
+                close(ctx->fdpipe[0]);
+                dup2(ctx->fdpipe[1], STDOUT_FILENO);
+                close(ctx->fdpipe[1]);
+            }
+            execute_builtins(cmd, shell, env);
+            dup2(save_stdin, STDIN_FILENO);
+            dup2(save_stdout, STDOUT_FILENO);
+            close(save_stdin);
+            close(save_stdout);
+        }
+    }
+    else
+        wait(NULL);
+    return (0);
+}
 
+
+int child_process(t_cmd *cmd, t_context *ctx, t_shell *shell, t_env *env)
+{
+    
     if (!cmd->args[0])
     {
         if (cmd->infile || cmd->outfile)
@@ -87,41 +92,29 @@ void child_process(t_cmd *cmd, t_context *ctx, t_shell *shell,t_env *env)
         }
         exit(0);
     }
-
     if (ctx->prev_pipe != -1) 
     {
         dup2(ctx->prev_pipe, STDIN_FILENO);
         close(ctx->prev_pipe);
     }
-    if (cmd->next) 
+    else if(cmd->infile)
+            redirection(cmd);
+    if (cmd->next)
     {
         close(ctx->fdpipe[0]);
-        dup2(ctx->fdpipe[1], STDOUT_FILENO);
+        dup2(ctx->fdpipe[1],STDOUT_FILENO);
         close(ctx->fdpipe[1]);
     }
-
-    if (is_builtin_command(cmd->args[0])) 
+    if (is_builtin_command(cmd->args[0]))
     {
-        if (cmd->infile || cmd->outfile)
-        {
-            redirection(cmd);
-        }
-        execute_butiltins(cmd,shell,env);
-        dup2(save_outpute, STDOUT_FILENO);
-        close(save_outpute);
-    } 
-    else 
-    {
-        if (cmd->infile || cmd->outfile)
-        {
-            redirection(cmd);
-        }
-     
-        exec(cmd->args,shell,env);
-        printf("execve Error\n");
-        dup2(save_outpute, STDOUT_FILENO);
-        close(save_outpute);
+        run_builtins(cmd,shell,env,ctx);
+        if (cmd->next)
+            exit(0);
     }
+    else
+        exec(cmd->args,shell,env);
+    
+    return (0);
 }
 
 void parent_process(t_cmd *cmd , t_context *ctx)

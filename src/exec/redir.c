@@ -24,7 +24,7 @@ int open_infile(t_cmd *cmd)
 	        write(2, cmd->infile, strlen(cmd->infile));    
 	        write(2, ": ", 2);                  
 	        perror("");
-            return (1);
+            return (-1);
         }
         return (infile_fd);
     }
@@ -51,20 +51,27 @@ int open_outfile(t_cmd *cmd)
     return (-1);
 }
 
-int  redirection(t_cmd *cmd)
+int  redir_infile(t_cmd *cmd)
 {
-
+    if (!cmd || !cmd->infile)
+        return (-1);
     if (cmd->infile)
     {
         cmd->fd = open_infile(cmd);
-        //if (cmd->fd == 1)
-            //1return (-1);
-        if (cmd->fd >= 0)
+        if (cmd->fd < 0)
+            return (-1);
+        if (dup2(cmd->fd, STDIN_FILENO) == -1)
         {
-             dup2(cmd->fd, STDIN_FILENO);
-             close(cmd->fd);
+                perror("dup2 failed");
+                return (-1);
         }
     }
+    return (0);
+}
+int redir_outfile(t_cmd *cmd)
+{
+ if (!cmd || !cmd->outfile)
+        return (-1);
     if (cmd->outfile)
     {
         cmd->fd = open_outfile(cmd);
@@ -72,7 +79,10 @@ int  redirection(t_cmd *cmd)
             return (-1);
         if (cmd->fd >= 0)
         {
-            dup2(cmd->fd, STDOUT_FILENO);
+            if (dup2(cmd->fd, STDOUT_FILENO) == -1)
+            {
+                perror("dup2 failed");
+            }
             close(cmd->fd);
         }
     }

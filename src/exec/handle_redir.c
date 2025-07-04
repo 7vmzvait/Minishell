@@ -68,13 +68,16 @@ int is_redir(char *tokens)
 
 void handle_redir2(t_cmd *cmd, char **tokens,int *i)
 {
+
+      if (tokens[*i])
+        check_redir(cmd, tokens, i);
   
-    while (tokens[*i])
-    {
-        if (is_redir(tokens[*i]))
-        {
-            check_redir(cmd, tokens, i);
-        }
-        (*i)++;
-    }
+    // while (tokens[*i])
+    // {
+    //     if (is_redir(tokens[*i]))
+    //     {
+    //         check_redir(cmd, tokens, i);
+    //     }
+    //     (*i)++;
+    // }
 }

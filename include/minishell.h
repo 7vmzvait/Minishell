@@ -38,6 +38,8 @@ typedef struct s_env
 }t_env;
 
 t_cmd *parse_input(char *input,t_env *env);
+int  redir_infile(t_cmd *cmd);
+int redir_outfile(t_cmd *cmd);
 int is_builtin_command(char *command);
 int execute_builtins(t_cmd *cmd, t_shell *shell,t_env *env);
 int run_builtins(t_cmd *cmd,t_shell *shell,t_env *env,t_context *ctx);
@@ -63,7 +65,6 @@ char  *extract_keys(char *args,char opt);
 void handle_redir2(t_cmd *cmd, char **tokens,int *i);
 int is_redir(char *tokens);
 int     execute_commands(t_cmd *cmd,t_context *ctx,t_shell *shell,t_env *env);
-int    redirection(t_cmd *cmd);
 int	ft_cd(t_env *env, char **args);
 int	ft_exit(char **args);
 int	ft_echo(char **args);

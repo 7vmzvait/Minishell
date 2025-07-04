@@ -53,7 +53,7 @@ int  run_builtins(t_cmd *cmd,t_shell *shell,t_env *env,t_context *ctx)
             save_stdout = dup(STDOUT_FILENO);
             if (cmd->infile || cmd->outfile)
             {
-                if (redirection(cmd) == -1)
+                if (redir_infile(cmd) == -1)
                 {
                     dup2(save_stdin, STDIN_FILENO);
                     dup2(save_stdout, STDOUT_FILENO);
@@ -86,20 +86,30 @@ int child_process(t_cmd *cmd, t_context *ctx, t_shell *shell, t_env *env)
     
     if (!cmd->args[0])
     {
-        if (cmd->infile || cmd->outfile)
+        if (cmd->infile)
         {
-            redirection(cmd);
+            redir_infile(cmd);
         }
-        exit(0);
+        else if (cmd->outfile)
+            redir_outfile(cmd);
+        //exit(0);
     }
-    if (ctx->prev_pipe != -1) 
+    if(cmd->infile)
+    {
+       if (redir_infile(cmd) < 0)
+            exit(EXIT_FAILURE);
+    }
+    else if (ctx->prev_pipe != -1) 
     {
         dup2(ctx->prev_pipe, STDIN_FILENO);
         close(ctx->prev_pipe);
     }
-    else if(cmd->infile)
-            redirection(cmd);
-    if (cmd->next)
+    if (cmd->outfile)
+    {
+        if (redir_outfile(cmd) < 0)
+                exit(EXIT_FAILURE);
+    }
+    else if (cmd->next)
     {
         close(ctx->fdpipe[0]);
         dup2(ctx->fdpipe[1],STDOUT_FILENO);
@@ -113,7 +123,6 @@ int child_process(t_cmd *cmd, t_context *ctx, t_shell *shell, t_env *env)
     }
     else
         exec(cmd->args,shell,env);
-    
     return (0);
 }
 

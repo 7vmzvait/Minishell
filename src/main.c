@@ -15,14 +15,14 @@
 #include <stdio.h>
 //char prompt_shell(char )
 
-// Problem with 'cd' to a non-existent directory.
+// Problem with 'cd' to a non-existent directory. (is splved)
 // Also, 'export' does not handle multiple values properly.
 // It doesn't handle cases like: TEST="hello", then later: export TEST="Hello world".
 // It should update TEST to the new value "Hello world", but it doesn't.
 // The original 'env' doesn't display variables with only a value, but my version does.
 // I have a problem with input redirection when using a pipe.
 // Example: cat < input.txt | wc
-// It should count the contents, but it only gives me the output file.
+// It should count the contents, but it only gives me the output file. // is solved 
 
 t_env *init_env(char **env)
 {

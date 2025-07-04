@@ -38,5 +38,5 @@ t_token *tokenize_input(char *input)
             add_token(&tokens, new_token(WORD, word));
         }
     }
-    return tokens;
+    return (tokens);
 }

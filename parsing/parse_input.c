@@ -45,14 +45,14 @@ t_cmd *parse_tokens1(char **tokens)
         }
         else if (!ft_strcmp(tokens[i], "<") || !ft_strcmp(tokens[i], "<<"))
         {
-            handle_redir2(cmd_list,tokens,&i);
-            i += 2;
+            handle_redir2(cmd,tokens,&i);
+            i++;
             continue ;
         }
         else if (!ft_strcmp(tokens[i], ">") || !ft_strcmp(tokens[i], ">>"))
         {
             handle_redir2(cmd,tokens,&i);
-            i += 2;
+            i++;
             continue ;
         }
         else
@@ -63,16 +63,3 @@ t_cmd *parse_tokens1(char **tokens)
     }
     return (cmd_list);
 }
-
-//  t_cmd *parse_input(char *input)
-//  {
-//      char **tokens;
-//      t_cmd *cmd_list;
-
-//      tokens = tokenize(input);
-//      if (!tokens)
-//          return (NULL);
-//      cmd_list = parse_tokens1(tokens);
-//      free_tokens(tokens);
-//      return (cmd_list);
-// }

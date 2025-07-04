@@ -43,6 +43,14 @@ int	ft_cd(t_env *env, char **args)
 		path = getenv("OLDPWD");
 	else
 		path = args[1];
+	if (access(path,F_OK) == -1)
+	{
+		ft_putstr_fd("Minishell: ",2);
+		ft_putstr_fd("cd: ",2);
+		ft_putstr_fd(path,2);
+		ft_putendl_fd(": No such file or directory",2);
+		return (0);
+	}
 	chdir(path);
 	getcwd(new_path,sizeof(new_path));
 	update_env_path(env,"PWD",new_path);

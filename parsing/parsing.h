@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:43:11 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 18:09:55 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/07/06 09:59:34 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void print1(t_cmd *cmd);
  // entry point
 
 int get_token_len(char *line, int i);
+void	print_error2(const char *prefix, const char *name);
 // TOKENIZER
  // array of strings (words/operators)
 int is_space(int c);
@@ -70,7 +71,7 @@ void skip_spaces(char *line, int *i);
 t_token_type get_token_type(char *str);
 char *extract_word(const char *input, int *i);
 char *extract_special(const char *input, int *i);
-char *extract_quoted(const char *input, int *i);
+char *extract_quoted(const char *input, int *i, int *is_single);
 
 // COMMAND BUILDERS
 t_cmd *new_cmd_node(void);
@@ -95,7 +96,7 @@ void print_cmds(t_cmd *cmds);
 // for tokens
 t_token *new_token(t_token_type type, char *value);
 void add_token(t_token **head, t_token *new_token);
-void free_token_list(t_token *head);
+void free_token_list(t_token *tokens);
 
 // cmd builder 
 t_cmd *new_cmd_node(void);

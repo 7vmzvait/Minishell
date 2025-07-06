@@ -6,32 +6,35 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:02:06 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 16:02:14 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/07/06 09:49:54 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char *extract_quoted(const char *input, int *i)
+char *extract_quoted(const char *input, int *i, int *is_single)
 {
-    int start, len = 0;
     char quote;
+    int start, len = 0;
 
     quote = input[*i];
-    if (quote != '\'' && quote != '\"')
+    *is_single = (quote == '\'');
+    if (quote != '\'' && quote != '"')
         return NULL;
 
     (*i)++; // Skip opening quote
     start = *i;
-
-    while (input[*i] && input[*i] != quote)
-    {
+    while (input[*i] && input[*i] != quote) {
         (*i)++;
         len++;
     }
+    if (input[*i] != quote)
+        return NULL; // Unclosed quote
+    (*i)++; // Skip closing quote
 
-    if (input[*i] == quote)
-        (*i)++; // Skip closing quote
-
-    return ft_substr(input, start, len);
+    char *str = malloc(len + 1);
+    if (!str) return NULL;
+    strncpy(str, &input[start], len);
+    str[len] = 0;
+    return str;
 }

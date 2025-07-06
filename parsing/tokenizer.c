@@ -6,66 +6,103 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:19:54 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 15:21:18 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/07/06 09:50:12 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "../include/minishell.h"
 
-
 static int is_special_char(char c)
 {
     return (c == '|' || c == '<' || c == '>');
 }
 
-char **tokenize(char *line,t_env *env)
+char **tokenize(char *line, t_env *env)
 {
-    t_shell *shell;
     char **tokens;
-    char   **env_path;
-    int i = 0;
-    int j = 0;
+    char **env_path;
+    char token_buf[4096];
     char *word;
     char *expanded;
-
-    shell = NULL;
-    env_path = list_to_array(env,shell);
+    int i;
+    int j;
+    int has_token;
+    int is_single;
+    int start;
+    int len;
+    
     tokens = malloc(sizeof(char *) * MAX_TOKENS);
     if (!tokens)
-        return (NULL);
-
+        return NULL;
+    env_path = list_to_array(env, NULL);
+    i = 0;
+    j = 0;
+    
     while (line[i])
     {
         while (line[i] && is_space(line[i]))
             i++;
         if (!line[i])
             break;
+            
+        // Collect segments (quoted or unquoted) as one token like bash
+        memset(token_buf, 0, sizeof(token_buf));
+        has_token = 0;
         
-        if (line[i] == '"' || line[i] == '\'')
+        while (line[i] && !is_space(line[i]) && !is_special_char(line[i]))
         {
-            word = extract_quoted(line, &i);
-            expanded = expand_variables(word,env_path, g_exit_status); // add envp and exit_status if needed
-            free(word);
-            tokens[j++] = expanded;
+            if (line[i] == '"' || line[i] == '\'')
+            {
+                is_single = 0;
+                word = extract_quoted(line, &i, &is_single);
+                if (!word)
+                {
+                    print_error2("bash: syntax error near unexpected token", "`newline'");
+                    free_tokens(tokens);
+                    return NULL;
+                }
+                if (is_single)
+                    expanded = strdup(word); // No expansion in single quotes
+                else
+                    expanded = expand_variables(word, env_path, g_exit_status); // Expand in double quotes
+                strcat(token_buf, expanded);
+                free(word);
+                free(expanded);
+                has_token = 1;
+            }
+            else
+            {
+                start = i;
+                while (line[i] && !is_space(line[i]) && !is_special_char(line[i]) && line[i] != '"' && line[i] != '\'')
+                    i++;
+                if (i > start)
+                {
+                    word = ft_substr(line, start, i - start);
+                    expanded = expand_variables(word, env_path, g_exit_status);
+                    strcat(token_buf, expanded);
+                    free(word);
+                    free(expanded);
+                    has_token = 1;
+                }
+            }
         }
-        else if (is_special_char(line[i]))
+        
+        if (has_token)
+            tokens[j++] = strdup(token_buf);
+            
+        // Special character tokens
+        if (line[i] && is_special_char(line[i]))
         {
-            int len = 1;
+            len = 1;
             if ((line[i] == '<' && line[i + 1] == '<') || (line[i] == '>' && line[i + 1] == '>'))
                 len = 2;
-
             tokens[j++] = ft_substr(line, i, len);
             i += len;
         }
-        else
-        {
-            word = extract_word(line, &i);
-            expanded = expand_variables(word, env_path, g_exit_status); // handle env later
-            free(word);
-            tokens[j++] = expanded;
-        }
     }
+    
     tokens[j] = NULL;
+    // free env_path if needed here
     return tokens;
 }

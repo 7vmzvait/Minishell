@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 09:34:41 by eazmir            #+#    #+#             */
-/*   Updated: 2025/06/29 15:32:42 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/07/06 09:40:53 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int main(int argc,char **argv,char **env)
 	signal(SIGQUIT,sigquit_handler);
 	while (1)
 	{
-		input = readline("$> ");
+		input = readline("Minishell $> ");
 		if (!input)
 			break;
 		if (*input)

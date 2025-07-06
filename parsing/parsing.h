@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../libft/libft.h"
-// #include  "../include/minishell.h"
+#include <signal.h>
 
 
 #define MAX_TOKENS 1024
@@ -48,6 +48,7 @@ typedef struct s_cmd
     char **args;
     char *infile;
     char *outfile;
+    char  *save_del;
     int fd;
     int append;
     int heredoc;

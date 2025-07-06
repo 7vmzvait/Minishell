@@ -51,9 +51,12 @@ int ft_unset(t_shell **shell,t_env *env ,char **args)
 	i = 1;
 	while (args[i])
 	{
-		if (unlink_variable_node(shell,env,args[i]))
-			return (0);
+		if (!unlink_variable_node(shell,env,args[i]))
+		{
+			g_exit_status = 1;
+			return (g_exit_status);
+		}
 		i++;
 	}
-	return (1);
+	return (g_exit_status);
 }

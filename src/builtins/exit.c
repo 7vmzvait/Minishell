@@ -31,22 +31,22 @@ void	print_error(int option, char **args, int *i, int *j)
 
 int	ft_exit(char **args)
 {
-	int	num;
-	int	exit_status;
 	int	i;
 	int	j;
 
 	i = 1;
 	if (!args[1])
 	{
-		exit(EXIT_SUCCESS);
+		g_exit_status = EXIT_SUCCESS;
+		exit(g_exit_status);
 	}
 	while (args[i])
 		i++;
 	if (i > 2)
 	{
 		print_error(1, args, &i,&j);
-		return 1;
+		g_exit_status = 1;
+		return (g_exit_status);
 	}
 	i = 1;
 	while (args[i])
@@ -59,14 +59,13 @@ int	ft_exit(char **args)
 			if (!ft_isdigit(args[i][j]))
 			{
 				print_error(2, args, &i, &j);
-				exit(255);
+				g_exit_status = 255;
+				exit(g_exit_status);
 			}
 			j++;
 		}
 		i++;
 	}
-	num = ft_atoi(args[1]);
-	exit(num);
-	exit_status = num;
-	return (exit_status);
+	g_exit_status = ft_atoi(args[1]);
+	exit(g_exit_status);
 }

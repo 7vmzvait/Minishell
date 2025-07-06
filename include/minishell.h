@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 #include  "../parsing/parsing.h"
 
+extern int g_exit_status;
 typedef struct s_context
 {
     int prev_pipe;
@@ -37,6 +38,7 @@ typedef struct s_env
    t_shell *env_list;
 }t_env;
 
+void handle_signals(int sig);
 t_cmd *parse_input(char *input,t_env *env);
 int  redir_infile(t_cmd *cmd);
 int redir_outfile(t_cmd *cmd);

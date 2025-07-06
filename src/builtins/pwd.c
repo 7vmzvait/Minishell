@@ -24,10 +24,11 @@ int ft_pwd(char **args)
 	{
 		write(2,msg,ft_strlen(msg));
 		write(2,"\n",1);
-		return (1);
+		g_exit_status = 1;
+		return (g_exit_status);
 	}
 	ft_putendl_fd(pwd,1);
-	return (0);
+	return (g_exit_status);
 }
 
 

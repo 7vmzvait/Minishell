@@ -15,14 +15,12 @@
 #include <stdio.h>
 //char prompt_shell(char )
 
-// Problem with 'cd' to a non-existent directory. (is splved)
 // Also, 'export' does not handle multiple values properly.
 // It doesn't handle cases like: TEST="hello", then later: export TEST="Hello world".
 // It should update TEST to the new value "Hello world", but it doesn't.
-// The original 'env' doesn't display variables with only a value, but my version does.
-// I have a problem with input redirection when using a pipe.
-// Example: cat < input.txt | wc
-// It should count the contents, but it only gives me the output file. // is solved 
+
+
+int g_exit_status = 0; 
 
 t_env *init_env(char **env)
 {
@@ -39,6 +37,22 @@ t_env *init_env(char **env)
 		i++;
 	}
 	return (env_var);
+}
+void sigquit_handler(int sig)
+{
+	(void)sig;
+	ft_putendl_fd("core dumped",1);
+	rl_on_new_line();
+	rl_replace_line("",0);
+	rl_redisplay();
+}
+void sigint_handler(int sig)
+{
+	(void)sig;
+	write(1,"\n",1);
+	rl_on_new_line();
+    rl_replace_line("", 0);
+    rl_redisplay();
 }
 
 int main(int argc,char **argv,char **env)
@@ -57,17 +71,16 @@ int main(int argc,char **argv,char **env)
     ctx = malloc (sizeof(t_context));
 	shell = malloc(sizeof(t_shell));
 	env_var = init_env(env);
+	signal(SIGINT,sigint_handler);
+	signal(SIGQUIT,sigquit_handler);
 	while (1)
 	{
 		input = readline("$> ");
 		if (!input)
 			break;
 		if (*input)
-			add_history(input);
+		 	add_history(input);
 		cmd = parse_input(input,env_var);
-		//  if (is_builtin_command(cmd->args[0]))
-        //     run_builtins(cmd,shell,env_var,ctx);
-		// else
-			execute_commands(cmd,ctx,shell,env_var);
+		execute_commands(cmd,ctx,shell,env_var);
 	}
 }

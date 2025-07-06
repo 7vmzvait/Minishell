@@ -35,5 +35,5 @@ int	ft_echo(char **args)
 	}
 	if (newline)
 		write(1, "\n", 1);
-	return (0);
+	return (g_exit_status);
 }

@@ -52,7 +52,7 @@ char **display_env_list(t_env *env,t_shell *shell)
         env_var = malloc((counter + 1) * sizeof(char *));
         current = env->env_list;
         counter = 0;
-        while (current)
+        while (current && current->value)
         {
                 env_var[counter] = ft_create_env_line(current);
                 ft_putendl_fd(env_var[counter],1);
@@ -69,7 +69,6 @@ int  ft_env(t_env *env,t_shell *shell ,char **args)
         (void)shell;
 
         msg = ": No such file or directory";
-        // print_env2(env);
         if (!args[0])
                 return(1);
         if (args[1])
@@ -78,8 +77,9 @@ int  ft_env(t_env *env,t_shell *shell ,char **args)
                 write(2,args[1],ft_strlen(args[1]));
                 write(2,msg,ft_strlen(msg));
                 write(2,"\n",1);
-                return (1);
+                g_exit_status = 1;
+                return (g_exit_status);
         }
         display_env_list(env,shell);
-        return (0);
+        return (g_exit_status);
 }

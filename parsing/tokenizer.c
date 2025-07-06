@@ -45,7 +45,7 @@ char **tokenize(char *line,t_env *env)
         if (line[i] == '"' || line[i] == '\'')
         {
             word = extract_quoted(line, &i);
-            expanded = expand_variables(word,env_path, 0); // add envp and exit_status if needed
+            expanded = expand_variables(word,env_path, g_exit_status); // add envp and exit_status if needed
             free(word);
             tokens[j++] = expanded;
         }
@@ -61,7 +61,7 @@ char **tokenize(char *line,t_env *env)
         else
         {
             word = extract_word(line, &i);
-            expanded = expand_variables(word, env_path, 0); // handle env later
+            expanded = expand_variables(word, env_path, g_exit_status); // handle env later
             free(word);
             tokens[j++] = expanded;
         }

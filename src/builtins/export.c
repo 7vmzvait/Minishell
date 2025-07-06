@@ -229,7 +229,7 @@ void add_back(t_shell **head,t_shell *last)
 	}	
 }
 
-void  update(t_shell **shell,char *args,t_env *env)
+void  update_env(t_shell **shell,char *args,t_env *env)
 {
 	t_shell	*tmp;
 	char 	*key;
@@ -287,7 +287,7 @@ void add_node(t_shell **shell,char *last,t_env *env)
 		return ;
 	}
 	else
-		update(shell,last,env);
+		update_env(shell,last,env);
 }
 
 
@@ -332,10 +332,13 @@ int ft_export1(t_shell **shell,char **args,t_env *env)
 	if (!args[1])
 	{
 		printList(env);
-		return (0);
+		return (g_exit_status);
 	}
 	if(is_valid_export_syntax(args[1]) != 0)
-		return (0);
+	{
+		g_exit_status = 1;
+		return (g_exit_status);
+	}
 	cleaned = clean_str(args[1]);
 	i = 0;
 	while (cleaned[i])
@@ -353,6 +356,6 @@ int ft_export1(t_shell **shell,char **args,t_env *env)
 			add_node(shell,cleaned[i],env);
 		i++;
 	}
-	return (0);
+	return (g_exit_status);
 
 }

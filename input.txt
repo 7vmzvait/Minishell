@@ -1,9 +1,0 @@
-hello world
-this is a test
-error: failed to load config
-warning: deprecated function
-hello again
-error: missing semicolon
-info: everything is fine
-WARNING: this is important
-foo bar foo

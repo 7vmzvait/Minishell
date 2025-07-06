@@ -49,6 +49,8 @@ $(PARSE_LIB):
 $(NAME): $(OBJS) $(LIBFT_LIB) $(PARSE_LIB)
 	@$(CC) $(CFLAGS) $(SAN) -o $(NAME) $(OBJS) $(PARSE_LIB) $(LIBFT_LIB) $(LIBS)
 	@rm -f $(OBJS)
+	@make -C $(PARSE_DIR) clean
+	@make -C $(LIBFT_DIR) clean
 	@echo "$(GREEN)Build successful! $(NAME) is ready.$(RESET)"
 
 %.o: %.c

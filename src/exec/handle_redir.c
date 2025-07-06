@@ -14,7 +14,10 @@
 
 void handle_heredoc(t_cmd *cmd ,char **tokens,int *i)
 {
-        cmd->infile = ft_strdup(tokens[++(*i)]);
+        // cmd->infile = ft_strdup(tokens[++(*i)]);
+        (void)tokens;
+        // (void)i;
+        (*i)++; 
         cmd->heredoc = 1;
 }
 

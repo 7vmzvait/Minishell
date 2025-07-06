@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*    free_utils.c                                      :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:23:51 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 16:07:35 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/07/06 10:02:31 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,17 @@ void free_cmds(t_cmd *head)
             free(tmp->outfile);
         head = head->next;
         free(tmp);
+    }
+}
+void free_token_list(t_token *tokens)
+{
+    t_token *tmp;
+    while (tokens)
+    {
+        tmp = tokens->next;
+        if (tokens->value)
+            free(tokens->value);
+        free(tokens);
+        tokens = tmp;
     }
 }

@@ -1,0 +1,4 @@
+*.o
+*.a
+libft/*.o
+libft/libft.a

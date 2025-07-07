@@ -13,8 +13,14 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <errno.h>
+# include <fcntl.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <stdbool.h>
 # include <stddef.h>
 # include <stdint.h>
+<<<<<<< HEAD
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -24,6 +30,14 @@
 #include <stdbool.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+=======
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <unistd.h>
+>>>>>>> 464fc4b7d25ca247f4503ad3331a029baceec3da
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
@@ -41,7 +55,7 @@ int					ft_isalnum(int c);
 int					ft_isascii(int c);
 int					ft_isprint(int c);
 size_t				ft_strlen(const char *s);
-int				ft_strcmp(char *s1,char *s2);
+int					ft_strcmp(char *s1, char *s2);
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);

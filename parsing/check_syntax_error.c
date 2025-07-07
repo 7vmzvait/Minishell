@@ -17,12 +17,12 @@ void	print_error2(const char *prefix, const char *name)
 	write(2, "minishell: ", 11);
 	if (prefix)
 	{
-		write(2, prefix, strlen(prefix));
+		write(2, prefix, ft_strlen(prefix));
 		write(2, ": ", 2);
 	}
 	if (name)
 	{
-		write(2, name, strlen(name));
+		write(2, name, ft_strlen(name));
 		write(2, "\n", 2);
 	}
 }

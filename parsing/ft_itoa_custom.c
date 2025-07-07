@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 18:10:53 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 18:11:14 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:23:35 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 char	*ft_itoa_custom(int n)
 {
+<<<<<<< HEAD
 	int				i;
 	int				neg;
 	unsigned int	num;
+=======
+    char buffer[12];
+    int i = 10;
+    int neg = n < 0;
+    buffer[11] = '\0';
+>>>>>>> 464fc4b7d25ca247f4503ad3331a029baceec3da
 
 	// Simple implementation of itoa
 	char buffer[12]; // enough for int range

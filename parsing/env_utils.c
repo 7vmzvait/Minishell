@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:26:43 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 15:26:50 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:23:06 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*get_env_value(char *key, char **envp)
 	int i;
 	int len;
 
+<<<<<<< HEAD
 	if (!key || !envp)
 		return (NULL);
 	i = 0;
@@ -30,4 +31,19 @@ char	*get_env_value(char *key, char **envp)
 		i++;
 	}
 	return (NULL);
+=======
+    if (!key || !envp)
+        return (NULL);
+    i = 0;
+    len = 0;
+    while (key[len] && (key[len] != '='))
+        len++;
+    while (envp[i])
+    {
+        if (ft_strncmp(envp[i], key, len) == 0 && envp[i][len] == '=')
+            return (&envp[i][len + 1]);
+        i++;
+    }
+    return (NULL);
+>>>>>>> 464fc4b7d25ca247f4503ad3331a029baceec3da
 }

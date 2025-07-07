@@ -6,20 +6,25 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:31:11 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 16:36:43 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:24:34 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "parsing.h"
 
+<<<<<<< HEAD
 // char **tokenize3(char *line);
 
 t_cmd	*parse_input(char *input, t_env *env)
+=======
+t_cmd *parse_input(char *input,t_env *env)
+>>>>>>> 464fc4b7d25ca247f4503ad3331a029baceec3da
 {
 	char	**tokens;
 	t_cmd	*cmds;
 
+<<<<<<< HEAD
 	tokens = tokenize(input, env);
 	if (!tokens)
 		return (NULL);
@@ -76,3 +81,17 @@ t_cmd	*parse_input(char *input, t_env *env)
 //     tokens[j] = NULL;
 //     return (tokens);
 // }
+=======
+    tokens = tokenize(input,env);
+
+    if (!tokens)
+        return (NULL);
+    if (check_syntax_error(tokens))
+    {
+        free_tokens(tokens);
+        return (NULL);
+    }
+    cmds = parse_tokens1(tokens);
+    return (cmds);
+}
+>>>>>>> 464fc4b7d25ca247f4503ad3331a029baceec3da

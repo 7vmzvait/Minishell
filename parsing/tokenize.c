@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:45:42 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/07/06 10:02:04 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:25:47 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,26 @@ t_token *tokenize_input(char *input)
         {
             char token_buf[4096] = {0};
             int has_token = 0;
-
-            // Collect adjacent quoted/unquoted segments as one token
             while (input[i] && !is_space(input[i]) && !is_special(input[i]))
             {
                 if (input[i] == '\'' || input[i] == '\"')
                 {
                     int is_single = 0;
-                    char *quoted = extract_quoted(input, &i, &is_single); // update your extract_quoted to support this
+                    char *quoted = extract_quoted(input, &i, &is_single);
                     if (!quoted)
                     {
                         print_error2("bash: syntax error near unexpected token", "`newline'");
                         free_token_list(tokens);
                         return NULL;
                     }
-                    strcat(token_buf, quoted);
+                    ft_strcat(token_buf, quoted);
                     free(quoted);
                     has_token = 1;
                 }
                 else
                 {
                     char *word = extract_word(input, &i);
-                    strcat(token_buf, word);
+                    ft_strcat(token_buf, word);
                     free(word);
                     has_token = 1;
                 }

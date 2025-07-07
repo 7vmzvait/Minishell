@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:24:10 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/07/07 14:31:11 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:22:59 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char *extract_var_name(const char *str, int *i)
         len++;
     }
 
-    return ft_substr(str, start, len); // allocates a new string with the var name
+    return ft_substr(str, start, len);
 }
 
 
@@ -66,7 +66,7 @@ char *expand_variables(const char *input, char **envp, int exit_status)
         else if (input[i] == '$' && !in_single)
         {
             i++;
-            if (input[i] == '?') // Handle $?
+            if (input[i] == '?')
             {
                 exit_str = ft_itoa_custom(exit_status);
                 result = strjoin_and_free(result, exit_str);

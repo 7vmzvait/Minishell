@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:47:02 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 18:09:17 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:24:19 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ t_cmd *parse_tokens(t_token *tokens)
         }
         else
         {
-            // unknown token type, free and exit
             free_command_list(cmd_list);
             return NULL;
         }

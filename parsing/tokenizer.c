@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:19:54 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/07/06 09:50:12 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:26:07 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ char **tokenize(char *line, t_env *env)
             i++;
         if (!line[i])
             break;
-            
-        // Collect segments (quoted or unquoted) as one token like bash
-        memset(token_buf, 0, sizeof(token_buf));
+        ft_memset(token_buf, 0, sizeof(token_buf));
         has_token = 0;
         
         while (line[i] && !is_space(line[i]) && !is_special_char(line[i]))
@@ -63,10 +61,10 @@ char **tokenize(char *line, t_env *env)
                     return NULL;
                 }
                 if (is_single)
-                    expanded = strdup(word); // No expansion in single quotes
+                    expanded = ft_strdup(word);
                 else
-                    expanded = expand_variables(word, env_path, g_exit_status); // Expand in double quotes
-                strcat(token_buf, expanded);
+                    expanded = expand_variables(word, env_path, g_exit_status);
+                ft_strcat(token_buf, expanded);
                 free(word);
                 free(expanded);
                 has_token = 1;
@@ -80,7 +78,7 @@ char **tokenize(char *line, t_env *env)
                 {
                     word = ft_substr(line, start, i - start);
                     expanded = expand_variables(word, env_path, g_exit_status);
-                    strcat(token_buf, expanded);
+                    ft_strcat(token_buf, expanded);
                     free(word);
                     free(expanded);
                     has_token = 1;
@@ -89,9 +87,8 @@ char **tokenize(char *line, t_env *env)
         }
         
         if (has_token)
-            tokens[j++] = strdup(token_buf);
-            
-        // Special character tokens
+            tokens[j++] = ft_strdup(token_buf);
+
         if (line[i] && is_special_char(line[i]))
         {
             len = 1;
@@ -103,6 +100,5 @@ char **tokenize(char *line, t_env *env)
     }
     
     tokens[j] = NULL;
-    // free env_path if needed here
     return tokens;
 }

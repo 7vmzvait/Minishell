@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:03:12 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 16:39:23 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:23:59 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void handle_redir(t_cmd *cmd, t_token **token)
     if (!cmd || !token || !*token)
         return;
 
-    t_token *redir_token = *token;  // The redirection token (e.g., >, >>)
-    t_token *file_token = redir_token->next;  // The filename token
+    t_token *redir_token = *token;
+    t_token *file_token = redir_token->next;
 
     if (!file_token || file_token->type != WORD)
-        return; // handle error or invalid syntax
+        return;
 
     if (redir_token->type == REDIR_IN)
         cmd->infile = ft_strdup(file_token->value);
@@ -49,11 +49,3 @@ void set_infile(t_cmd *cmd, char *redir, char *file)
         free(cmd->infile);
     cmd->infile = ft_strdup(file);
 }
-
-// void set_outfile(t_cmd *cmd, char *redir, char *file)
-// {
-//     (void)redir;
-//     if (cmd->outfile)
-//         free(cmd->outfile);
-//     cmd->outfile = ft_strdup(file);
-// }

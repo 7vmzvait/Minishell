@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:26:43 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/06/26 15:26:50 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:23:06 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char *get_env_value(char *key, char **envp)
         return (NULL);
     i = 0;
     len = 0;
-    while (key[len] && (key[len] != '=')) // safer to stop at '='
+    while (key[len] && (key[len] != '='))
         len++;
     while (envp[i])
     {

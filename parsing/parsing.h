@@ -54,14 +54,11 @@ typedef struct s_cmd
 } t_cmd;
 
 
-<<<<<<< HEAD
 // PARSING FUNCTIONS
  // entry point
-=======
-void print1(t_cmd *cmd);
 char *ft_strncpy(char *dest, const char *src, unsigned int n);
 char *ft_strcat(char *dest, const char *src);
->>>>>>> 464fc4b7d25ca247f4503ad3331a029baceec3da
+
 
 int get_token_len(char *line, int i);
 void	print_error2(const char *prefix, const char *name);

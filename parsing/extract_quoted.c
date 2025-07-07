@@ -22,25 +22,6 @@ char	*extract_quoted(const char *input, int *i, int *is_single)
 	if (quote != '\'' && quote != '"')
 		return (NULL);
 
-<<<<<<< HEAD
-	(*i)++; // Skip opening quote
-	start = *i;
-	while (input[*i] && input[*i] != quote)
-	{
-		(*i)++;
-		len++;
-	}
-	if (input[*i] != quote)
-		return (NULL); // Unclosed quote
-	(*i)++;          // Skip closing quote
-
-	char *str = malloc(len + 1);
-	if (!str)
-		return (NULL);
-	strncpy(str, &input[start], len);
-	str[len] = 0;
-	return (str);
-=======
     (*i)++;
     start = *i;
     while (input[*i] && input[*i] != quote) {
@@ -55,5 +36,4 @@ char	*extract_quoted(const char *input, int *i, int *is_single)
     ft_strncpy(str, &input[start], len);
     str[len] = 0;
     return str;
->>>>>>> 464fc4b7d25ca247f4503ad3331a029baceec3da
 }

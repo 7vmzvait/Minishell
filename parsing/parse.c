@@ -17,7 +17,6 @@ t_cmd	*parse_tokens(t_token *tokens)
 	t_cmd	*cmd_list;
 	t_cmd	*current_cmd;
 
-<<<<<<< HEAD
 	cmd_list = NULL;
 	current_cmd = new_cmd_node();
 	if (!current_cmd)
@@ -62,7 +61,6 @@ t_cmd	*parse_tokens(t_token *tokens)
 		}
 	}
 	return (cmd_list);
-=======
     add_cmd_to_list(&cmd_list, current_cmd);
 
     while (tokens)
@@ -104,5 +102,4 @@ t_cmd	*parse_tokens(t_token *tokens)
     }
 
     return cmd_list;
->>>>>>> 464fc4b7d25ca247f4503ad3331a029baceec3da
 }

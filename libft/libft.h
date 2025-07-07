@@ -20,7 +20,6 @@
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdint.h>
-<<<<<<< HEAD
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -30,14 +29,6 @@
 #include <stdbool.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-=======
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <unistd.h>
->>>>>>> 464fc4b7d25ca247f4503ad3331a029baceec3da
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024

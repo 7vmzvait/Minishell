@@ -13,18 +13,12 @@
 #include "../include/minishell.h"
 #include "parsing.h"
 
-<<<<<<< HEAD
-// char **tokenize3(char *line);
-
-t_cmd	*parse_input(char *input, t_env *env)
-=======
 t_cmd *parse_input(char *input,t_env *env)
->>>>>>> 464fc4b7d25ca247f4503ad3331a029baceec3da
+
 {
 	char	**tokens;
 	t_cmd	*cmds;
 
-<<<<<<< HEAD
 	tokens = tokenize(input, env);
 	if (!tokens)
 		return (NULL);
@@ -81,17 +75,3 @@ t_cmd *parse_input(char *input,t_env *env)
 //     tokens[j] = NULL;
 //     return (tokens);
 // }
-=======
-    tokens = tokenize(input,env);
-
-    if (!tokens)
-        return (NULL);
-    if (check_syntax_error(tokens))
-    {
-        free_tokens(tokens);
-        return (NULL);
-    }
-    cmds = parse_tokens1(tokens);
-    return (cmds);
-}
->>>>>>> 464fc4b7d25ca247f4503ad3331a029baceec3da

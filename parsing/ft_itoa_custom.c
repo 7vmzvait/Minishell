@@ -14,16 +14,9 @@
 
 char	*ft_itoa_custom(int n)
 {
-<<<<<<< HEAD
-	int				i;
-	int				neg;
 	unsigned int	num;
-=======
-    char buffer[12];
     int i = 10;
     int neg = n < 0;
-    buffer[11] = '\0';
->>>>>>> 464fc4b7d25ca247f4503ad3331a029baceec3da
 
 	// Simple implementation of itoa
 	char buffer[12]; // enough for int range

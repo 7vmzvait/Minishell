@@ -17,21 +17,6 @@ char	*get_env_value(char *key, char **envp)
 	int i;
 	int len;
 
-<<<<<<< HEAD
-	if (!key || !envp)
-		return (NULL);
-	i = 0;
-	len = 0;
-	while (key[len] && (key[len] != '=')) // safer to stop at '='
-		len++;
-	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], key, len) == 0 && envp[i][len] == '=')
-			return (&envp[i][len + 1]);
-		i++;
-	}
-	return (NULL);
-=======
     if (!key || !envp)
         return (NULL);
     i = 0;
@@ -45,5 +30,4 @@ char	*get_env_value(char *key, char **envp)
         i++;
     }
     return (NULL);
->>>>>>> 464fc4b7d25ca247f4503ad3331a029baceec3da
 }

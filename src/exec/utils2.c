@@ -26,4 +26,3 @@ void	free_split(char **split_path)
 	}
 	free(split_path);
 }
-

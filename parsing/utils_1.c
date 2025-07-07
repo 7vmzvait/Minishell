@@ -12,33 +12,36 @@
 
 #include "parsing.h"
 
-int is_space(int c)
+int	is_space(int c)
 {
-    return (c == ' ' || c == '\t' || c == '\n');
+	return (c == ' ' || c == '\t' || c == '\n');
 }
 
-int is_special(char c)
+int	is_special(char c)
 {
-    return (c == '|' || c == '<' || c == '>');
+	return (c == '|' || c == '<' || c == '>');
 }
 
-void skip_spaces(char *line, int *i)
+void	skip_spaces(char *line, int *i)
 {
-    while (line[*i] && is_space(line[*i]))
-        (*i)++;
+	while (line[*i] && is_space(line[*i]))
+		(*i)++;
 }
 
-int get_token_len(char *line, int i)
+int	get_token_len(char *line, int i)
 {
-    int len = 0;
+	int	len;
 
-    if (is_special(line[i]))
-    {
-        if ((line[i] == '>' && line[i + 1] == '>') || (line[i] == '<' && line[i + 1] == '<'))
-            return 2;
-        return 1;
-    }
-    while (line[i + len] && !is_space(line[i + len]) && !is_special(line[i + len]))
-        len++;
-    return len;
+	len = 0;
+	if (is_special(line[i]))
+	{
+		if ((line[i] == '>' && line[i + 1] == '>') || (line[i] == '<' && line[i
+				+ 1] == '<'))
+			return (2);
+		return (1);
+	}
+	while (line[i + len] && !is_space(line[i + len]) && !is_special(line[i
+			+ len]))
+		len++;
+	return (len);
 }

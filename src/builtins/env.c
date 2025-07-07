@@ -67,8 +67,13 @@ int  ft_env(t_env *env,t_shell *shell ,char **args)
 {
         char    *msg;
         (void)shell;
-
         msg = ": No such file or directory";
+        if (!getenv_path(env))
+        {
+                print_error2("env",msg);
+                g_exit_status = 1;
+                return (g_exit_status);
+        }
         if (!args[0])
                 return(1);
         if (args[1])

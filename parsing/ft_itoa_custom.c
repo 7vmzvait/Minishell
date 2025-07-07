@@ -11,27 +11,27 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
-char *ft_itoa_custom(int n)
+
+char	*ft_itoa_custom(int n)
 {
-    // Simple implementation of itoa
-    char buffer[12]; // enough for int range
-    int i = 10;
-    int neg = n < 0;
-    buffer[11] = '\0';
+	int				i;
+	int				neg;
+	unsigned int	num;
 
-    if (n == 0)
-        return ft_strdup("0");
-
-    unsigned int num = (neg) ? -n : n;
-
-    while (num > 0)
-    {
-        buffer[i--] = '0' + (num % 10);
-        num /= 10;
-    }
-
-    if (neg)
-        buffer[i--] = '-';
-
-    return ft_strdup(&buffer[i + 1]);
+	// Simple implementation of itoa
+	char buffer[12]; // enough for int range
+	i = 10;
+	neg = n < 0;
+	buffer[11] = '\0';
+	if (n == 0)
+		return (ft_strdup("0"));
+	num = (neg) ? -n : n;
+	while (num > 0)
+	{
+		buffer[i--] = '0' + (num % 10);
+		num /= 10;
+	}
+	if (neg)
+		buffer[i--] = '-';
+	return (ft_strdup(&buffer[i + 1]));
 }

@@ -42,6 +42,7 @@ void handle_signals(int sig);
 t_cmd *parse_input(char *input,t_env *env);
 int  redir_infile(t_cmd *cmd);
 int redir_outfile(t_cmd *cmd);
+char *getenv_path(t_env *env);
 int is_builtin_command(char *command);
 int execute_builtins(t_cmd *cmd, t_shell *shell,t_env *env);
 int run_builtins(t_cmd *cmd,t_shell *shell,t_env *env,t_context *ctx);

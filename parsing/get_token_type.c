@@ -12,19 +12,19 @@
 
 #include "parsing.h"
 
-t_token_type get_token_type(char *str)
+t_token_type	get_token_type(char *str)
 {
-    if (!str)
-        return WORD;
-    if (ft_strcmp(str, "|") == 0)
-        return PIPE;
-    if (ft_strcmp(str, "<") == 0)
-        return REDIR_IN;
-    if (ft_strcmp(str, ">") == 0)
-        return REDIR_OUT;
-    if (ft_strcmp(str, ">>") == 0)
-        return APPEND;
-    if (ft_strcmp(str, "<<") == 0)
-        return HEREDOC;
-    return WORD;
+	if (!str)
+		return (WORD);
+	if (ft_strcmp(str, "|") == 0)
+		return (PIPE);
+	if (ft_strcmp(str, "<") == 0)
+		return (REDIR_IN);
+	if (ft_strcmp(str, ">") == 0)
+		return (REDIR_OUT);
+	if (ft_strcmp(str, ">>") == 0)
+		return (APPEND);
+	if (ft_strcmp(str, "<<") == 0)
+		return (HEREDOC);
+	return (WORD);
 }

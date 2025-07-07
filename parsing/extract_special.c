@@ -12,22 +12,22 @@
 
 #include "parsing.h"
 
-char *extract_special(const char *input, int *i)
+char	*extract_special(const char *input, int *i)
 {
-    if (input[*i] == '>' && input[*i + 1] == '>')
-    {
-        (*i) += 2;
-        return ft_strdup(">>");
-    }
-    else if (input[*i] == '<' && input[*i + 1] == '<')
-    {
-        (*i) += 2;
-        return ft_strdup("<<");
-    }
-    else
-    {
-        char op[2] = { input[*i], '\0' };
-        (*i)++;
-        return ft_strdup(op);
-    }
+	if (input[*i] == '>' && input[*i + 1] == '>')
+	{
+		(*i) += 2;
+		return (ft_strdup(">>"));
+	}
+	else if (input[*i] == '<' && input[*i + 1] == '<')
+	{
+		(*i) += 2;
+		return (ft_strdup("<<"));
+	}
+	else
+	{
+		char op[2] = {input[*i], '\0'};
+		(*i)++;
+		return (ft_strdup(op));
+	}
 }

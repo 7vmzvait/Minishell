@@ -12,47 +12,47 @@
 
 #include "parsing.h"
 
-void free_tokens(char **tokens)
+void	free_tokens(char **tokens)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (!tokens)
-        return;
-    while (tokens[i])
-    {
-        free(tokens[i]);
-        i++;
-    }
-    free(tokens);
+	i = 0;
+	if (!tokens)
+		return ;
+	while (tokens[i])
+	{
+		free(tokens[i]);
+		i++;
+	}
+	free(tokens);
 }
 
-void free_cmds(t_cmd *head)
+void	free_cmds(t_cmd *head)
 {
-    t_cmd *tmp;
+	t_cmd	*tmp;
 
-    while (head)
-    {
-        tmp = head;
-        if (tmp->args)
-            free_tokens(tmp->args);
-        if (tmp->infile)
-            free(tmp->infile);
-        if (tmp->outfile)
-            free(tmp->outfile);
-        head = head->next;
-        free(tmp);
-    }
+	while (head)
+	{
+		tmp = head;
+		if (tmp->args)
+			free_tokens(tmp->args);
+		if (tmp->infile)
+			free(tmp->infile);
+		if (tmp->outfile)
+			free(tmp->outfile);
+		head = head->next;
+		free(tmp);
+	}
 }
-void free_token_list(t_token *tokens)
+void	free_token_list(t_token *tokens)
 {
-    t_token *tmp;
-    while (tokens)
-    {
-        tmp = tokens->next;
-        if (tokens->value)
-            free(tokens->value);
-        free(tokens);
-        tokens = tmp;
-    }
+	t_token *tmp;
+	while (tokens)
+	{
+		tmp = tokens->next;
+		if (tokens->value)
+			free(tokens->value);
+		free(tokens);
+		tokens = tmp;
+	}
 }

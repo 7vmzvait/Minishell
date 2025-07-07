@@ -10,29 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
 #include "../include/minishell.h"
+#include "parsing.h"
 
 // char **tokenize3(char *line);
 
-
-t_cmd *parse_input(char *input,t_env *env)
+t_cmd	*parse_input(char *input, t_env *env)
 {
-    char **tokens;
-    t_cmd *cmds;
+	char	**tokens;
+	t_cmd	*cmds;
 
-    tokens = tokenize(input,env);
-
-    if (!tokens)
-        return (NULL);
-    if (check_syntax_error(tokens))
-    {
-        free_tokens(tokens);
-        return (NULL);
-    }
-    cmds = parse_tokens1(tokens);
-    //free_tokens(tokens);
-    return (cmds);
+	tokens = tokenize(input, env);
+	if (!tokens)
+		return (NULL);
+	if (check_syntax_error(tokens))
+	{
+		free_tokens(tokens);
+		return (NULL);
+	}
+	cmds = parse_tokens1(tokens);
+	// free_tokens(tokens);
+	return (cmds);
 }
 
 // char **tokenize3(char *line)
@@ -53,7 +51,7 @@ t_cmd *parse_input(char *input,t_env *env)
 //         // while (line[i] && is_space(line[i]))
 //         //     i++;
 //         // if (!line[i])
-//         //     break;
+//         //     break ;
 //         // if (is_special(line[i]))
 //         // {
 //         //     tokens[j++] = get_special_token(line, &i);
@@ -61,16 +59,18 @@ t_cmd *parse_input(char *input,t_env *env)
 //         if (line[i] == '"' || line[i] == '\'')
 //         {
 //             word = extract_quoted(line, &i);
-//             expanded = expand_variables(word, NULL, 0); // Pass envp & exit_status here
+//             expanded = expand_variables(word, NULL, 0);
+	// Pass envp & exit_status here
 //             free(word);
 //             tokens[j++] = expanded;
 //         }
 //         else
 //         {
 //             word = extract_word(line, &i);
-//             expanded = expand_variables(word, NULL, 0); // Pass envp & exit_status here
+//             expanded = expand_variables(word, NULL, 0);
+	// Pass envp & exit_status here
 //             // free(word);
-//             tokens[j++] = expanded; // here segfoult 
+//             tokens[j++] = expanded; // here segfoult
 //         }
 //     }
 //     tokens[j] = NULL;

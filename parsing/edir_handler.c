@@ -18,22 +18,22 @@
 //         free(cmd->infile);
 //     cmd->infile = ft_strdup(file);
 //     if (!cmd->infile)
-//         return;
+//         return ;
 //     if (ft_strcmp(redir, "<") == 0)
 //         cmd->heredoc = 0;
 //     else if (ft_strcmp(redir, "<<") == 0)
 //         cmd->heredoc = 1;
 // }
 
-void set_outfile(t_cmd *cmd, char *redir, char *file)
+void	set_outfile(t_cmd *cmd, char *redir, char *file)
 {
-    if (cmd->outfile)
-        free(cmd->outfile);
-    cmd->outfile = ft_strdup(file);
-    if (!cmd->outfile)
-        return;
-    if (ft_strcmp(redir, ">") == 0)
-        cmd->append = 0;
-    else if (ft_strcmp(redir, ">>") == 0)
-        cmd->append = 1;
+	if (cmd->outfile)
+		free(cmd->outfile);
+	cmd->outfile = ft_strdup(file);
+	if (!cmd->outfile)
+		return ;
+	if (ft_strcmp(redir, ">") == 0)
+		cmd->append = 0;
+	else if (ft_strcmp(redir, ">>") == 0)
+		cmd->append = 1;
 }

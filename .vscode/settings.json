@@ -13,6 +13,9 @@
         "tuple": "c",
         "type_traits": "c",
         "utility": "c",
-        "minishell.h": "c"
+        "minishell.h": "c",
+        "stdlib.h": "c",
+        "signal.h": "c",
+        "libft.h": "c"
     }
 }

@@ -12,47 +12,47 @@
 
 #include "../../include/minishell.h"
 
-char *getenv_path(t_env *env)
+char	*getenv_path(t_env *env)
 {
-	t_shell *current;
+	t_shell	*current;
 
 	current = env->env_list;
 	while (current)
 	{
-		if (ft_strncmp(current->key,"PATH",5) == 0)
+		if (ft_strncmp(current->key, "PATH", 5) == 0)
 			return (current->value);
 		current = current->next;
 	}
 	return (NULL);
 }
 
-char **list_to_array(t_env *env,t_shell *shell)
+char	**list_to_array(t_env *env, t_shell *shell)
 {
-        (void)shell;
-        t_shell *current;
-        int counter;
-        char **env_var;
+	t_shell	*current;
+	int		counter;
+	char	**env_var;
 
-        counter = 0;
-        current = env->env_list;
-        while (current)
-        {
-                counter++;
-                current = current->next; 
-        }
-        env_var = malloc((counter + 1) * sizeof(char *));
-        current = env->env_list;
-        counter = 0;
-        while (current)
-        {
-                env_var[counter++] = ft_create_env_line(current);
-                current = current->next;
-        }
-        env_var[counter] = NULL;
-        return (env_var);
+	(void)shell;
+	counter = 0;
+	current = env->env_list;
+	while (current)
+	{
+		counter++;
+		current = current->next;
+	}
+	env_var = malloc((counter + 1) * sizeof(char *));
+	current = env->env_list;
+	counter = 0;
+	while (current)
+	{
+		env_var[counter++] = ft_create_env_line(current);
+		current = current->next;
+	}
+	env_var[counter] = NULL;
+	return (env_var);
 }
 
-char	*ft_strjoin_command_with_path(char *cmd,t_shell *shell,t_env *env)
+char	*ft_strjoin_command_with_path(char *cmd, t_shell *shell, t_env *env)
 {
 	char	**split_path;
 	char	*join_slash;
@@ -61,10 +61,8 @@ char	*ft_strjoin_command_with_path(char *cmd,t_shell *shell,t_env *env)
 	int		i;
 
 	i = -1;
-	
 	(void)shell;
 	path = getenv_path(env);
-	
 	if (!path)
 		return (NULL);
 	split_path = ft_split(path, ':');
@@ -84,7 +82,7 @@ char	*ft_strjoin_command_with_path(char *cmd,t_shell *shell,t_env *env)
 	return (NULL);
 }
 
-char	*check_command(char *cmd,t_shell *shell,t_env *env)
+char	*check_command(char *cmd, t_shell *shell, t_env *env)
 {
 	char	*res;
 
@@ -98,27 +96,26 @@ char	*check_command(char *cmd,t_shell *shell,t_env *env)
 	}
 	else
 	{
-		res = ft_strjoin_command_with_path(cmd,shell,env);
+		res = ft_strjoin_command_with_path(cmd, shell, env);
 		if (!res)
 			return (NULL);
 	}
 	return (res);
 }
 
-
-void	exec(char **cmd, t_shell *shell,t_env *env)
+void	exec(char **cmd, t_shell *shell, t_env *env)
 {
 	char	*path;
-	char     **env_list;
+	char	**env_list;
 
-	env_list = list_to_array(env,shell); // leaks;
+	env_list = list_to_array(env, shell);
 	if (!cmd || !cmd[0] || !cmd[0][0])
 	{
 		free_split(cmd);
 		write(2, "minshell: command not found: \n", 30);
 		exit(127);
 	}
-	path = check_command(cmd[0],shell,env);
+	path = check_command(cmd[0], shell, env);
 	if (!path)
 	{
 		write(2, "minishell: command not found: ", 29);
@@ -134,5 +131,3 @@ void	exec(char **cmd, t_shell *shell,t_env *env)
 		exit(EXIT_FAILURE);
 	}
 }
-
-

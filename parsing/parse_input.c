@@ -10,57 +10,57 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
 #include "../include/minishell.h"
+#include "parsing.h"
 
-t_cmd *parse_tokens1(char **tokens)
+t_cmd	*parse_tokens1(char **tokens)
 {
-    t_cmd *cmd_list;
-    t_cmd *cmd;
-    int i;
+	t_cmd	*cmd_list;
+	t_cmd	*cmd;
+	int		i;
 
-    cmd_list = NULL;
-    i = 0;
-    while (tokens[i])
-    {
-        if (!cmd_list)
-        {
-            cmd = new_cmd_node();
-            if (!cmd)
-                return (NULL);
-            cmd_list = cmd;
-        }
-        if (!ft_strcmp(tokens[i], "|"))
-        {
-            cmd->pipe_to_next = 1;
-            cmd = new_cmd_node();
-            if (!cmd)
-            {
-                free_cmds(cmd_list);
-                return (NULL);
-            }
-            add_cmd_to_list(&cmd_list, cmd);
-            i++;
-            continue ;
-        }
-        else if (!ft_strcmp(tokens[i], "<") || !ft_strcmp(tokens[i], "<<"))
-        {
-            handle_redir2(cmd,tokens,&i);
-            cmd->save_del = tokens[i];
-            i++;
-            continue ;
-        }
-        else if (!ft_strcmp(tokens[i], ">") || !ft_strcmp(tokens[i], ">>"))
-        {
-            handle_redir2(cmd,tokens,&i);
-            i++;
-            continue ;
-        }
-        else
-        {
-            add_arg_to_cmd(cmd, ft_strdup(tokens[i]));
-        }
-        i++;
-    }
-    return (cmd_list);
+	cmd_list = NULL;
+	i = 0;
+	while (tokens[i])
+	{
+		if (!cmd_list)
+		{
+			cmd = new_cmd_node();
+			if (!cmd)
+				return (NULL);
+			cmd_list = cmd;
+		}
+		if (!ft_strcmp(tokens[i], "|"))
+		{
+			cmd->pipe_to_next = 1;
+			cmd = new_cmd_node();
+			if (!cmd)
+			{
+				free_cmds(cmd_list);
+				return (NULL);
+			}
+			add_cmd_to_list(&cmd_list, cmd);
+			i++;
+			continue ;
+		}
+		else if (!ft_strcmp(tokens[i], "<") || !ft_strcmp(tokens[i], "<<"))
+		{
+			handle_redir2(cmd, tokens, &i);
+			cmd->save_del = tokens[i];
+			i++;
+			continue ;
+		}
+		else if (!ft_strcmp(tokens[i], ">") || !ft_strcmp(tokens[i], ">>"))
+		{
+			handle_redir2(cmd, tokens, &i);
+			i++;
+			continue ;
+		}
+		else
+		{
+			add_arg_to_cmd(cmd, ft_strdup(tokens[i]));
+		}
+		i++;
+	}
+	return (cmd_list);
 }

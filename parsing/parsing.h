@@ -15,7 +15,9 @@
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <limits.h>
 #include <stdio.h>
+#include <string.h>
 #include "../libft/libft.h"
 #include <signal.h>
 
@@ -57,7 +59,6 @@ typedef struct s_cmd
 } t_cmd;
 
 
-void print1(t_cmd *cmd);
 // PARSING FUNCTIONS
  // entry point
 

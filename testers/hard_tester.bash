@@ -2,6 +2,7 @@
 # Advanced Minishell Test Suite
 # Tests redirection, pipes, and built-in commands without &&, ||, &
 
+unset PATH
 # Color codes
 RED='\033[0;31m'
 GREEN='\033[0;32m'

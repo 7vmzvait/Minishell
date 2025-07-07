@@ -29,24 +29,24 @@
 //     return (cmd);
 // }
 
-//void add_arg_to_cmd(t_cmd *cmd, char *arg)
+// void add_arg_to_cmd(t_cmd *cmd, char *arg)
 //{
-   //  add_arg(&(cmd->args), arg);
+//  add_arg(&(cmd->args), arg);
 //}
 
 /*
-void add_cmd_to_list(t_cmd **list, t_cmd *new_cmd)
+void	add_cmd_to_list(t_cmd **list, t_cmd *new_cmd)
 {
-    t_cmd *tmp;
+	t_cmd	*tmp;
 
-    if (!*list)
-    {
-        *list = new_cmd;
-        return;
-    }
-    tmp = *list;
-    while (tmp->next)
-        tmp = tmp->next;
-    tmp->next = new_cmd;
+	if (!*list)
+	{
+		*list = new_cmd;
+		return ;
+	}
+	tmp = *list;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new_cmd;
 }
 */

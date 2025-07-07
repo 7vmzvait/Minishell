@@ -18,12 +18,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <stdio.h>
 #include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 #include <stdbool.h>
-#include <string.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 

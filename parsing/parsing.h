@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:43:11 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/07/06 09:59:34 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/07/07 14:31:27 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_token_type get_token_type(char *str);
 char *extract_word(const char *input, int *i);
 char *extract_special(const char *input, int *i);
 char *extract_quoted(const char *input, int *i, int *is_single);
+char *extract_var_name(const char *str, int *i);
 
 // COMMAND BUILDERS
 t_cmd *new_cmd_node(void);

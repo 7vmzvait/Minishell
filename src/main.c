@@ -83,7 +83,7 @@ int	main(int argc, char **argv, char **env)
 		if (*input)
 			add_history(input);
 		cmd = parse_input(input, env_var);
-		if (!ft_strcmp(cmd->args[0], "exit"))
+		if (cmd && cmd->args && cmd->args[0] && !ft_strcmp(cmd->args[0], "exit"))
 			ft_exit(cmd->args);
 		else
 			execute_commands(cmd, ctx, shell, env_var);

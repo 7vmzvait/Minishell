@@ -20,21 +20,29 @@ PARSE_LIB = $(PARSE_DIR)/parsing.a
 SRCS = \
 	$(SRC_DIR)/main.c \
 	$(EXEC_DIR)/utils1.c \
-	$(EXEC_DIR)/utils2.c \
 	$(EXEC_DIR)/exec.c \
 	$(EXEC_DIR)/handle_redir.c \
 	$(EXEC_DIR)/redir.c \
+	$(EXEC_DIR)/memory_management.c\
+	$(EXEC_DIR)/signals_handler.c\
+	$(EXEC_DIR)/init_shell.c\
+	$(EXEC_DIR)/builtin_handler.c\
+	$(EXEC_DIR)/heredoc_handler.c\
+	$(EXEC_DIR)/malti-cmd_handler.c\
+	$(EXEC_DIR)/free_tools.c\
+	$(EXEC_DIR)/execve_handler.c\
 	$(BUILTINS)/echo.c \
 	$(BUILTINS)/cd.c \
 	$(BUILTINS)/exit.c \
 	$(BUILTINS)/env.c \
 	$(BUILTINS)/pwd.c \
 	$(BUILTINS)/unset.c \
-	$(BUILTINS)/export.c\
-	# $(EXPORT_DIR)/tools1.c \
-	# $(EXPORT_DIR)/tools2.c \
-	# $(EXPORT_DIR)/tools3.c \
-	# $(EXPORT_DIR)/tools4.c
+	$(EXPORT_DIR)/export.c\
+	$(EXPORT_DIR)/tools1.c \
+	$(EXPORT_DIR)/tools2.c \
+	$(EXPORT_DIR)/tools3.c \
+	$(EXPORT_DIR)/tools4.c\
+	$(EXPORT_DIR)/tools5.c
 
 OBJS = $(SRCS:.c=.o)
 

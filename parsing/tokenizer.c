@@ -34,11 +34,13 @@ char	**tokenize(char *line, t_env *env)
     
     tokens = malloc(sizeof(char *) * MAX_TOKENS);
     if (!tokens)
-        return NULL;
+    {
+        free(tokens);
+        return (NULL);
+    }
     env_path = list_to_array(env, NULL);
     i = 0;
     j = 0;
-    
     while (line[i])
     {
         while (line[i] && is_space(line[i]))
@@ -98,7 +100,7 @@ char	**tokenize(char *line, t_env *env)
             i += len;
         }
     }
-    
+    free_env(env_path);
     tokens[j] = NULL;
     return tokens;
 }

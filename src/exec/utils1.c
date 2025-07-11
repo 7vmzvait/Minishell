@@ -6,7 +6,7 @@
 /*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 09:29:50 by eazmir            #+#    #+#             */
-/*   Updated: 2025/06/26 10:06:08 by eazmir           ###   ########.fr       */
+/*   Updated: 2025/07/09 16:35:50 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*getenv_path(t_env *env)
 {
 	t_shell	*current;
 
+	if (!env)
+		return (NULL);
 	current = env->env_list;
 	while (current)
 	{
@@ -41,6 +43,8 @@ char	**list_to_array(t_env *env, t_shell *shell)
 		current = current->next;
 	}
 	env_var = malloc((counter + 1) * sizeof(char *));
+	if (!env_var)
+		return (NULL);
 	current = env->env_list;
 	counter = 0;
 	while (current)
@@ -52,7 +56,7 @@ char	**list_to_array(t_env *env, t_shell *shell)
 	return (env_var);
 }
 
-char	*ft_strjoin_command_with_path(char *cmd, t_shell *shell, t_env *env)
+char	*ft_strjoin_command_with_path(char *cmd, t_env *env)
 {
 	char	**split_path;
 	char	*join_slash;
@@ -61,7 +65,6 @@ char	*ft_strjoin_command_with_path(char *cmd, t_shell *shell, t_env *env)
 	int		i;
 
 	i = -1;
-	(void)shell;
 	path = getenv_path(env);
 	if (!path)
 		return (NULL);
@@ -82,7 +85,7 @@ char	*ft_strjoin_command_with_path(char *cmd, t_shell *shell, t_env *env)
 	return (NULL);
 }
 
-char	*check_command(char *cmd, t_shell *shell, t_env *env)
+char	*check_command(char *cmd, t_env *env)
 {
 	char	*res;
 
@@ -96,38 +99,9 @@ char	*check_command(char *cmd, t_shell *shell, t_env *env)
 	}
 	else
 	{
-		res = ft_strjoin_command_with_path(cmd, shell, env);
+		res = ft_strjoin_command_with_path(cmd, env);
 		if (!res)
 			return (NULL);
 	}
 	return (res);
-}
-
-void	exec(char **cmd, t_shell *shell, t_env *env)
-{
-	char	*path;
-	char	**env_list;
-
-	env_list = list_to_array(env, shell);
-	if (!cmd || !cmd[0] || !cmd[0][0])
-	{
-		free_split(cmd);
-		write(2, "minshell: command not found: \n", 30);
-		exit(127);
-	}
-	path = check_command(cmd[0], shell, env);
-	if (!path)
-	{
-		write(2, "minishell: command not found: ", 29);
-		write(2, cmd[0], ft_strlen(cmd[0]));
-		write(2, "\n", 1);
-		free_split(cmd);
-		exit(127);
-	}
-	if (execve(path, cmd, env_list) == -1)
-	{
-		free(path);
-		free_split(cmd);
-		exit(EXIT_FAILURE);
-	}
 }

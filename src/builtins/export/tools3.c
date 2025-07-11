@@ -12,63 +12,37 @@
 
 #include "../../../include/minishell.h"
 
-void	printList(t_shell **shell)
-{	
-	t_shell *tmp;
-	int 	len;
+int	print_synatx_error(char *args)
+{
+	char	*msg;
+
+	msg = ": not a valid identifier\n";
+	write(2, "export: ", 8);
+	write(2, args, ft_strlen(args));
+	write(2, msg, ft_strlen(msg));
+	return (0);
+}
+
+int	is_valid_export_syntax(char *args)
+{
 	int	i;
-	char 	**env_path;
-	char	**_;
-	
-	tmp = *shell;
-	len = 0;
-	while (tmp)
+
+	if (!args || args[0] == '\0')
+		return (print_synatx_error(args), 1);
+	if (args[0] == '+' || args[0] == '=' || (!ft_isalpha(args[0])
+			&& args[0] != '_'))
 	{
-		len++;
-		tmp = tmp->next;
+		return (print_synatx_error(args), 1);
 	}
-	tmp = *shell;
-	env_path = malloc((len + 1) * sizeof(char**));
-	i = 0;
-	while (tmp)
+	i = 1;
+	while (args[i] && args[i] != '=' && !(args[i] == '+' && args[i + 1] == '='))
 	{
-		env_path[i] = join_key_with_value(tmp);
-		tmp = tmp->next;
+		if (!ft_isalnum(args[i]) && args[i] != '_')
+		{
+			print_synatx_error(args);
+			return (1);
+		}
 		i++;
 	}
-	env_path[i] = NULL;
-	_ = ft_sort_tab(env_path,len);
-	i = 0;
-	while (_[i])
-	{
-		ft_putstr_fd("declare -x ",1);
-		ft_putstr_fd(_[i],1);
-		write(1,"\n",1);
-		i++;
-	}
-}
-
-t_shell *create_node(char *args)
-{
-	t_shell *node;
-	node = malloc(sizeof(t_shell));
-	if (!node)
-		return (NULL);
-	node->key = extract_args(args,'K');
-	node->value = extract_args(args,'V');
-	node->next = NULL;
-	return (node);
-}
-
-void add_back(t_shell **head,t_shell *last)
-{
-	t_shell	*tmp;
-	if (*head == NULL)
-		*head = last;
-	else
-	{	tmp = *head;
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		tmp->next  = last;
-	}	
+	return (0);
 }

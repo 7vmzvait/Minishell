@@ -31,6 +31,7 @@ int	open_infile(t_cmd *cmd)
 	}
 	return (-1);
 }
+
 int	open_outfile(t_cmd *cmd)
 {
 	int	outfile_fd;
@@ -69,6 +70,7 @@ int	redir_infile(t_cmd *cmd)
 	}
 	return (0);
 }
+
 int	redir_outfile(t_cmd *cmd)
 {
 	if (!cmd || !cmd->outfile)

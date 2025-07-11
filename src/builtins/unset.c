@@ -12,17 +12,17 @@
 
 #include "../../include/minishell.h"
 
-int   unlink_variable_node(t_shell **shell,t_env *env,char *args)
+int	unlink_variable_node(t_shell **shell, t_env *env, char *args)
 {
 	t_shell	*tmp;
-	t_shell *prev;
-	t_shell *next;
-	
+	t_shell	*prev;
+	t_shell	*next;
+
 	prev = NULL;
 	tmp = env->env_list;
 	while (tmp)
 	{
-		if(ft_strncmp(tmp->key,args,ft_strlen(args)) == 0)
+		if (ft_strncmp(tmp->key, args, ft_strlen(args)) == 0)
 		{
 			next = tmp->next;
 			if (prev == NULL)
@@ -41,17 +41,16 @@ int   unlink_variable_node(t_shell **shell,t_env *env,char *args)
 	return (1);
 }
 
-int ft_unset(t_shell **shell,t_env *env ,char **args)
+int	ft_unset(t_shell **shell, t_env *env, char **args)
 {
-
 	int	i;
-	
+
 	if (!args[1] || !args[0])
 		return (0);
 	i = 1;
 	while (args[i])
 	{
-		if (unlink_variable_node(shell,env,args[i]))
+		if (unlink_variable_node(shell, env, args[i]))
 		{
 			g_exit_status = 0;
 			return (g_exit_status);

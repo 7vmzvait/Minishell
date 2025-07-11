@@ -46,7 +46,8 @@ t_cmd	*parse_tokens1(char **tokens)
 		else if (!ft_strcmp(tokens[i], "<") || !ft_strcmp(tokens[i], "<<"))
 		{
 			handle_redir2(cmd, tokens, &i);
-			cmd->save_del = tokens[i];
+			if (cmd->heredoc == 1)
+				cmd->save_del = ft_strdup(tokens[i]);
 			i++;
 			continue ;
 		}

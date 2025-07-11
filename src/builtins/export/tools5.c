@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools4.c                                           :+:      :+:    :+:   */
+/*   tools5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eazmir <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 12:21:26 by eazmir            #+#    #+#             */
-/*   Updated: 2025/06/26 12:21:31 by eazmir           ###   ########.fr       */
+/*   Created: 2025/07/09 17:53:18 by eazmir            #+#    #+#             */
+/*   Updated: 2025/07/09 17:54:13 by eazmir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int	free_key3(char *key, char *value)
+int	free_key2(char *key, char *value)
 {
 	if (key)
 		free(key);
@@ -21,12 +21,12 @@ int	free_key3(char *key, char *value)
 	return (0);
 }
 
-char	*parse_key_value(char *args, char **key, char **value)
+char	*parse_key_value2(char *args, char **key, char **value)
 {
 	char	*eq;
 	int		len;
 
-	eq = ft_strchr(args, '=');
+	eq = ft_strchr(args, '+');
 	if (eq)
 	{
 		len = eq - args;
@@ -38,7 +38,7 @@ char	*parse_key_value(char *args, char **key, char **value)
 		}
 		*value = ft_strdup(eq + 1);
 		if (!*value)
-			return (free_key3(*key, *value), NULL);
+			return (free_key2(*key, *value), NULL);
 	}
 	else
 	{
@@ -48,7 +48,7 @@ char	*parse_key_value(char *args, char **key, char **value)
 	return (eq);
 }
 
-char	*handle_extraction_option(char *key, char *value, char opt)
+char	*handle_extraction_option2(char *key, char *value, char opt)
 {
 	if (!value && opt != 'V')
 		return (ft_strdup(key));
@@ -69,14 +69,14 @@ char	*handle_extraction_option(char *key, char *value, char opt)
 	return (NULL);
 }
 
-char	*extract_args(char *args, char opt)
+char	*extract_keys(char *args, char opt)
 {
 	char	*key;
 	char	*value;
 	char	*eq;
 
-	eq = parse_key_value(args, &key, &value);
+	eq = parse_key_value2(args, &key, &value);
 	if (!key)
 		return (NULL);
-	return (handle_extraction_option(key, value, opt));
+	return (handle_extraction_option2(key, value, opt));
 }

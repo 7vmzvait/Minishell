@@ -12,74 +12,90 @@
 
 #include "../../../include/minishell.h"
 
-char  *extract_args(char *args,char opt)
+t_shell	*create_node(char *args)
 {
-	char	*eq;
-	char	*key;
-	char	*value;
-	int	len;
-	
-	eq = ft_strchr(args,'=');
-	len = eq - args; 
-	key = ft_substr(args,0,len);
-	if (!key)
-	{
-		free(key);
-		return(NULL);
-	}
-	if (!eq && opt != 'V')
-		return (ft_strdup(key));
-	else if (!eq && opt == 'V')
+	t_shell	*node;
+
+	node = malloc(sizeof(t_shell));
+	if (!node)
 		return (NULL);
-	value = ft_strdup(eq + 1);
-	if (!value)
-	{
-		free(value);
-		return (NULL);
-	}        
-	if (opt == 'V')
-		return (value);
-	if (opt == 'K')
-		return (key);
-	return (NULL);
+	node->key = extract_args(args, 'K');
+	node->value = extract_args(args, 'V');
+	node->next = NULL;
+	return (node);
 }
 
-char  *extract_keys(char *args,char opt)
+void	add_back(t_shell **head, t_shell *last)
 {
-	char	*eq;
-	char	*key;
-	char	*value;
-	int	len;
-	
-	
-	eq = ft_strchr(args,'+');
-	len = eq - args;
-	key = ft_substr(args,0,len);
-	if (!key)
+	t_shell	*tmp;
+
+	if (*head == NULL)
+		*head = last;
+	else
 	{
-		free(key);
-		return(NULL);
+		tmp = *head;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = last;
 	}
-	value = ft_strdup(eq + 2);
-	if (!value)
-	{
-		free(value);
-		return (NULL);
-	}
-	if (opt == 'V')
-		return (value);
-	if (opt == 'K')
-		return (key);
-	return (NULL);
 }
 
-int path_len(char **tab)
+void	update_env(t_shell **shell, char *args, t_env *env)
 {
-	int i;
-	
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-	
+	t_shell	*tmp;
+	char	*key;
+	char	*value;
+
+	(void)shell;
+	key = extract_args(args, 'K');
+	value = extract_args(args, 'V');
+	tmp = env->env_list;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->key, key, ft_strlen(key)) == 0)
+		{
+			free(tmp->key);
+			free(tmp->value);
+			tmp->key = key;
+			tmp->value = value;
+			return ;
+		}
+		tmp = tmp->next;
+	}
+	free(key);
+	free(value);
+	add_back(&env->env_list, create_node(args));
+}
+
+void	join_key(t_shell **shell, char *args, t_env *env)
+{
+	t_shell	*tmp;
+	char	*join;
+	char	*key;
+	char	*value;
+
+	(void)shell;
+	key = extract_keys(args, 'K');
+	value = extract_keys(args, 'V');
+	tmp = env->env_list;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->key, key, ft_strlen(key)) == 0)
+		{
+			join = ft_strjoin(tmp->value, value);
+			tmp->value = join;
+			return ;
+		}
+		tmp = tmp->next;
+	}
+	free(key);
+	free(value);
+}
+
+void	add_node(t_shell **shell, char *last, t_env *env)
+{
+	if (!last)
+		return ;
+	else
+		update_env(shell, last, env);
 }

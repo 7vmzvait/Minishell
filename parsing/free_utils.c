@@ -24,7 +24,7 @@ void	free_tokens(char **tokens)
 		free(tokens[i]);
 		i++;
 	}
-	// free(tokens);
+	free(tokens);
 }
 
 void	free_cmds(t_cmd *head)

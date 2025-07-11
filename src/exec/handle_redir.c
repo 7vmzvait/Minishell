@@ -14,16 +14,14 @@
 
 void	handle_heredoc(t_cmd *cmd, char **tokens, int *i)
 {
-	// cmd->infile = ft_strdup(tokens[++(*i)]);
 	(void)tokens;
-	// (void)i;
 	(*i)++;
 	cmd->heredoc = 1;
 }
 
 void	handle_append(t_cmd *cmd, char **tokens, int *i)
 {
-		int fd;
+	int	fd;
 
 	if (cmd->outfile)
 	{
@@ -46,22 +44,20 @@ void	check_redir(t_cmd *cmd, char **tokens, int *i)
 	if (!ft_strcmp(tokens[*i], "<"))
 	{
 		if (cmd->infile)
-			free(cmd->infile);                  
-				// Free previous infile if it exists
-		cmd->infile = ft_strdup(tokens[++(*i)]); // create new file
+			free(cmd->infile);
+		cmd->infile = ft_strdup(tokens[++(*i)]);
 	}
 	else if (!ft_strcmp(tokens[*i], ">"))
 	{
-		if (cmd->outfile) // Create the previous outfile file1 > file2
+		if (cmd->outfile)
 		{
 			fd = open(cmd->outfile, O_TRUNC | O_CREAT | O_WRONLY, 0644);
 			if (fd >= 0)
-				close(fd); // Just create the file, then close it
+				close(fd);
 			free(cmd->outfile);
 		}
 		cmd->outfile = ft_strdup(tokens[++(*i)]);
-			// create new file to redirect output
-		cmd->append = 0;                          // Reset append flag
+		cmd->append = 0;
 	}
 	else if (!ft_strcmp(tokens[*i], ">>"))
 		handle_append(cmd, tokens, i);
@@ -79,12 +75,4 @@ void	handle_redir2(t_cmd *cmd, char **tokens, int *i)
 {
 	if (tokens[*i])
 		check_redir(cmd, tokens, i);
-	// while (tokens[*i])
-	// {
-	//     if (is_redir(tokens[*i]))
-	//     {
-	//         check_redir(cmd, tokens, i);
-	//     }
-	//     (*i)++;
-	// }
 }

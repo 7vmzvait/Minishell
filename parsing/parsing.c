@@ -21,57 +21,16 @@ t_cmd *parse_input(char *input,t_env *env)
 
 	tokens = tokenize(input, env);
 	if (!tokens)
+	{
+		free_tokens(tokens);
 		return (NULL);
+	}
 	if (check_syntax_error(tokens))
 	{
 		free_tokens(tokens);
 		return (NULL);
 	}
 	cmds = parse_tokens1(tokens);
-	// free_tokens(tokens);
+	free_tokens(tokens);
 	return (cmds);
 }
-
-// char **tokenize3(char *line)
-// {
-//     int i;
-//     int j;
-//     char **tokens;
-//     char *word;
-//     char *expanded;
-
-//     tokens = malloc(sizeof(char *) * (MAX_TOKENS));
-//     if (!tokens)
-//         return (NULL);
-//     i = 0;
-//     j = 0;
-//     while (line[i])
-//     {
-//         // while (line[i] && is_space(line[i]))
-//         //     i++;
-//         // if (!line[i])
-//         //     break ;
-//         // if (is_special(line[i]))
-//         // {
-//         //     tokens[j++] = get_special_token(line, &i);
-//         // }
-//         if (line[i] == '"' || line[i] == '\'')
-//         {
-//             word = extract_quoted(line, &i);
-//             expanded = expand_variables(word, NULL, 0);
-	// Pass envp & exit_status here
-//             free(word);
-//             tokens[j++] = expanded;
-//         }
-//         else
-//         {
-//             word = extract_word(line, &i);
-//             expanded = expand_variables(word, NULL, 0);
-	// Pass envp & exit_status here
-//             // free(word);
-//             tokens[j++] = expanded; // here segfoult
-//         }
-//     }
-//     tokens[j] = NULL;
-//     return (tokens);
-// }

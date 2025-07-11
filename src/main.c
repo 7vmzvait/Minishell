@@ -20,11 +20,10 @@ void	ft_readline(t_cmd *cmd, t_shell *shell, t_context *ctx, t_env *env_var)
 
 	while (1)
 	{
-		input = readline("Minishell$ ");
+		input = readline("$ ");
 		if (!input)
 		{
 			ft_putendl_fd("exit", 1);
-			g_exit_status = 0;
 			exit(g_exit_status);
 		}
 		if (*input)
@@ -32,8 +31,9 @@ void	ft_readline(t_cmd *cmd, t_shell *shell, t_context *ctx, t_env *env_var)
 		if (cmd)
 			free_cmds(cmd);
 		cmd = parse_input(input, env_var);
-		if (cmd && cmd->args && !ft_strcmp(cmd->args[0], "exit"))
-			ft_exit(cmd);
+		if (cmd && cmd->args && cmd->args[0]
+			&& is_builtn_no_redir(cmd->args[0]))
+			execute_builtins_no_redir(cmd, env_var, &shell);
 		else
 			execute_commands(cmd, ctx, shell, env_var);
 		free(input);

@@ -46,7 +46,6 @@ typedef struct s_cmd
     char *infile;
     char *outfile;
     char  *save_del;
-    bool     g_here_doc_astat;
     int fd;
     int append;
     int heredoc;

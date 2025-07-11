@@ -67,18 +67,16 @@ void	execute_command(t_cmd *cmd, t_context *ctx, t_shell *shell, t_env *env)
 	if (is_builtin_command(cmd->args[0]))
 	{
 		run_builtins(cmd, shell, env, ctx);
-		if (cmd->next || cmd->outfile)
+		if (cmd->next || cmd->outfile || cmd->infile)
 			exit(g_exit_status);
 	}
 	else
-	{
 		exec(cmd->args, shell, env, cmd);
-	}
 }
 
 void	child_process(t_cmd *cmd, t_context *ctx, t_shell *shell, t_env *env)
 {
-	if (!cmd->args[0])
+	if (!cmd->args)
 		handle_empty_command(cmd);
 	setup_input_redirection(cmd, ctx);
 	setup_output_redirection(cmd, ctx);

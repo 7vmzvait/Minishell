@@ -38,6 +38,8 @@ typedef struct s_env
 	t_shell			*env_list;
 }					t_env;
 
+void				execute_builtins_no_redir(t_cmd *cmd,t_env *env,t_shell **shell);
+int					is_builtn_no_redir(char *cmd);
 void				print_exit_error(int option, char **args);
 void				setup_heredoc_signals(bool ignore_sigint);
 void				kill_process(void);

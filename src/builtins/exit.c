@@ -90,7 +90,6 @@ int	ft_exit(t_cmd *cmd)
 	{
 		write(1, "exit\n", 6);
 		free_cmds(cmd);
-		g_exit_status = EXIT_SUCCESS;
 		exit(g_exit_status);
 	}
 	if (helper_fuc(cmd) == 255)

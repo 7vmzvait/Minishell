@@ -31,7 +31,7 @@ void	ft_readline(t_cmd *cmd, t_shell *shell, t_context *ctx, t_env *env_var)
 		if (cmd)
 			free_cmds(cmd);
 		cmd = parse_input(input, env_var);
-		if (is_parent_only_builtin(cmd->args[0]) && cmd->pipe_to_next != 1 && !cmd->infile &&  !cmd->outfile)
+		if (cmd && cmd->args && cmd->args[0] && is_parent_only_builtin(cmd->args[0]) && cmd->pipe_to_next != 1 && !cmd->infile &&  !cmd->outfile)
 			run_builtins(cmd,shell,env_var,ctx);
 		else
 			execute_commands(cmd, ctx, shell, env_var);

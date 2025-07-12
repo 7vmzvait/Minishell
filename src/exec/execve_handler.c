@@ -65,6 +65,10 @@ void	exec(char **cmd, t_shell *shell, t_env *env, t_cmd *cmd2)
 	}
 	if (execve(path, cmd, env_list) == -1)
 	{
+		ft_putstr_fd("Minishell: ",2);
+		write(2,cmd[0],ft_strlen(cmd[0]));
+		write(2,": ",2);
+		ft_putendl_fd("Is a directory",2);
 		free(shell);
 		cleanup_and_exit_failure(path, env_list, cmd2, env);
 	}

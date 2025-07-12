@@ -21,7 +21,7 @@ static int	is_special_char(char c)
 char	**tokenize(char *line, t_env *env)
 {
     char **tokens;
-    char **env_path;
+    char **env_path;    
     char token_buf[4096];
     char *word;
     char *expanded;
@@ -59,8 +59,9 @@ char	**tokenize(char *line, t_env *env)
                 if (!word)
                 {
                     print_error2("bash: syntax error near unexpected token", "`newline'");
-                    free_tokens(tokens);
-                    return NULL;
+                    free(tokens);
+                    free_env(env_path); //Maybe this will put me in danger in this case:[don,t forget it] 
+                    return (NULL);
                 }
                 if (is_single)
                     expanded = ft_strdup(word);

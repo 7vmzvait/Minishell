@@ -4,8 +4,8 @@ RESET = \033[0m
 
 CC = cc
 CFLAGS =  -g -O0 -Wall -Wextra -Werror
-# SAN =  -g -O0 -fno-omit-frame-pointer -fsanitize=address# 
-
+#SAN =  -g -O0 -fno-omit-frame-pointer -fsanitize=address# 
+ADDRLINE = -finstrument-functions
 SRC_DIR = src
 BUILTINS = $(SRC_DIR)/builtins
 EXEC_DIR = $(SRC_DIR)/exec
@@ -55,7 +55,7 @@ $(PARSE_LIB):
 	@make -C $(PARSE_DIR)
 
 $(NAME): $(OBJS) $(LIBFT_LIB) $(PARSE_LIB)
-	@$(CC) $(CFLAGS) $(SAN) -o $(NAME) $(OBJS) $(PARSE_LIB) $(LIBFT_LIB) $(LIBS)
+	@$(CC) $(CFLAGS) $(ADDRLINE)  $(SAN) -o $(NAME) $(OBJS) $(PARSE_LIB) $(LIBFT_LIB) $(LIBS)
 	@rm -f $(OBJS)
 	@make -C $(PARSE_DIR) clean
 	@make -C $(LIBFT_DIR) clean

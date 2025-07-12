@@ -51,7 +51,7 @@ void				free_cmd_list(t_cmd *cmd);
 t_env				*init_env(char **env);
 void				cleanup_memory(t_cmd *cmd, t_context *ctx, t_env *env,
 						t_shell *shell);
-void				here_doc(char *del);
+void				here_doc(char *del,t_cmd *cmd);
 int					run_builtins(t_cmd *cmd, t_shell *shell, t_env *env,
 						t_context *ctx);
 int					execute_builtins(t_cmd *cmd, t_shell *shell, t_env *env);

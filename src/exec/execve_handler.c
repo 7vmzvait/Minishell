@@ -41,11 +41,12 @@ void	cleanup_not_found(char *path, char **env_list, t_cmd *cmd2, t_env *env)
 void	cleanup_and_exit_failure(char *path, char **env_list, t_cmd *cmd2,
 		t_env *env)
 {
-	free(path);
+	(void)path;
+	// free(path);
 	free_env(env_list);
 	free_cmds(cmd2);
 	free_env_var_list(env);
-	free(env);
+	// free(env);
 	exit(EXIT_FAILURE);
 }
 

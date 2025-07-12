@@ -26,8 +26,9 @@ void	setup_input_redirection(t_cmd *cmd, t_context *ctx)
 {
 	if (cmd->heredoc == 1)
 	{
-		here_doc(cmd->save_del);
-		free(cmd->save_del);
+		here_doc(cmd->save_del,cmd);
+		if (cmd->save_del)
+				free(cmd->save_del);
 	}
 	else if (cmd->infile)
 	{
@@ -64,10 +65,12 @@ void	setup_output_redirection(t_cmd *cmd, t_context *ctx)
 
 void	execute_command(t_cmd *cmd, t_context *ctx, t_shell *shell, t_env *env)
 {
+	
+	debug_cmds(cmd);
 	if (is_builtin_command(cmd->args[0]))
 	{
 		run_builtins(cmd, shell, env, ctx);
-		if (cmd->next || cmd->outfile || cmd->infile)
+		if (cmd->next || cmd->outfile || cmd->infile || cmd->pipe_to_next == 1)
 			exit(g_exit_status);
 	}
 	else

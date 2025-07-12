@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-void	child(char *del, int *pipfd)
+void	child(char *del, int *pipfd,t_cmd *cmd)
 {
 	char	*line;
 
@@ -26,6 +26,11 @@ void	child(char *del, int *pipfd)
 		{
 			free(line);
 			close(pipfd[1]);
+			if (cmd->save_del)
+			{
+				free(cmd->save_del);
+				cmd->save_del = NULL;
+			}
 			get_next_line(-1);
 			exit(g_exit_status);
 		}
@@ -34,7 +39,7 @@ void	child(char *del, int *pipfd)
 	}
 }
 
-void	here_doc(char *del)
+void	here_doc(char *del,t_cmd *cmd)
 {
 	int	pipfd[2];
 	int	pid;
@@ -45,7 +50,7 @@ void	here_doc(char *del)
 	if (pid == -1)
 		perror("Error: ");
 	if (pid == 0)
-		child(del, pipfd);
+		child(del, pipfd,cmd);
 	else
 	{
 		close(pipfd[1]);

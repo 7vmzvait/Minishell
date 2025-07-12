@@ -22,6 +22,7 @@ int	is_builtn_no_redir(char *cmd)
 
 void	execute_builtins_no_redir(t_cmd *cmd, t_env *env, t_shell **shell)
 {
+
 	if (!ft_strcmp(cmd->args[0], "cd"))
 		ft_cd(env, cmd->args);
 	else if (cmd && !ft_strcmp(cmd->args[0], "exit"))
@@ -34,7 +35,7 @@ int	is_builtin_command(char *command)
 {
 	if (!ft_strcmp(command, "pwd") || !ft_strcmp(command, "echo")
 		|| !ft_strcmp(command, "exit") || !ft_strcmp(command, "env")
-		|| !ft_strcmp(command, "export"))
+		|| !ft_strcmp(command, "export") || !ft_strcmp(command,"cd") || !ft_strcmp(command,"unset"))
 	{
 		return (1);
 	}
@@ -43,14 +44,21 @@ int	is_builtin_command(char *command)
 
 int	execute_builtins(t_cmd *cmd, t_shell *shell, t_env *env)
 {
-	if (!ft_strcmp(cmd->args[0], "pwd"))
+
+	if (!ft_strcmp(cmd->args[0], "export"))
+		ft_export1(&shell,&cmd->args[0],env);
+	else if (!ft_strcmp(cmd->args[0], "pwd"))
 		return (ft_pwd(&cmd->args[0]));
 	else if (!ft_strcmp(cmd->args[0], "echo"))
 		return (ft_echo(&cmd->args[0]));
 	else if (!ft_strcmp(cmd->args[0], "env"))
 		return (ft_env(env, shell, cmd->args));
-	else if (!ft_strcmp(cmd->args[0], "export"))
-		return (ft_export1(&shell, &cmd->args[0], env));
+	else if (!ft_strcmp(cmd->args[0], "cd"))
+		ft_cd(env, cmd->args);
+	else if (cmd && !ft_strcmp(cmd->args[0], "exit"))
+		ft_exit(cmd);
+	else if (!ft_strcmp(cmd->args[0], "unset"))
+		ft_unset(&shell, env, cmd->args);
 	return (0);
 }
 

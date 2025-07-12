@@ -20,6 +20,7 @@ extern int			g_exit_status;
 typedef struct s_context
 {
 	int				prev_pipe;
+	bool			is_builtin;				
 	int				last_pid;
 	char			**env;
 	int				fdpipe[2];
@@ -38,6 +39,7 @@ typedef struct s_env
 	t_shell			*env_list;
 }					t_env;
 
+bool				is_parent_only_builtin(char *cmd);
 void				execute_builtins_no_redir(t_cmd *cmd,t_env *env,t_shell **shell);
 int					is_builtn_no_redir(char *cmd);
 void				print_exit_error(int option, char **args);

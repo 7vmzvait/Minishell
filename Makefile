@@ -5,7 +5,7 @@ RESET = \033[0m
 CC = cc
 CFLAGS =  -g -O0 -Wall -Wextra -Werror
 #SAN =  -g -O0 -fno-omit-frame-pointer -fsanitize=address# 
-ADDRLINE = -finstrument-functions
+#ADDRLINE = -finstrument-functions
 SRC_DIR = src
 BUILTINS = $(SRC_DIR)/builtins
 EXEC_DIR = $(SRC_DIR)/exec

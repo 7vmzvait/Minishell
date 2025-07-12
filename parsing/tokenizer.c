@@ -54,9 +54,8 @@ char	**tokenize(char *line, t_env *env)
 				word = extract_quoted(line, &i, &is_single);
 				if (!word)
 				{
-					print_error2("bash: syntax error near unexpected token",
-						"`newline'");
-					free_tokens(tokens);
+					print_error2("bash: syntax error near unexpected token","`newline'");
+					// free_tokens(tokens);
 					return (NULL);
 				}
 				if (is_single)

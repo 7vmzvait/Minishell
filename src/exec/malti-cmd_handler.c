@@ -12,6 +12,15 @@
 
 #include "../../include/minishell.h"
 #include "../../parsing/parsing.h"
+bool is_parent_only_builtin(char *cmd)
+{
+    // These must run in parent to be effective
+    return (strcmp(cmd, "cd") == 0 || 
+            strcmp(cmd, "exit") == 0 || 
+            strcmp(cmd, "unset") == 0 ||
+            strcmp(cmd, "export") == 0);
+}
+
 
 void	handle_empty_command(t_cmd *cmd)
 {
@@ -65,13 +74,19 @@ void	setup_output_redirection(t_cmd *cmd, t_context *ctx)
 
 void	execute_command(t_cmd *cmd, t_context *ctx, t_shell *shell, t_env *env)
 {
-	
-	// debug_cmds(cmd);
 	if (is_builtin_command(cmd->args[0]))
 	{
-		run_builtins(cmd, shell, env, ctx);
-		if (cmd->next || cmd->outfile || cmd->infile || cmd->pipe_to_next == 1)
-			exit(g_exit_status);
+		// if (is_parent_only_builtin(cmd->args[0]) && cmd->pipe_to_next != 1)
+		// {
+		// 	run_builtins(cmd,shell,env,ctx);
+		// 	return;
+		// }
+		// else
+		// {
+			run_builtins(cmd,shell,env,ctx);
+			exit(0);
+		// }
+
 	}
 	else
 		exec(cmd->args, shell, env, cmd);

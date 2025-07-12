@@ -66,7 +66,7 @@ void	setup_output_redirection(t_cmd *cmd, t_context *ctx)
 void	execute_command(t_cmd *cmd, t_context *ctx, t_shell *shell, t_env *env)
 {
 	
-	debug_cmds(cmd);
+	// debug_cmds(cmd);
 	if (is_builtin_command(cmd->args[0]))
 	{
 		run_builtins(cmd, shell, env, ctx);

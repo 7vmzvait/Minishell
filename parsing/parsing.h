@@ -6,7 +6,7 @@
 /*   By: haitaabe <haitaabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:43:11 by haitaabe          #+#    #+#             */
-/*   Updated: 2025/07/07 15:25:28 by haitaabe         ###   ########.fr       */
+/*   Updated: 2025/07/12 11:31:28 by haitaabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_cmd *new_cmd_node(void);
 void add_arg_to_cmd(t_cmd *cmd, char *arg);
 void add_cmd_to_list(t_cmd **list, t_cmd *new_cmd);
 
-char *expand_variables(const char *input, char **envp, int exit_status);
+char *expand_variables(const char *input, char **envp, int exit_status, int split);
 
 t_token_type get_token_type(char *str);
 
@@ -111,4 +111,5 @@ char *strjoin_and_free(char *s1,const  char *s2);
 char *strjoin_and_free_char(char *s1, char c);
 int is_valid_var_char(char c);
 char *extract_var_name(const char *input, int *i);
+
 #endif
